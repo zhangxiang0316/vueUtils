@@ -144,6 +144,7 @@ export default {
       this.downLoadFileReName('/audio2020' + row.stream_url1, row.name + "\t" + row.broadcast_date+".m4a")
     },
     downLoadFileReName(url, filename) {
+
       const xhr = new XMLHttpRequest();
       xhr.open('GET', url, true);
       xhr.responseType = 'blob';
