@@ -1,0 +1,53 @@
+/**
+* create by zhangxiang on 2020/12/18 09:35
+* 类注释：
+* 备注：
+*/
+<template>
+  <div class="index">
+    <el-row>
+      <el-col :span="3">
+        <el-button @click="goPage('directives')">自定义指令</el-button>
+      </el-col>
+      <el-col :span="3">
+        <el-button @click="goPage('demotantan')">滑动1</el-button>
+      </el-col>
+      <el-col :span="3">
+        <el-button @click="goPage('demozhihu')">滑动2</el-button>
+      </el-col>
+      <el-col :span="3">
+        <el-button @click="goPage('form')">拖拽表单</el-button>
+      </el-col>
+      <el-col :span="3">
+        <el-button @click="goPage('radio')">广播</el-button>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script type="text/ecmascript-6">
+export default {
+  name: "index",
+  components: {},
+  props: {},
+  data() {
+    return {}
+  },
+  computed: {},
+  methods: {
+    goPage(name) {
+      this.$router.push({name: name})
+    },
+  },
+  activated() {
+  },
+  mounted() {
+  },
+  created() {
+  }
+}
+</script>
+
+<style scoped lang="less" rel="stylesheet/less">
+
+</style>
