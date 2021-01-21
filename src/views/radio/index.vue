@@ -49,17 +49,20 @@
         </el-row>
       </el-form>
     </el-card>
-    <el-table :data="dataList">
-      <el-table-column align="center" prop="name" label="名字"></el-table-column>
-      <el-table-column align="center" prop="broadcast_date" label="日期"></el-table-column>
-      <el-table-column label="操作" align="center">
-        <template slot-scope="scope">
-          <el-button type="success" @click="play(scope.row)">播放</el-button>
-          <el-button type="success" @click="downLoad(scope.row)">下载</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <page :pagination="pagination" @refresh="loadData"></page>
+    <el-card>
+      <el-table :data="dataList">
+        <el-table-column align="center" prop="channel_name" label="频道"></el-table-column>
+        <el-table-column align="center" prop="name" label="节目名称"></el-table-column>
+        <el-table-column align="center" prop="broadcast_date" label="日期"></el-table-column>
+        <el-table-column label="操作" align="center">
+          <template slot-scope="scope">
+            <el-button type="success" @click="play(scope.row)">播放</el-button>
+<!--            <el-button type="success" @click="downLoad(scope.row)">下载</el-button>-->
+          </template>
+        </el-table-column>
+      </el-table>
+      <page :pagination="pagination" @refresh="loadData"></page>
+    </el-card>
   </div>
 </template>
 
@@ -102,7 +105,7 @@ export default {
       audio: null,
       totalTime: 0,
       playData: {},
-      pagination: {pageSize: 10, pageNum: 1, total: 0},
+      pagination: {pageSize: 100, pageNum: 1, total: 0},
     }
   },
   computed: {},
@@ -137,11 +140,8 @@ export default {
         this.pagination.total = res.total
       })
     },
-    changeB() {
-      this.audio.playbackRate = this.value;
-    },
     downLoad(row) {
-      this.downLoadFileReName('/audio2020' + row.stream_url1, row.name + "\t" + row.broadcast_date+".m4a")
+      this.downLoadFileReName('/audio2020' + row.stream_url1, row.name + "\t" + row.broadcast_date + ".m4a")
     },
     downLoadFileReName(url, filename) {
 
@@ -182,12 +182,13 @@ export default {
           }
         });
       }
-      this.audio.src = '/audio2020' + row.stream_url1
+      this.audio.src ='http://'+ row.stream_domain1 + row.stream_url1
+      console.log(this.audio.src)
       this.audio.play();
       clearInterval(this.time)
       this.time = setInterval(() => {
         this.timeNow = this.audio.currentTime
-      }, 1000)
+      }, 10)
     },
     kuai() {
       if (this.audio.currentTime < this.totalTime)

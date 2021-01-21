@@ -33,7 +33,7 @@ export default {
     },
     pageSizeList: {
       type: Array,
-      default: () => [10, 20, 30, 50, 100],
+      default: () => [10, 20, 30, 50, 100,500],
     },
     layout: {type: String, default: 'total,prev,pager,next,sizes,jumper'},
   },
