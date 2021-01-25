@@ -6,6 +6,10 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import log from './utils/log/log'
 
+import { VueJsonp } from 'vue-jsonp'
+
+Vue.use(VueJsonp)
+
 Vue.config.productionTip = false
 
 Vue.prototype.$log = log;

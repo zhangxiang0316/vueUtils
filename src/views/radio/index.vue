@@ -22,26 +22,28 @@
       </el-row>
       <el-row style="margin-top: 5px">
         <el-col>
-          <el-button @click="kuai">快进</el-button>
           <el-button @click="tui">快退</el-button>
+          <el-button @click="curt">{{ isPaused ? '开始' : '暂停' }}</el-button>
+          <el-button @click="kuai">快进</el-button>
         </el-col>
       </el-row>
     </el-card>
     <el-card style="margin-bottom: 10px">
       <el-form :model="formData">
         <el-row>
-          <el-col :span="6">
+          <el-col :span="12">
             <el-form-item label="频道：">
               <el-select v-model="formData.channeName" @change="loadType()">
-                <el-option v-for="item in channeList" :label="item.name" :value="item.value">
+                <el-option v-for="item in channeList" :key="item.value" :label="item.name" :value="item.value">
                 </el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="12">
             <el-form-item label="节目名称：">
               <el-select v-model="formData.name" @change="loadData()">
-                <el-option v-for="item in optionsList" :label="item.programName" :value="item.channelId">
+                <el-option v-for="item in optionsList" :key="item.channelId" :label="item.programName"
+                           :value="item.channelId">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -57,7 +59,7 @@
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button type="success" @click="play(scope.row)">播放</el-button>
-<!--            <el-button type="success" @click="downLoad(scope.row)">下载</el-button>-->
+            <!--            <el-button type="success" @click="downLoad(scope.row)">下载</el-button>-->
           </template>
         </el-table-column>
       </el-table>
@@ -105,6 +107,7 @@ export default {
       audio: null,
       totalTime: 0,
       playData: {},
+      isPaused: false,
       pagination: {pageSize: 100, pageNum: 1, total: 0},
     }
   },
@@ -113,32 +116,49 @@ export default {
     loadType() {
       this.formData.name = ""
       this.dataList = []
-      axios.get("/pcpages/liveSchedules", {
-        params: {
-          channel_id: this.formData.channeName
-        }
+      // axios.get("/pcpages/liveSchedules", {
+      //   params: {
+      //     channel_id: this.formData.channeName
+      //   }
+      // }).then(res => {
+      //   this.optionsList = res.data.data.program
+      // })
+
+      this.$jsonp('http://tacc.radio.cn/pcpages/liveSchedules', {
+        channel_id: this.formData.channeName,
       }).then(res => {
-        this.optionsList = res.data.data.program
+        this.optionsList = res.data.program
       })
     },
     loadData(needPageOne) {
       if (!needPageOne) this.pagination.pageNum = 1
-      axios.get('/pcpages/searchs/livehistory', {
-            params: {
-              channelname: this.formData.channeName,
-              name: this.formData.name,
-              start: this.pagination.pageNum,
-              rows: this.pagination.pageSize,
-            }
-          }
-      ).then(res => {
-        res = res.data;
-        if (typeof (res) == "string" && res.startsWith('(')) {
-          res = JSON.parse(res.substring(1, res.length - 1))
-        }
+
+      this.$jsonp('http://tacc.radio.cn/pcpages/searchs/livehistory', {
+        channelname: this.formData.channeName,
+        name: this.formData.name,
+        start: this.pagination.pageNum,
+        rows: this.pagination.pageSize,
+      }).then(res => {
+        console.log(res)
         this.dataList = res.passprogram
         this.pagination.total = res.total
       })
+      // axios.get('/pcpages/searchs/livehistory', {
+      //       params: {
+      //         channelname: this.formData.channeName,
+      //         name: this.formData.name,
+      //         start: this.pagination.pageNum,
+      //         rows: this.pagination.pageSize,
+      //       }
+      //     }
+      // ).then(res => {
+      //   res = res.data;
+      //   if (typeof (res) == "string" && res.startsWith('(')) {
+      //     res = JSON.parse(res.substring(1, res.length - 1))
+      //   }
+      //   this.dataList = res.passprogram
+      //   this.pagination.total = res.total
+      // })
     },
     downLoad(row) {
       this.downLoadFileReName('/audio2020' + row.stream_url1, row.name + "\t" + row.broadcast_date + ".m4a")
@@ -182,7 +202,7 @@ export default {
           }
         });
       }
-      this.audio.src ='http://'+ row.stream_domain1 + row.stream_url1
+      this.audio.src = 'http://' + row.stream_domain1 + row.stream_url1
       console.log(this.audio.src)
       this.audio.play();
       clearInterval(this.time)
@@ -199,6 +219,14 @@ export default {
         this.audio.currentTime -= 10
       else {
         this.audio.currentTime = 0
+      }
+    },
+    curt() {
+      this.isPaused = !this.isPaused
+      if (this.isPaused) {
+        this.audio.pause()
+      } else {
+        this.audio.play()
       }
     },
     changeTime() {
@@ -220,6 +248,9 @@ export default {
   },
   created() {
     this.loadType()
+    axios.get("https://www.zhihu.com/").then(res => {
+      console.log(res)
+    })
   }
 }
 </script>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索框</title>
+    <style>
+        .search_box {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 30px;
+            padding: 5px;
+        }
+
+        .search_box:hover {
+            border-radius: 30px;
+            border: 1px solid #666;
+        }
+
+        .search_box:hover > .search_txt {
+            width: 210px;
+            padding: 0 5px;
+        }
+
+        .search_btn {
+            float: right;
+            width: 30px;
+            height: 30px;
+            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADEklEQVRYR+2WPWgVQRDH/7P3QG1ioYIfKIKKGkE0XSCFXbRRDPhdGLHwi7ub0yIWglqIWCQ3lwtRLCSIGImFNn50IiIqKIrfiSiiCKIg0UbzzN3Khgs8Xt57d/dAbbLVcTs789uZ3f8s4T8P+s/xMQmQOQO2bc8qFArrAbRqrRsBzAcQA3gP4CGAu1EUXQvD8GuesmYC8DxvfxzHB4loUS3nWuu3Sqku3/d7s0KkAjDzLQBrEofnAdwGMGhZ1mCxWCTLslYQUaPWehuAlsTuqohszAJRE4CZPwGYC+AngEMicrqWU2YWAG5ic1ZE9qRBVAXwPG9Aa70JwDsRqZn68iDMrJN/x0XkWC2IigCO47Qope4kCxtF5FXaTkrnmXkHgAsAfliW1dzZ2fmy2vqKAMxsDtE+ACdE5Eie4OO2zHwdwDoAIiJeXoBhANOJaKXv+8/qAXBddw8RnQHwRERWZwZwHGetUuoGgI8isqCe4GYNM68C8Nh8Dw8PT+vr6/tVydeEEjiOs1cpZU575qtUDZKZvwCYNTo6urynp+d1VoDDSqmTALpE5FC9GUiy8AhAUxRFzWEY3s8KsFUp1W+kVUTGhSU3h23bDZZlfTcLi8XinN7e3s+ZADzPW6y1fgPgdxRFM8Mw/JE7ulEj120lopsAvonIjMyHMEnd2BWK47itu7v7Sj0AzGwE6CiAfhHZnhfAaIDRgiERWZoXoEzIdolIXy6Ajo6O6SMjI08BmGt4TkR254Fg5ucATJO66Pu+UcWqo2ovYGYG4JuVWuudQRCYTpg6mLkHwAEA5l2wQUTu1QWQnAVTw7FmQkRX4jg+FQTBg0oOmbkNQDeAecl8aiMa85u2JWZuBmB21ZTYvjMdUms9BEAR0TIAS0oCmxfSwqwQqQDGkW3bUwqFgqe1tpP3QSXuD6ZkpvO4rusQUZAFIhPAeLT29vapDQ0N7Uqp2aUEWusXQRBcLv3nuu4WIrqUBpELIK1c5fOu624iooFaEH8VwAQug5igCX8doBRCa725vFT/BKBuHchb83rsJzPwB5LbHzCyWH8qAAAAAElFTkSuQmCC") no-repeat;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .search_txt {
+            border: none;
+            background: none;
+            outline: none;
+            float: left;
+            color: #333;
+            font-size: 14px;
+            transition: 0.3s;
+            line-height: 30px;
+            width: 0;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="search_box">
+        <input class="search_txt" type="text" placeholder="请输入名称">
+        <sapn class="search_btn"></sapn>
+    </div>
+</div>
+</body>
+</html>
