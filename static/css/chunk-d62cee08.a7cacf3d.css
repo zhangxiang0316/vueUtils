@@ -1,0 +1,1 @@
+.card{position:absolute;overflow:hidden}.card.boderEffect{border:1px solid #ccc}.card.shadowEffect{box-shadow:0 4px 20px rgba(0,0,0,.3)}.card.animation{transition:opacity .4s ease-out,left .4s ease-out,top .4s ease-out,width .4s ease-out,height .4s ease-out}page{width:100%;height:100%;overflow:hidden}div{box-sizing:border-box}.tantanCard{width:100%;height:100%}
