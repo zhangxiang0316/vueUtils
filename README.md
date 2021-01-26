@@ -1,24 +1,6 @@
 # demo
 
-## Project setup
-```
-npm install
-```
+## git subtree push --prefix=dist origin gh-pages
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [预览](https://zhangxiang0316.github.io/vueUtils).
+[在线预览](https://zhangxiang0316.github.io/vueUtils).
