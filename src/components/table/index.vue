@@ -6,6 +6,7 @@
 <template>
   <div class="index">
     <el-table
+        ref="cesTable"
         :data="tableData"
         :size="size"
         :id="id"
@@ -16,16 +17,26 @@
         :header-cell-style="{background:'#eef1f6',color:'#3B85F0'}"
         :row-class-name="tableRowClassName"
         highlight-current-row
-        @select="select"
         :show-summary="showSummary"
         :sum-text="sumText"
-        @select-all="selectAll"
-        v-loading="loading"
-        @cell-click="cellClick"
         :defaultSelections="defaultSelections"
-        ref="cesTable">
-      <el-table-column v-if="isSelection" width="80" type="selection" align="center"></el-table-column>
-      <el-table-column v-if="isIndex" type="index" :label="indexLabel" align="center" width="50"></el-table-column>
+        v-loading="loading"
+        @select="select"
+        @select-all="selectAll"
+        @cell-click="cellClick">
+      <el-table-column
+          v-if="isSelection"
+          width="80"
+          type="selection"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          v-if="isIndex"
+          type="index"
+          :label="indexLabel"
+          align="center"
+          width="60">
+      </el-table-column>
       <el-table-column
           v-for="item in tableCols"
           :key="item.id"
@@ -39,25 +50,31 @@
               <el-button
                   v-for="(btn,index) in item.formatter(scope.row)||item.btnList"
                   :key="index"
-                  :disabled="btn.isDisabled && btn.isDisabled(scope.row)"
+                  :disabled="btn.disabled || (btn.isDisabled && btn.isDisabled(scope.row))"
                   :type="btn.type"
                   :size="btn.size || size"
                   :icon="btn.icon"
-                  @click="btn.handle(scope.row)"
-              >{{ btn.label }}
+                  @click="btn.handle(scope.row)">
+                {{ btn.label }}
               </el-button>
           </span>
           <!-- 输入框 -->
           <el-input
               v-if="item.type==='input'"
               v-model="scope.row[item.prop]"
-              :size="size"
-              :disabled="item.disabled && item.isDisabled(scope.row)"
+              :size="item.size || size"
+              :disabled="item.disabled || (item.isDisabled && item.isDisabled(scope.row))"
               @focus="item.focus && item.focus(scope.row)"
               @blur="item.blur && item.blur(scope.row)">
           </el-input>
-          <slot :name="item.slotName" v-if="item.type=='slot'" :data="scope.row"></slot>
-          <span v-if="!item.type">{{ (item.formatter && item.formatter(scope.row)) || scope.row[item.prop] }}</span>
+          <slot
+              v-if="item.type==='slot'"
+              :name="item.slotName"
+              :data="scope.row">
+          </slot>
+          <span v-if="!item.type">
+            {{ (item.formatter && item.formatter(scope.row)) || scope.row[item.prop] }}
+          </span>
         </template>
       </el-table-column>
       <template v-slot:empty>
@@ -95,6 +112,7 @@ export default {
 
     // 是否显示表格索引
     isIndex: {type: Boolean, default: false},
+    showSearchHeader: {type: Boolean, default: false},
     //加载数据
     loadData: {type: Function, default: null},
     //是否单选
@@ -128,7 +146,7 @@ export default {
       default: () => [10, 15, 20, 25, 30, 50, 100, 500],
     },
     //分页展示
-    layout: {type: String, default: "total,sizes,prev, pager, next,jumper"},
+    layout: {type: String, default: "total,sizes,prev,pager,next,jumper"},
   },
   watch: {
     defaultSelections(val) {

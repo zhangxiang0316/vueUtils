@@ -66,13 +66,42 @@ export default {
       tableCols: [
         {
           label: "日期", prop: 'broadcast_date', formatter: (row) => {
-            console.log(row)
           }
         },
         {label: "节目名称", prop: 'name',},
         {label: "频道", prop: 'channel_name',},
-        {label: "id", slotName: 'input', type: "slot"},
-        {label: "操作", slotName: 'opt', type: "slot"}
+        {label: "id", type: "slot", slotName: 'input',},
+        {label: "id", prop: "id", type: "input"},
+        {label: "操作", type: "slot", slotName: 'opt',},
+        {
+          label: "操作", type: "button", formatter: (row) => {
+            if (row.index % 2 == 1) {
+              return [{
+                label: "播放",
+                handle: (row) => {
+                  this.play(row)
+                },
+                isDisabled: (row) => {
+                  return row.index % 3 == 1
+                }
+              },
+                {
+                  label: "放映",
+                  handle: (row) => {
+                    this.play(row)
+                  },
+                  disabled: true
+                },]
+            } else {
+              return [{
+                label: "收听", handle: (row) => {
+                  console.log("收听", row)
+                }
+              }]
+            }
+          },
+
+        }
       ],
       channeList: [
         {name: "中国之声", value: 1},
@@ -84,13 +113,6 @@ export default {
         {name: "香港之声", value: 7},
         {name: "民族之声", value: 8},
         {name: "文艺之声", value: 9},
-        {name: "老年之声", value: 10},
-        {name: "高速广播", value: 11},
-        {name: "藏语广播", value: 12},
-        {name: "维语广播", value: 13},
-        {name: "娱乐广播", value: 14},
-        {name: "华夏之声", value: 17},
-        {name: "哈语广播", value: 24},
       ],
       formData: {
         channeName: 9
