@@ -6,9 +6,13 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import log from './utils/log/log'
 
-import { VueJsonp } from 'vue-jsonp'
+import {VueJsonp} from 'vue-jsonp'
 
 Vue.use(VueJsonp)
+
+import VueSignaturePad from "vue-signature-pad";
+
+Vue.use(VueSignaturePad)
 
 Vue.config.productionTip = false
 

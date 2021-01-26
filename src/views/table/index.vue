@@ -1,0 +1,141 @@
+/**
+* create by zhangxiang on 2021-01-25 17:34
+* 类注释：
+* 备注：
+*/
+<template>
+  <div class="index">
+    <el-card style="margin-bottom: 10px">
+      <el-form :model="formData">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="频道：">
+              <el-select v-model="formData.channeName" @change="loadType">
+                <el-option v-for="item in channeList" :key="item.value" :label="item.name" :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="节目名称：">
+              <el-select v-model="formData.name" @change="loadData()">
+                <el-option v-for="item in optionsList" :key="item.channelId" :label="item.programName"
+                           :value="item.channelId">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+    </el-card>
+    <m-table
+        :load-data="loadData"
+        :isIndex="true"
+        :isSelection="true"
+        :table-data="tableData"
+        :table-cols="tableCols"
+        :pagination="pagination">
+      <template v-slot:input="data">
+        <span v-if="data.data.type===1">{{ data.data.id }}</span>
+        <el-input v-else v-model="data.data.id"/>
+      </template>
+      <template v-slot:opt="data">
+        <el-button @click="play(data.data)">播放</el-button>
+      </template>
+      <template v-slot:empty>
+        <div>我是空数据提示内容</div>
+      </template>
+    </m-table>
+  </div>
+</template>
+
+<script type="text/ecmascript-6">
+import mTable from '@/components/table/index'
+
+export default {
+  name: "index",
+  components: {
+    mTable
+  },
+  props: {},
+  data() {
+    return {
+      pagination: {pageSize: 10, pageNum: 1, total: 0},
+      tableData: [],
+      optionsList: [],
+      tableCols: [
+        {
+          label: "日期", prop: 'broadcast_date', formatter: (row) => {
+            console.log(row)
+          }
+        },
+        {label: "节目名称", prop: 'name',},
+        {label: "频道", prop: 'channel_name',},
+        {label: "id", slotName: 'input', type: "slot"},
+        {label: "操作", slotName: 'opt', type: "slot"}
+      ],
+      channeList: [
+        {name: "中国之声", value: 1},
+        {name: "经济之声", value: 2},
+        {name: "中华之声", value: 3},
+        {name: "音乐之声", value: 4},
+        {name: "都市之声", value: 5},
+        {name: "神州之声", value: 6},
+        {name: "香港之声", value: 7},
+        {name: "民族之声", value: 8},
+        {name: "文艺之声", value: 9},
+        {name: "老年之声", value: 10},
+        {name: "高速广播", value: 11},
+        {name: "藏语广播", value: 12},
+        {name: "维语广播", value: 13},
+        {name: "娱乐广播", value: 14},
+        {name: "华夏之声", value: 17},
+        {name: "哈语广播", value: 24},
+      ],
+      formData: {
+        channeName: 9
+      },
+    }
+  },
+  computed: {},
+  methods: {
+    play(data) {
+      data.type = 1
+      console.log("data:", data)
+    },
+    loadType() {
+      this.formData.name = ""
+      this.dataList = []
+      this.$jsonp('http://tacc.radio.cn/pcpages/liveSchedules', {
+        channel_id: this.formData.channeName,
+      }).then(res => {
+        this.optionsList = res.data.program
+      })
+    },
+    loadData(pageNumOne) {
+      if (!pageNumOne) this.pagination.pageNum = 1
+      this.$jsonp('http://tacc.radio.cn/pcpages/searchs/livehistory', {
+        channelname: this.formData.channeName,
+        name: this.formData.name,
+        start: this.pagination.pageNum,
+        rows: this.pagination.pageSize,
+      }).then(res => {
+        console.log(res)
+        this.tableData = res.passprogram
+        this.pagination.total = res.total
+      })
+    },
+  },
+  activated() {
+  },
+  mounted() {
+  },
+  created() {
+    this.loadType()
+  }
+}
+</script>
+
+<style scoped lang="less" rel="stylesheet/less">
+
+</style>

@@ -37,6 +37,16 @@ const routers = [
         name: 'radio',
         component: resolve => require(['@/views/radio/index.vue'], resolve)
     },
+    {
+        path: '/sign',
+        name: 'sign',
+        component: resolve => require(['@/views/sign/index.vue'], resolve)
+    },
+    {
+        path: '/table',
+        name: 'table',
+        component: resolve => require(['@/views/table/index.vue'], resolve)
+    },
 
 ]
 Vue.use(Router)

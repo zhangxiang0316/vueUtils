@@ -21,6 +21,12 @@
       <el-col :span="3">
         <el-button @click="goPage('radio')">广播</el-button>
       </el-col>
+      <el-col :span="3">
+        <el-button @click="goPage('sign')">签名</el-button>
+      </el-col>
+      <el-col :span="3">
+        <el-button @click="goPage('table')">封装table</el-button>
+      </el-col>
     </el-row>
   </div>
 </template>

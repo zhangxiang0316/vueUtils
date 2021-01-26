@@ -8,15 +8,13 @@
     <div class="left">
       <vuedraggable @end="end" @start="start" @move="move" v-model="buttonList">
         <transition-group>
-          <el-button v-for="(item,index) in buttonList " :key="index">{{ item.name }}</el-button>
+          <el-button v-for="(item,index) in buttonList " :key="item.id">{{ item.name }}</el-button>
         </transition-group>
       </vuedraggable>
     </div>
     <div class="center">
       <el-form>
-        <el-form-item v-for="item in selectList">
 
-        </el-form-item>
       </el-form>
     </div>
     <div class="right">
@@ -28,6 +26,8 @@
 
 <script type="text/ecmascript-6">
 import vuedraggable from 'vuedraggable'
+
+
 
 export default {
   name: "index",
