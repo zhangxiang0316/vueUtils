@@ -30,8 +30,8 @@
     </el-card>
     <m-table
         :load-data="loadData"
-        :isIndex="true"
-        :isSelection="true"
+        :is-index="true"
+        :is-selection="true"
         :table-data="tableData"
         :table-cols="tableCols"
         :pagination="pagination">
@@ -75,14 +75,14 @@ export default {
         {label: "操作", type: "slot", slotName: 'opt',},
         {
           label: "操作", type: "button", formatter: (row) => {
-            if (row.index % 2 == 1) {
+            if (row.index % 2 === 1) {
               return [{
                 label: "播放",
                 handle: (row) => {
                   this.play(row)
                 },
                 isDisabled: (row) => {
-                  return row.index % 3 == 1
+                  return row.index % 3 === 1
                 }
               },
                 {
