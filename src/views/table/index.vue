@@ -50,7 +50,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import mTable from '@/components/table/index'
+import mTable from '@/components/table'
 
 export default {
   name: "index",

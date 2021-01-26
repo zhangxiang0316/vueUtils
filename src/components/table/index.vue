@@ -4,7 +4,7 @@
 * 备注：
 */
 <template>
-  <div class="index">
+  <el-card :body-style="{ padding: '0' }">
     <el-table
         ref="cesTable"
         :data="tableData"
@@ -24,19 +24,8 @@
         @select="select"
         @select-all="selectAll"
         @cell-click="cellClick">
-      <el-table-column
-          v-if="isSelection"
-          width="80"
-          type="selection"
-          align="center">
-      </el-table-column>
-      <el-table-column
-          v-if="isIndex"
-          type="index"
-          :label="indexLabel"
-          align="center"
-          width="60">
-      </el-table-column>
+      <el-table-column v-if="isSelection" width="80" type="selection" align="center"/>
+      <el-table-column v-if="isIndex" type="index" width="60" :label="indexLabel" align="center"/>
       <el-table-column
           v-for="item in tableCols"
           :key="item.id"
@@ -58,7 +47,6 @@
                 {{ btn.label }}
               </el-button>
           </span>
-          <!-- 输入框 -->
           <el-input
               v-if="item.type==='input'"
               v-model="scope.row[item.prop]"
@@ -82,16 +70,17 @@
       </template>
     </el-table>
     <page :pagination="pagination" :pageSizeList="pageSizeList" :layout="layout" @refresh="refresh"></page>
-  </div>
+  </el-card>
 </template>
 
 <script type="text/ecmascript-6">
 import page from './page'
-import tableColumn from "./tableColumn";
 
 export default {
   name: "index",
-  components: {page, tableColumn},
+  components: {
+    page
+  },
   props: {
     // 表格型号：mini,medium,small
     size: {type: String, default: "medium"},
@@ -137,8 +126,9 @@ export default {
     tableRowClassNames: {type: Function, default: null},
     // 分页数据
     pagination: {
-      type: Object,
-      default: () => ({pageSize: 10, pageNum: 1, total: 0}),
+      type: Object, default: () => {
+        return {pageSize: 10, pageNum: 1, total: 0}
+      }
     },
     //分页list
     pageSizeList: {
@@ -164,7 +154,6 @@ export default {
   data() {
     return {}
   },
-  computed: {},
   methods: {
     // 表格勾选
     select(rows, row) {
@@ -198,10 +187,6 @@ export default {
     refresh(needPageOne) {
       this.loadData(needPageOne)
     },
-  },
-  activated() {
-  },
-  mounted() {
   },
   created() {
     if (this.isLoadData) this.loadData()
