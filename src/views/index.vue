@@ -27,6 +27,9 @@
       <el-col :span="3">
         <el-button @click="goPage('table')">封装table</el-button>
       </el-col>
+      <el-col :span="3">
+        <el-button @click="goPage('elForm')">封装Form</el-button>
+      </el-col>
     </el-row>
   </div>
 </template>

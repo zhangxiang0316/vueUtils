@@ -202,7 +202,7 @@ export default {
           }
         });
       }
-      this.audio.src = 'http://' + row.stream_domain1 + row.stream_url1
+      this.audio.src=`http://${row.stream_domain1}${row.stream_url1}`;
       console.log(this.audio.src)
       this.audio.play();
       clearInterval(this.time)
@@ -248,9 +248,6 @@ export default {
   },
   created() {
     this.loadType()
-    axios.get("https://www.zhihu.com/").then(res => {
-      console.log(res)
-    })
   }
 }
 </script>

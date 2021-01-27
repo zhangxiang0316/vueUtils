@@ -47,6 +47,11 @@ const routers = [
         name: 'table',
         component: resolve => require(['@/views/table/index.vue'], resolve)
     },
+    {
+        path: '/elForm',
+        name: 'elForm',
+        component: resolve => require(['@/views/el-form/index.vue'], resolve)
+    },
 
 ]
 Vue.use(Router)

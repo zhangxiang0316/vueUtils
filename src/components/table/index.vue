@@ -14,7 +14,7 @@
         :fit="fit"
         :border="isBorder"
         :show-header="showHeader"
-        :header-cell-style="{background:'#eef1f6',color:'#3B85F0'}"
+        :header-cell-style="headerCellStyle"
         :row-class-name="tableRowClassName"
         highlight-current-row
         :show-summary="showSummary"
@@ -35,6 +35,15 @@
           :width="item.width"
           align="center">
         <template slot-scope="scope">
+          <slot v-if="item.type==='slot'" :name="item.slotName" :data="scope.row"></slot>
+          <el-input
+              v-if="item.type==='input'"
+              v-model="scope.row[item.prop]"
+              :size="item.size || size"
+              :disabled="item.disabled || (item.isDisabled && item.isDisabled(scope.row))"
+              @focus="item.focus && item.focus(scope.row)"
+              @blur="item.blur && item.blur(scope.row)">
+          </el-input>
           <span v-if="item.type==='button'">
               <el-button
                   v-for="(btn,index) in item.formatter(scope.row)||item.btnList"
@@ -47,19 +56,7 @@
                 {{ btn.label }}
               </el-button>
           </span>
-          <el-input
-              v-if="item.type==='input'"
-              v-model="scope.row[item.prop]"
-              :size="item.size || size"
-              :disabled="item.disabled || (item.isDisabled && item.isDisabled(scope.row))"
-              @focus="item.focus && item.focus(scope.row)"
-              @blur="item.blur && item.blur(scope.row)">
-          </el-input>
-          <slot
-              v-if="item.type==='slot'"
-              :name="item.slotName"
-              :data="scope.row">
-          </slot>
+
           <span v-if="!item.type">
             {{ (item.formatter && item.formatter(scope.row)) || scope.row[item.prop] }}
           </span>
@@ -83,7 +80,7 @@ export default {
   },
   props: {
     // 表格型号：mini,medium,small
-    size: {type: String, default: "medium"},
+    size: {type: String, default: "small"},
     //边框
     isBorder: {type: Boolean, default: false},
     //是否为斑马纹 table
@@ -98,7 +95,12 @@ export default {
     showSummary: {type: Boolean, default: false},
     //合计行第一列的文本
     sumText: {type: String, default: "合计"},
-
+    //表头样式
+    headerCellStyle: {
+      type: Object, default: () => {
+        return {background: '#eef1f6', color: '#3B85F0'}
+      }
+    },
     // 是否显示表格索引
     isIndex: {type: Boolean, default: false},
     showSearchHeader: {type: Boolean, default: false},
