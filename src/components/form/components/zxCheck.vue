@@ -5,9 +5,9 @@
 */
 <template>
   <el-checkbox-group
+      v-model="formData[item.prop]"
       :min="item.min"
-      :max="item.max"
-      v-model="formData[item.prop]">
+      :max="item.max">
     <el-checkbox
         v-for="option in item.options"
         :key="option.value"

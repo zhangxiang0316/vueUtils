@@ -157,9 +157,10 @@ export default {
             noShow: false,
             span: 12,
           },
-          {eType: 'Button', value: "提交", type: "success", prop: 'submit', span: 2,},
-          {eType: 'Button', value: "重置", type: "success", prop: 'reset', span: 2,},
-        ]
+
+        ],
+            [{eType: 'Button', value: "提交", type: "success", prop: 'submit', span: 2,},
+            {eType: 'Button', value: "重置", type: "success", prop: 'reset', span: 2,}]
       ],
       rules: {
         date5: [
@@ -174,7 +175,7 @@ export default {
   methods: {
     event(params) {
       console.log(params, this.formData)
-      this.$refs.mForm.setShow('date10', this.show)
+      // this.$refs.mForm.setShow('date10', this.show)
       this.$refs.mForm.setOptions('date15',
           [
             {label: "手机", value: "0"},

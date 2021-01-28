@@ -152,9 +152,6 @@ export default {
       });
     },
   },
-  data() {
-    return {}
-  },
   methods: {
     // 表格勾选
     select(rows, row) {

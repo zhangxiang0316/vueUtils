@@ -4,33 +4,21 @@
 * 备注：
 */
 <template>
-  <div class="index">
-    <el-form
-        ref="elForm"
-        :model="formData"
-        :size="size"
-        :inline="isInline"
-        :label-width="labelWidth"
-        :rules="rules">
-      <el-row v-for="(items,index) in formCols" :key="index">
-        <el-col :class="{ 'ele-form-col-other-line': item.otherLine}"
-                v-for="(item,index) in items"
-                :span="item.span"
-                :key="index"
-                :offset="item.offset">
-          <el-form-item :label="item.label" :prop="item.prop" v-if="!item.noShow">
-            <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
-            <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
-          </el-form-item>
-        </el-col>
-      </el-row>
-    </el-form>
-  </div>
+  <el-form ref="elForm" :model="formData" :label-suffix="labelSuffix" :status-icon="statusIcon" :size="size"
+           :inline="isInline" :label-width="labelWidth" :rules="rules">
+    <el-row v-for="(items,index) in formCols" :key="index">
+      <el-col v-for="(item,index) in items" :span="item.span" :key="index" :offset="item.offset">
+        <el-form-item :label="item.label" :prop="item.prop" v-if="!item.noShow">
+          <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
+          <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
+        </el-form-item>
+      </el-col>
+    </el-row>
+  </el-form>
 </template>
 
 <script type="text/ecmascript-6">
 import mElement from './components'
-
 
 export default {
   name: "index",
@@ -42,19 +30,23 @@ export default {
     rules: {type: Object, default: null},
     formCols: {type: Array, default: () => []},
     isInline: {type: Boolean, default: false},
+    statusIcon: {type: Boolean, default: false},
     size: {type: String, default: 'medium'},
+    labelSuffix: {type: String, default: '：'},
     labelWidth: {type: String, default: '120px'},
   },
   watch: {
     formCols: {
       handler() {
-        this.formCols.forEach(item => {
-          if (item.noShow)
-            if (item.eType === 'Check' || item.eType === 'CheckButton') {
-              this.formData[item.prop] = []
-            } else {
-              delete this.formData[item.prop]
-            }
+        this.formCols.forEach(items => {
+          items.forEach(item => {
+            if (item.noShow)
+              if (item.eType === 'Check' || item.eType === 'CheckButton') {
+                this.formData[item.prop] = []
+              } else {
+                delete this.formData[item.prop]
+              }
+          })
         })
       },
       deep: true
@@ -77,12 +69,14 @@ export default {
     //重置
     reset() {
       this.$refs['elForm'].resetFields();
-      this.formCols.forEach(item => {
-        if (item.eType === 'Check' || item.eType === 'CheckButton') {
-          this.formData[item.prop].length = 0
-        } else {
-          delete this.formData[item.prop]
-        }
+      this.formCols.forEach(items => {
+        items.forEach(item => {
+          if (item.eType === 'Check' || item.eType === 'CheckButton') {
+            this.formData[item.prop].length = 0
+          } else {
+            delete this.formData[item.prop]
+          }
+        })
       })
     },
     //所有change以及click事件
@@ -138,7 +132,5 @@ export default {
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-.ele-form-col-other-line {
-  clear: both;
-}
+
 </style>

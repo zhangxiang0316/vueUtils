@@ -6,14 +6,20 @@
 <template>
   <el-input-number
       v-model="formData[item.prop]"
-      @change="change"
       :disabled="item.disabled"
       :controls-position="item.controlsPosition"
       :style="item.style"
       :class="item.class"
       :min="item.min"
       :max="item.max"
-      :step="item.step">
+      :step="item.step"
+      :step-strictly="item.stepStrictly"
+      :precision="item.precision"
+      :controls="item.controls"
+      :placeholder="item.placeholder"
+      @change="change"
+      @blur="blur"
+      @focus="focus">
   </el-input-number>
 </template>
 
@@ -33,6 +39,20 @@ export default {
     change() {
       this.mixinEvent({
         type: 'change',
+        prop: this.item.prop,
+        value: this.formData[this.item.prop]
+      })
+    },
+    blur(){
+      this.mixinEvent({
+        type: 'blur',
+        prop: this.item.prop,
+        value: this.formData[this.item.prop]
+      })
+    },
+    focus(){
+      this.mixinEvent({
+        type: 'focus',
         prop: this.item.prop,
         value: this.formData[this.item.prop]
       })

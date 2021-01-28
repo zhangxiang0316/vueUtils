@@ -8,7 +8,6 @@
       v-model="formData[item.prop]"
       :style="item.style?item.style:{width:'100%'}"
       :type="item.type"
-      v-maxLen
       :placeholder="item.placeholder"
       :suffixIcon="item.suffixIcon"
       :prefixIcon="item.prefixIcon"
@@ -18,9 +17,9 @@
       :autosize="item.autosize"
       :minlength="item.minlength"
       :show-word-limit="item.showWordLimit"
-      @change="change"
       :disabled="item.disabled"
-      :clearable="item.clearable">
+      :clearable="item.clearable"
+      @change="change">
   </el-input>
 </template>
 
