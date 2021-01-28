@@ -56,7 +56,6 @@
                 {{ btn.label }}
               </el-button>
           </span>
-
           <span v-if="!item.type">
             {{ (item.formatter && item.formatter(scope.row)) || scope.row[item.prop] }}
           </span>

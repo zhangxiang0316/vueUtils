@@ -8,13 +8,19 @@
     <el-form
         ref="elForm"
         :model="formData"
+        :size="size"
+        :inline="isInline"
         :label-width="labelWidth"
         :rules="rules">
-      <el-row>
-        <el-col v-for="(item,index) in formCols" :span="item.span" :key="item.label+index">
+      <el-row v-for="(items,index) in formCols">
+        <el-col :class="{ 'ele-form-col-other-line': item.otherLine}"
+                v-for="(item,index) in items"
+                :span="item.span"
+                :key="index"
+                :offset="item.offset">
           <el-form-item :label="item.label" :prop="item.prop" v-if="!item.noShow">
             <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
-            <component v-else :is="`mEl${item.eType}`" :item="item" :form-data="formData" @event="event"></component>
+            <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
           </el-form-item>
         </el-col>
       </el-row>
@@ -23,41 +29,34 @@
 </template>
 
 <script type="text/ecmascript-6">
-import mElInput from "./components/mElInput";
-import mElButton from "./components/mElButton";
-import mElRadio from "./components/mElRadio";
-import mElRadioButton from "./components/mElRadioButton";
-import mElCheck from "./components/mElCheck";
-import mElCheckButton from "./components/mElCheckButton";
-import {clone} from '../../utils/utils'
+import mElement from './components'
+
 
 export default {
   name: "index",
   components: {
-    mElInput,
-    mElButton,
-    mElRadio,
-    mElRadioButton,
-    mElCheck,
-    mElCheckButton
+    mElement
   },
   props: {
     formData: {type: Object, default: null},
     rules: {type: Object, default: null},
     formCols: {type: Array, default: () => []},
-    labelWidth: {
-      type: String,
-      default: '100px'
-    },
+    isInline: {type: Boolean, default: false},
+    size: {type: String, default: 'medium'},
+    labelWidth: {type: String, default: '120px'},
   },
   watch: {
     formCols: {
       handler() {
         this.formCols.forEach(item => {
-          if (item.noShow) {
-            delete this.formData[item.prop]
-          }
+          if (item.noShow)
+            if (item.eType === 'Check' || item.eType === 'CheckButton') {
+              this.formData[item.prop] = []
+            } else {
+              delete this.formData[item.prop]
+            }
         })
+        this.$forceUpdate()
       },
       deep: true
     },
@@ -67,26 +66,41 @@ export default {
   },
   computed: {},
   methods: {
-    component(type) {
-      console.log(type)
-      return `m-el-${type}`
-    },
     submit() {
-      this.$refs['elForm'].validate((valid) => {
-        if (valid) {
-          alert('submit!');
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
-      });
+      return new Promise((resolve, reject) => {
+        this.$refs['elForm'].validate((valid) => {
+          if (valid) {
+            resolve(valid)
+          } else {
+            reject(valid)
+          }
+        });
+      })
+
+    },
+    reset() {
+      this.$refs['elForm'].resetFields();
     },
     event(params) {
-      console.log("----->", {...params, row: clone(this.formData)})
-      this.$emit('event', {...params, row: clone(this.formData)})
+      if (params.prop === "submit") {
+        this.submit().then(res => {
+          this.$emit('submit')
+        }).catch(err => {
+          console.log("校验失败")
+        })
+      } else if (params.prop === "reset") {
+        this.reset()
+        this.formCols.forEach(item => {
+          if (item.eType === 'Check' || item.eType === 'CheckButton') {
+            this.formData[item.prop] = []
+          } else {
+            delete this.formData[item.prop]
+          }
+        })
+        this.$emit('reset')
+      }
+      this.$emit('event', params)
     }
-  },
-  activated() {
   },
   mounted() {
   },
@@ -96,5 +110,7 @@ export default {
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-
+.ele-form-col-other-line {
+  clear: both;
+}
 </style>
