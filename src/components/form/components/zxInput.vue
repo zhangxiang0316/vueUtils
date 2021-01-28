@@ -8,6 +8,7 @@
       v-model="formData[item.prop]"
       :style="item.style?item.style:{width:'100%'}"
       :type="item.type"
+      v-maxLen
       :placeholder="item.placeholder"
       :suffixIcon="item.suffixIcon"
       :prefixIcon="item.prefixIcon"

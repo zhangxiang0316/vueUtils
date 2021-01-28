@@ -23,12 +23,12 @@ const maxLen = {
         el.$inp = $inp
         $inp.handle = function () {
             let val = $inp.value
-            if ($inp.type == 'text' && val.length > binding.value || 200) {
-                $inp.value = val.substring(0, binding.value || 200)
+            if ($inp.type == 'text' && val.length > binding.value || 20) {
+                $inp.value = val.substring(0, binding.value || 20)
                 trigger($inp, 'input')
                 clearTimeout(this.time)
                 this.time = setTimeout(() => {
-                    Message.error(`最多${binding.value || 200}字`)
+                    Message.error(`最多${binding.value || 20}字`)
                 }, 500)
             } else if ($inp.type == 'textarea' && val.length > binding.value || 500) {
                 $inp.value = val.substring(0, binding.value || 500)
