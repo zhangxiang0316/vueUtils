@@ -5,7 +5,6 @@ import Directives from './utils/directives'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import log from './utils/log/log'
-import './utils/global.js'
 
 import {VueJsonp} from 'vue-jsonp'
 

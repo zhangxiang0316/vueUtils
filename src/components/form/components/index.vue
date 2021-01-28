@@ -4,38 +4,38 @@
 * 备注：
 */
 <template>
-  <component v-else :is="`mEl${item.eType}`" :item="item" :form-data="formData" @event="event"></component>
+  <component v-else :is="`zx${item.eType}`" :item="item" :form-data="formData" @event="event"></component>
 </template>
 
 <script type="text/ecmascript-6">
-import mElInput from "./mElInput";
-import mElButton from "./mElButton";
-import mElRadio from "./mElRadio";
-import mElRadioButton from "./mElRadioButton";
-import mElCheck from "./mElCheck";
-import mElCheckButton from "./mElCheckButton";
-import mElInputNumber from "./mElInputNumber";
-import mElSelect from "./mElSelect";
-import mElDatePicker from "./mElDatePicker";
-import mElTimePicker from "./mElTimePicker";
-import mElSwitch from "./mElSwitch";
-import mElSlider from "./mElSlider";
+import zxInput from "./zxInput";
+import zxButton from "./zxButton";
+import zxRadio from "./zxRadio";
+import zxRadioButton from "./zxRadioButton";
+import zxCheck from "./zxCheck";
+import zxCheckButton from "./zxCheckButton";
+import zxInputNumber from "./zxInputNumber";
+import zxSelect from "./zxSelect";
+import zxDatePicker from "./zxDatePicker";
+import zxTimePicker from "./zxTimePicker";
+import zxSwitch from "./zxSwitch";
+import zxSlider from "./zxSlider";
 
 export default {
   name: "index",
   components: {
-    mElInput,
-    mElButton,
-    mElRadio,
-    mElRadioButton,
-    mElCheck,
-    mElCheckButton,
-    mElInputNumber,
-    mElSelect,
-    mElDatePicker,
-    mElTimePicker,
-    mElSwitch,
-    mElSlider
+    zxInput,
+    zxButton,
+    zxRadio,
+    zxRadioButton,
+    zxCheck,
+    zxCheckButton,
+    zxInputNumber,
+    zxSelect,
+    zxDatePicker,
+    zxTimePicker,
+    zxSwitch,
+    zxSlider
   },
   props: {
     item: {},

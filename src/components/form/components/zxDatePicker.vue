@@ -1,6 +1,6 @@
 /**
 * create by zhangxiang on 2021-01-28 09:31
-* 类注释：year/month/date/dates/ week/datetime/datetimerange/ daterange/monthrange
+* 类注释：type====year/month/date/dates/ week/datetime/datetimerange/ daterange/monthrange
 * 备注：
 */
 <template>

@@ -12,7 +12,7 @@
         :inline="isInline"
         :label-width="labelWidth"
         :rules="rules">
-      <el-row v-for="(items,index) in formCols">
+      <el-row v-for="(items,index) in formCols" :key="index">
         <el-col :class="{ 'ele-form-col-other-line': item.otherLine}"
                 v-for="(item,index) in items"
                 :span="item.span"
@@ -56,7 +56,6 @@ export default {
               delete this.formData[item.prop]
             }
         })
-        this.$forceUpdate()
       },
       deep: true
     },
@@ -66,22 +65,29 @@ export default {
   },
   computed: {},
   methods: {
+    //提交校验
     submit() {
       return new Promise((resolve, reject) => {
         this.$refs['elForm'].validate((valid) => {
-          if (valid) {
-            resolve(valid)
-          } else {
-            reject(valid)
-          }
+          if (valid) resolve(valid)
+          else reject(valid)
         });
       })
-
     },
+    //重置
     reset() {
       this.$refs['elForm'].resetFields();
+      this.formCols.forEach(item => {
+        if (item.eType === 'Check' || item.eType === 'CheckButton') {
+          this.formData[item.prop].length = 0
+        } else {
+          delete this.formData[item.prop]
+        }
+      })
     },
+    //所有change以及click事件
     event(params) {
+      this.$emit('event', params)
       if (params.prop === "submit") {
         this.submit().then(res => {
           this.$emit('submit')
@@ -90,16 +96,38 @@ export default {
         })
       } else if (params.prop === "reset") {
         this.reset()
-        this.formCols.forEach(item => {
-          if (item.eType === 'Check' || item.eType === 'CheckButton') {
-            this.formData[item.prop] = []
-          } else {
-            delete this.formData[item.prop]
-          }
-        })
-        this.$emit('reset')
       }
-      this.$emit('event', params)
+    },
+    //设置是否展示
+    setShow(prop, value) {
+      this.setNewValue(prop, "noShow", value)
+    },
+    //设置radio checkbox options值
+    setOptions(prop, value) {
+      this.setNewValue(prop, "options", value)
+    },
+    /**
+     * 改变二维数组中某个值
+     * @param prop        数组中唯一标识值
+     * @param key         需要修改的字段
+     * @param value        需要修改的值
+     */
+    setNewValue(prop, key, value) {
+      let two = -1;
+      let one = this.formCols.findIndex(item => {
+        let iIndex = item.findIndex(iItem => {
+          return iItem.prop === prop
+        })
+        if (iIndex !== -1) {
+          two = iIndex
+          return true
+        }
+      })
+      if (one === -1 || two === -1) {
+        console.log('找不到要设置的字段')
+        return
+      }
+      this.$set(this.formCols[one][two], key, value)
     }
   },
   mounted() {

@@ -5,14 +5,12 @@
  */
 
 export default {
-    props:{
+    props: {
         item: {type: Object, default: {}},
         formData: {},
     },
-    methods:{
+    methods: {
         mixinEvent(params) {
-            if (this.item.$params !== void 0)
-                params.$params = this.item.$params
             this.$emit('event', params)
         },
     }

@@ -5,7 +5,7 @@
 */
 <template>
   <div class="index">
-    <m-form ref="mform" :formData="formData" :formCols="formCols" :rules="rules" @event="event" @submit="submit">
+    <m-form ref="mForm" :formData="formData" :formCols="formCols" :rules="rules" @event="event" @submit="submit">
       <template v-slot:test>
         <el-input v-model="formData.date5"></el-input>
       </template>
@@ -167,15 +167,21 @@ export default {
         ],
         date11: {required: true, message: '请选择活动区域', trigger: 'change'},
       },
-      show: false
+      show: true
     }
   },
   computed: {},
   methods: {
     event(params) {
       console.log(params, this.formData)
-      // setShow(this, this.formCols, 'date11', this.show)
-      // this.show = !this.show
+      this.$refs.mForm.setShow('date10', this.show)
+      this.$refs.mForm.setOptions('date15',
+          [
+            {label: "手机", value: "0"},
+            {label: "电脑", value: "1"},
+            {label: "平板", value: "2"}
+          ])
+      this.show = !this.show
     },
     submit() {
       console.log('submit', this.formData)
