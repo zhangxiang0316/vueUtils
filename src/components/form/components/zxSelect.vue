@@ -17,10 +17,10 @@
       :multiple-limit="item.multipleLimit"
       @change="change">
     <el-option
-        v-for="option in item.options"
-        :key="option.value"
-        :label="option.label"
-        :value="option.value"
+        v-for="option in options"
+        :key="option.value?option.value:option"
+        :label="option.label?option.label:option"
+        :value="option.value?option.value:option"
         :disabled="option.disabled">
     </el-option>
   </el-select>
@@ -37,7 +37,18 @@ export default {
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    options() {
+      if (this.item.options instanceof Array) {
+        return this.item.options
+      } else {
+        let list = this.item.options.split(',')
+        return list.map(item => {
+          return {value: item, label: item}
+        })
+      }
+    },
+  },
   methods: {
     change() {
       this.mixinEvent({

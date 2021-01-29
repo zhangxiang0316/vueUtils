@@ -9,13 +9,13 @@
       :size="item.size"
       @change="change">
     <el-radio
-        v-for="option in item.options"
-        :key="option.value"
-        :label="option.value"
+        v-for="option in options"
+        :key="option.value?option.value:option"
+        :label="option.value?option.value:option"
         :border="item.border"
         :style="item.style"
         :disabled="item.disabled">
-      {{ option.label }}
+      {{ option.label ? option.label : option }}
     </el-radio>
   </el-radio-group>
 </template>
@@ -30,7 +30,18 @@ export default {
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    options() {
+      if (this.item.options instanceof Array) {
+        return this.item.options
+      } else {
+        let list = this.item.options.split(',')
+        return list.map(item => {
+          return {value: item, label: item}
+        })
+      }
+    },
+  },
   methods: {
     change() {
       this.mixinEvent({

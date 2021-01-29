@@ -26,6 +26,8 @@ export default {
   name: 'page',
   components: {},
   props: {
+    //点击页码后是否滚到顶端
+    needToTop: {type: Boolean, default: true},
     // 分页数据
     pagination: {
       type: Object,
@@ -33,7 +35,7 @@ export default {
     },
     pageSizeList: {
       type: Array,
-      default: () => [10, 20, 30, 50, 100,500],
+      default: () => [10, 20, 30, 50, 100, 500],
     },
     layout: {type: String, default: 'total,prev,pager,next,sizes,jumper'},
   },
@@ -45,13 +47,13 @@ export default {
     handleCurrentChange(val) {
       this.pagination.pageNum = val
       this.$emit('refresh', true)
-      this.backToTop()
+      this.needToTop && this.backToTop()
     },
     handleSizeChange(val) {
       this.pagination.pageSize = val
       this.pagination.pageNum = 1
       this.$emit('refresh', true)
-      this.backToTop()
+      this.needToTop && this.backToTop()
     },
     backToTop() {
       const start = window.pageYOffset

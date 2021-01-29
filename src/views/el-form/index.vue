@@ -5,11 +5,11 @@
 */
 <template>
   <div class="index">
-    <m-form ref="mForm" :formData="formData" :formCols="formCols" :rules="rules" @event="event" @submit="submit">
+    <zx-form ref="mForm" :formData="formData" :formCols="formCols" :rules="rules" @event="event" @submit="submit">
       <template v-slot:test>
-        <el-input v-model="formData.date5"></el-input>
+        <el-input v-slot:test v-model="formData.date5"></el-input>
       </template>
-    </m-form>
+    </zx-form>
   </div>
 </template>
 
@@ -65,14 +65,17 @@ export default {
             eType: 'CheckButton',
             label: "CheckButton",
             noShow: false,
-            options: [{label: "手机", value: "0"}, {label: "电脑", value: "1"}],
+            // options: [{label: "手机", value: "0"}, {label: "电脑", value: "1"}],
+            // options: '手机,电脑',
+            options: ['手机', '电脑'],
             prop: 'date15',
             span: 6,
           },
           {
             eType: 'Check',
             label: "CheckBox",
-            options: [{label: "手机", value: "0"}, {label: "电脑", value: "1"}],
+            // options: [{label: "手机", value: "0"}, {label: "电脑", value: "1"}],
+            options: '手机,电脑',
             prop: 'date13',
             span: 6,
           },
@@ -159,8 +162,8 @@ export default {
           },
 
         ],
-            [{eType: 'Button', value: "提交", type: "success", prop: 'submit', span: 2,},
-            {eType: 'Button', value: "重置", type: "success", prop: 'reset', span: 2,}]
+        [{eType: 'Button', value: "提交", type: "success", prop: 'submit', span: 2,},
+          {eType: 'Button', value: "重置", type: "success", prop: 'reset', span: 2,}]
       ],
       rules: {
         date5: [
@@ -176,15 +179,16 @@ export default {
     event(params) {
       console.log(params, this.formData)
       // this.$refs.mForm.setShow('date10', this.show)
-      this.$refs.mForm.setOptions('date15',
-          [
-            {label: "手机", value: "0"},
-            {label: "电脑", value: "1"},
-            {label: "平板", value: "2"}
-          ])
+      // this.$refs.mForm.setOptions('date15',
+      //     [
+      //       {label: "手机", value: "0"},
+      //       {label: "电脑", value: "1"},
+      //       {label: "平板", value: "2"}
+      //     ])
       this.show = !this.show
     },
     submit() {
+      this.$refs.mForm.setNoShow("date13", true)
       console.log('submit', this.formData)
     },
   },

@@ -6,6 +6,9 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import log from './utils/log/log'
 
+import zxLib from 'zx-lib'
+Vue.use(zxLib)
+
 import {VueJsonp} from 'vue-jsonp'
 
 Vue.use(VueJsonp)

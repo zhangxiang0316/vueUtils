@@ -1,6 +1,6 @@
 /**
 * create by zhangxiang on 2021-01-26 15:21
-* 类注释：
+* 类注释：noShow 设置该条是否展示
 * 备注：
 */
 <template>
@@ -28,7 +28,7 @@ export default {
   props: {
     formData: {type: Object, default: null},
     rules: {type: Object, default: null},
-    formCols: {type: Array, default: () => []},
+    formCols: {type: Array, default: () => [[]]},
     isInline: {type: Boolean, default: false},
     statusIcon: {type: Boolean, default: false},
     size: {type: String, default: 'medium'},
@@ -52,17 +52,19 @@ export default {
       deep: true
     },
   },
-  data() {
-    return {}
-  },
-  computed: {},
   methods: {
     //提交校验
     submit() {
       return new Promise((resolve, reject) => {
-        this.$refs['elForm'].validate((valid) => {
-          if (valid) resolve(valid)
-          else reject(valid)
+        this.$refs['elForm'].validate((valid, message) => {
+          if (valid)
+            resolve(valid)
+          else
+            this.$message({
+              type: "error",
+              message: message[Object.keys(message)[0]][0].message ?
+                  message[Object.keys(message)[0]][0].message : "校验失败"
+            })
         });
       })
     },
@@ -85,15 +87,14 @@ export default {
       if (params.prop === "submit") {
         this.submit().then(res => {
           this.$emit('submit')
-        }).catch(err => {
-          console.log("校验失败")
         })
       } else if (params.prop === "reset") {
         this.reset()
+        this.$emit('reset')
       }
     },
     //设置是否展示
-    setShow(prop, value) {
+    setNoShow(prop, value) {
       this.setNewValue(prop, "noShow", value)
     },
     //设置radio checkbox options值
@@ -124,13 +125,5 @@ export default {
       this.$set(this.formCols[one][two], key, value)
     }
   },
-  mounted() {
-  },
-  created() {
-  }
 }
 </script>
-
-<style scoped lang="less" rel="stylesheet/less">
-
-</style>

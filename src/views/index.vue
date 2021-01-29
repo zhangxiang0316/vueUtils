@@ -15,9 +15,9 @@
       <el-col :span="3">
         <el-button @click="goPage('demozhihu')">滑动2</el-button>
       </el-col>
-      <el-col :span="3">
+      <!--<el-col :span="3">
         <el-button @click="goPage('form')">拖拽表单</el-button>
-      </el-col>
+      </el-col>-->
       <el-col :span="3">
         <el-button @click="goPage('radio')">广播</el-button>
       </el-col>

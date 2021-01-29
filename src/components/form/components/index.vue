@@ -4,7 +4,7 @@
 * 备注：
 */
 <template>
-  <component v-else :is="`zx${item.eType}`" :item="item" :form-data="formData" @event="event"></component>
+  <component :is="`zx${item.eType}`" :item="item" :form-data="formData" @event="event"></component>
 </template>
 
 <script type="text/ecmascript-6">

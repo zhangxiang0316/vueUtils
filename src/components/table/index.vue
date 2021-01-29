@@ -6,7 +6,7 @@
 <template>
   <el-card :body-style="{ padding: '0' }">
     <el-table
-        ref="cesTable"
+        ref="elTable"
         :data="tableData"
         :size="size"
         :id="id"
@@ -65,7 +65,8 @@
         <slot name="empty"></slot>
       </template>
     </el-table>
-    <page :pagination="pagination" :pageSizeList="pageSizeList" :layout="layout" @refresh="refresh"></page>
+    <page :pagination="pagination" :pageSizeList="pageSizeList" :layout="layout" @refresh="refresh"
+          :needToTop="needToTop"></page>
   </el-card>
 </template>
 
@@ -78,6 +79,8 @@ export default {
     page
   },
   props: {
+    //点击页码后是否滚到顶端
+    needToTop: {type: Boolean, default: true},
     // 表格型号：mini,medium,small
     size: {type: String, default: "small"},
     //边框
@@ -144,10 +147,10 @@ export default {
       this.$nextTick(function () {
         if (Array.isArray(val)) {
           val.forEach((row) => {
-            this.$refs.cesTable.toggleRowSelection(row);
+            this.$refs.elTable.toggleRowSelection(row);
           });
         } else {
-          this.$refs.cesTable.toggleRowSelection(val);
+          this.$refs.elTable.toggleRowSelection(val);
         }
       });
     },
@@ -156,8 +159,8 @@ export default {
     // 表格勾选
     select(rows, row) {
       if (this.isSingle) {
-        this.$refs.cesTable.clearSelection();
-        this.$refs.cesTable.toggleRowSelection(row);
+        this.$refs.elTable.clearSelection();
+        this.$refs.elTable.toggleRowSelection(row);
         this.$emit("select", row);
       } else {
         this.$emit("select", rows);
@@ -166,7 +169,7 @@ export default {
     // 全选
     selectAll(rows) {
       if (this.isSingle) {
-        this.$refs.cesTable.clearSelection();
+        this.$refs.elTable.clearSelection();
         this.$message({type: "error", message: "只支持单选"});
       } else {
         this.$emit("select", rows);

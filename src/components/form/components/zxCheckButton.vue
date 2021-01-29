@@ -9,13 +9,13 @@
       :max="item.max"
       v-model="formData[item.prop]">
     <el-checkbox-button
-        v-for="option in item.options"
-        :key="option.value"
-        :label="option.value"
+        v-for="option in options"
+        :key="option.value?option.value:option"
+        :label="option.value?option.value:option"
         :disabled="item.disabled"
         :style="item.style"
         @change="change">
-      {{ option.label }}
+      {{ option.label ? option.label : option }}
     </el-checkbox-button>
   </el-checkbox-group>
 </template>
@@ -31,7 +31,18 @@ export default {
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    options() {
+      if (this.item.options instanceof Array) {
+        return this.item.options
+      } else {
+        let list = this.item.options.split(',')
+        return list.map(item => {
+          return {value: item, label: item}
+        })
+      }
+    },
+  },
   methods: {
     change() {
       this.mixinEvent({

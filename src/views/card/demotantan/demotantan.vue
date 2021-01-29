@@ -99,8 +99,8 @@ export default {
 }
 </script>
 
-<style>
-page {
+<style scoped>
+.page {
   width: 100%;
   height: 100%;
   overflow: hidden;
