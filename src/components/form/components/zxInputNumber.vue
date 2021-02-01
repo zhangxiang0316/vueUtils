@@ -8,6 +8,7 @@
       v-model="formData[item.prop]"
       :disabled="item.disabled"
       :controls-position="item.controlsPosition"
+      style="width: 100%s"
       :style="item.style"
       :class="item.class"
       :min="item.min"
@@ -43,14 +44,14 @@ export default {
         value: this.formData[this.item.prop]
       })
     },
-    blur(){
+    blur() {
       this.mixinEvent({
         type: 'blur',
         prop: this.item.prop,
         value: this.formData[this.item.prop]
       })
     },
-    focus(){
+    focus() {
       this.mixinEvent({
         type: 'focus',
         prop: this.item.prop,
@@ -63,6 +64,9 @@ export default {
   mounted() {
   },
   created() {
+    if (!this.formData[this.item.prop]) {
+      this.$set(this.formData, this.item.prop, 1)
+    }
   }
 }
 </script>

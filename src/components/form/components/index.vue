@@ -20,6 +20,8 @@ import zxDatePicker from "./zxDatePicker";
 import zxTimePicker from "./zxTimePicker";
 import zxSwitch from "./zxSwitch";
 import zxSlider from "./zxSlider";
+import zxSpan from "./zxSpan";
+import zxRate from "./zxRate";
 
 export default {
   name: "index",
@@ -35,7 +37,9 @@ export default {
     zxDatePicker,
     zxTimePicker,
     zxSwitch,
-    zxSlider
+    zxSlider,
+    zxSpan,
+    zxRate
   },
   props: {
     item: {},

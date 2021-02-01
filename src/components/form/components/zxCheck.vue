@@ -32,17 +32,6 @@ export default {
   },
   watch: {},
   computed: {
-    checkValue: {
-      get() {
-        if (!this.formData[this.item.prop]) this.formData[this.item.prop] = []
-        console.log('get', this.formData[this.item.prop])
-        return this.formData[this.item.prop]
-      },
-      set(val) {
-        this.$set(this.formData, this.item.prop, val)
-        console.log('set:', this.formData[this.item.prop])
-      }
-    },
     options() {
       if (this.item.options instanceof Array) {
         return this.item.options
@@ -69,6 +58,9 @@ export default {
   mounted() {
   },
   created() {
+    if (!this.formData[this.item.prop]) {
+      this.$set( this.formData,this.item.prop,[])
+    }
   }
 }
 </script>

@@ -5,11 +5,11 @@
 */
 <template>
   <div class="index">
-    <zx-form ref="mForm" :formData="formData" :formCols="formCols" :rules="rules" @event="event" @submit="submit">
+    <m-form ref="mForm" :formData="formData" :formCols="formCols" :rules="rules" @event="event" @submit="submit">
       <template v-slot:test>
         <el-input v-slot:test v-model="formData.date5"></el-input>
       </template>
-    </zx-form>
+    </m-form>
   </div>
 </template>
 
@@ -23,9 +23,7 @@ export default {
   data() {
     return {
       formData: {
-        date13: [],
-        date15: [],
-        date16: 1
+        data27: "32134324",
       },
       formCols: [
         [
@@ -158,9 +156,23 @@ export default {
             label: "Slider",
             prop: 'date26',
             noShow: false,
-            span: 12,
+            span: 6,
           },
-
+          {
+            eType: "Span",
+            prop: "data27",
+            // noFormItem: true,
+            span: 6,
+            formatter: (data) => {
+              console.log(data)
+            }
+          },
+          {
+            eType: 'Rate',
+            label: "Rate",
+            prop: 'date29',
+            span: 6,
+          },
         ],
         [{eType: 'Button', value: "提交", type: "success", prop: 'submit', span: 2,},
           {eType: 'Button', value: "重置", type: "success", prop: 'reset', span: 2,}]
@@ -178,13 +190,13 @@ export default {
   methods: {
     event(params) {
       console.log(params, this.formData)
-      // this.$refs.mForm.setShow('date10', this.show)
-      // this.$refs.mForm.setOptions('date15',
-      //     [
-      //       {label: "手机", value: "0"},
-      //       {label: "电脑", value: "1"},
-      //       {label: "平板", value: "2"}
-      //     ])
+      this.$refs.mForm.setNoShow('date10', this.show)
+      this.$refs.mForm.setOptions('date15',
+          [
+            {label: "手机", value: "0"},
+            {label: "电脑", value: "1"},
+            {label: "平板", value: "2"}
+          ])
       this.show = !this.show
     },
     submit() {

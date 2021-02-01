@@ -1,6 +1,6 @@
 /**
 * create by zhangxiang on 2021-01-26 15:21
-* 类注释：noShow 设置该条是否展示
+* 类注释：noShow 设置该条是否展示  noFormItem 设置是否有label
 * 备注：
 */
 <template>
@@ -8,10 +8,16 @@
            :inline="isInline" :label-width="labelWidth" :rules="rules">
     <el-row v-for="(items,index) in formCols" :key="index">
       <el-col v-for="(item,index) in items" :span="item.span" :key="index" :offset="item.offset">
-        <el-form-item :label="item.label" :prop="item.prop" v-if="!item.noShow">
-          <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
-          <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
-        </el-form-item>
+        <template v-if="!item.noFormItem">
+          <el-form-item :label="item.label" :prop="item.prop" v-if="!item.noShow">
+            <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
+            <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
+          </el-form-item>
+        </template>
+        <template v-else>
+           <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
+            <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
+        </template>
       </el-col>
     </el-row>
   </el-form>
@@ -21,7 +27,7 @@
 import mElement from './components'
 
 export default {
-  name: "index",
+  name: "zx-form",
   components: {
     mElement
   },

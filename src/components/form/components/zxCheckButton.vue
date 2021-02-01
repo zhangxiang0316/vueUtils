@@ -57,6 +57,9 @@ export default {
   mounted() {
   },
   created() {
+    if (!this.formData[this.item.prop]) {
+      this.$set( this.formData,this.item.prop,[])
+    }
   }
 }
 </script>

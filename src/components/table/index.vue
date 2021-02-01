@@ -74,7 +74,7 @@
 import page from './page'
 
 export default {
-  name: "index",
+  name: "zx-table",
   components: {
     page
   },
