@@ -1,75 +1,60 @@
 {
-    "tags"
-:
-    {
-        "allowUnknownTags"
-    :
-        true,
-            "dictionaries"
-    :
-        ["jsdoc"]
-    }
-,
-    "recurseDepth"
-:
-    10,
-        "source"
-:
-    {
-        "include"
-    :
-        ["./src"],
-            "includePattern"
-    :
-        ".+\\.(js||vue)$",
-            "excludePattern"
-    :
-        "(^|\\/|\\\\)_"
-    }
-,
-    "plugins"
-:
-    ["./jsdoc-vue"],
-        "templates"
-:
-    {
-        "cleverLinks"
-    :
-        false,
-            "monospaceLinks"
-    :
-        true,
-            "useLongnameInNav"
-    :
-        false,
-            "showInheritedInNav"
-    :
-        true,
-            "inverseNav"
-    :
-        true,
-            "methodHeadingReturns"
-    :
-        true
-    }
-,
-    "opts"
-:
-    {
-        "destination"
-    :
-        "./document",
-            "encoding"
-    :
-        "utf8",
-            "private"
-    :
-        true,
-            "recurse"
-    :
-        true,
-            "template"
-    :
-        "./docs_template"
-    }
+  // tags: 用来指定tag库，tags下面有2个属性，分别是
+  // allowUnknownTags : 用来告诉JSDoc如何处理标签库以外的tag，
+  // 设为false时，JSDoc不会处理标签库以外的tag，但会记录一个警告，默认为true
+  // dictionaries: 数组格式，指定标签库，标签库越靠前，优先度越高
+  "tags": {
+    // 允许使用自定义tag
+    "allowUnknownTags": true,
+    // 定义tag集
+    "dictionaries": [
+      "jsdoc"
+    ]
+  },
+  // 递归的层级
+  "recurseDepth": 50,
+  // 顾名思义是用来指定源文件的，在其之下包含了4个属性
+  "source": {
+    // include: 源文件路径数组 【order-1】
+    "include": [
+      "./src",
+      "package.json"
+    ],
+    // exclude: 排除文件路径数组 【order-4】
+    "exclude": [],
+    // includePattern: 接受一个正则表达式，当文件名匹配这个正则时，执行JSDoc, 【order-2】
+    // "includePattern": "\\.(vue|js)$" 将以.js, .vue结尾的文件作为源文件
+    "includePattern": "\\.(vue|js)$",
+    // excludePattern: 接受一个正则表达式，当文件名匹配这个正则时，JSDoc忽略该文件
+    // 忽略以_开头的文件夹及文件 【order-3】
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  // 配置额外的插件，如markdown插件，与此同时，JSDoc也可以编写自定义插件做额外的处理。
+  // jsdoc-vuejs 处理vue文件
+  // jsdoc-export-default-interop: 处理es6
+  // "./node_modules/jsdoc-export-default-interop/dist/index
+  "plugins": [
+    "./jsdoc-vue"
+  ],
+  // 可以用来配置默认template的格式，或另外指定自定义的template
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": true,
+    "useLongnameInNav": false,
+    "showInheritedInNav": true
+  },
+  // opts: 命定行参数可以在此属性下配置，列如：
+  "opts": {
+    // 文档输出路径 -d
+    "destination": "./doc",
+    // 设置文件编码 -e
+    "encoding": "utf8",
+    // 将标记有[@private 标签][tags-private.md]的标识符也生成到文档中。默认情况下，不包括私有标识符。 -p
+    "private": true,
+    // 扫描源文件和导览时递归到子目录。 -r
+    "recurse": true,
+    // 设置【生成文件模板】 ink-docstrap 和 minami 模板
+//     "template": "./node_modules/ink-docstrap/template"
+    "template": "./node_modules/minami"
+  }
 }

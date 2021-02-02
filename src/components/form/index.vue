@@ -1,6 +1,9 @@
 /**
 * create by zhangxiang on 2021-01-26 15:21
-* 类注释：noShow 设置该条是否展示  noFormItem 设置是否有label
+* 类注释：      form二次封装
+* noShow      设置该条是否展示
+* noFormItem  设置是否有label
+* needToast   form校验是否需要Toast提示
 * 备注：
 */
 <template>
@@ -15,8 +18,8 @@
           </el-form-item>
         </template>
         <template v-else>
-           <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
-            <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
+          <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
+          <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
         </template>
       </el-col>
     </el-row>
@@ -32,6 +35,7 @@ export default {
     mElement
   },
   props: {
+    needToast: {type: Boolean, default: false},
     formData: {type: Object, default: null},
     rules: {type: Object, default: null},
     formCols: {type: Array, default: () => [[]]},
@@ -65,7 +69,7 @@ export default {
         this.$refs['elForm'].validate((valid, message) => {
           if (valid)
             resolve(valid)
-          else
+          else if (this.needToast)
             this.$message({
               type: "error",
               message: message[Object.keys(message)[0]][0].message ?

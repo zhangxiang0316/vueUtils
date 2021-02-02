@@ -70,11 +70,11 @@ export default {
         },
         {label: "节目名称", prop: 'name',},
         {label: "频道", prop: 'channel_name',},
-        {label: "id", type: "slot", slotName: 'input',},
-        {label: "id", prop: "id", type: "input"},
-        {label: "操作", type: "slot", slotName: 'opt',},
+        {label: "id", eType: "slot", slotName: 'input',},
+        {label: "id", prop: "id", eType: "Input"},
+        {label: "操作", eType: "slot", slotName: 'opt',},
         {
-          label: "操作", type: "button", formatter: (row) => {
+          label: "操作", eType: "Button", formatter: (row) => {
             if (row.index % 2 === 1) {
               return [{
                 label: "播放",

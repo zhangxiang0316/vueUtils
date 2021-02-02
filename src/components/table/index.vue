@@ -35,28 +35,28 @@
           :width="item.width"
           align="center">
         <template slot-scope="scope">
-          <slot v-if="item.type==='slot'" :name="item.slotName" :data="scope.row"></slot>
+          <slot v-if="item.eType==='slot'" :name="item.slotName" :data="scope.row"></slot>
           <el-input
-              v-if="item.type==='input'"
+              v-if="item.eType==='Input'"
               v-model="scope.row[item.prop]"
               :size="item.size || size"
               :disabled="item.disabled || (item.isDisabled && item.isDisabled(scope.row))"
               @focus="item.focus && item.focus(scope.row)"
               @blur="item.blur && item.blur(scope.row)">
           </el-input>
-          <span v-if="item.type==='button'">
-              <el-button
-                  v-for="(btn,index) in item.formatter(scope.row)||item.btnList"
-                  :key="index"
-                  :disabled="btn.disabled || (btn.isDisabled && btn.isDisabled(scope.row))"
-                  :type="btn.type"
-                  :size="btn.size || size"
-                  :icon="btn.icon"
-                  @click="btn.handle(scope.row)">
-                {{ btn.label }}
-              </el-button>
-          </span>
-          <span v-if="!item.type">
+          <template v-if="item.eType==='Button'">
+               <el-button
+                   v-for="(btn,index) in item.formatter(scope.row)||item.btnList"
+                   :key="index"
+                   :disabled="btn.disabled || (btn.isDisabled && btn.isDisabled(scope.row))"
+                   :type="btn.type"
+                   :size="btn.size || size"
+                   :icon="btn.icon"
+                   @click="btn.handle(scope.row)">
+                 {{ btn.label }}
+               </el-button>
+           </template>
+          <span v-if="!item.eType">
             {{ (item.formatter && item.formatter(scope.row)) || scope.row[item.prop] }}
           </span>
         </template>
@@ -72,11 +72,13 @@
 
 <script type="text/ecmascript-6">
 import page from './page'
+import mElement from '../form/components'
 
 export default {
   name: "zx-table",
   components: {
-    page
+    page,
+    mElement
   },
   props: {
     //点击页码后是否滚到顶端

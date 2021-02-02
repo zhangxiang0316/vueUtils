@@ -8,7 +8,7 @@
       v-model="formData[item.prop]"
       :disabled="item.disabled"
       :controls-position="item.controlsPosition"
-      style="width: 100%s"
+      style="width: 100%"
       :style="item.style"
       :class="item.class"
       :min="item.min"

@@ -188,6 +188,10 @@ export default {
   },
   computed: {},
   methods: {
+    /**
+     * 各种事件合集
+     * @param params
+     */
     event(params) {
       console.log(params, this.formData)
       this.$refs.mForm.setNoShow('date10', this.show)
@@ -199,6 +203,9 @@ export default {
           ])
       this.show = !this.show
     },
+    /**
+     * 提交事件
+     */
     submit() {
       this.$refs.mForm.setNoShow("date13", true)
       console.log('submit', this.formData)
