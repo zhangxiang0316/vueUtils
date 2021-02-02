@@ -1,0 +1,75 @@
+{
+    "tags"
+:
+    {
+        "allowUnknownTags"
+    :
+        true,
+            "dictionaries"
+    :
+        ["jsdoc"]
+    }
+,
+    "recurseDepth"
+:
+    10,
+        "source"
+:
+    {
+        "include"
+    :
+        ["./src"],
+            "includePattern"
+    :
+        ".+\\.(js||vue)$",
+            "excludePattern"
+    :
+        "(^|\\/|\\\\)_"
+    }
+,
+    "plugins"
+:
+    ["./jsdoc-vue"],
+        "templates"
+:
+    {
+        "cleverLinks"
+    :
+        false,
+            "monospaceLinks"
+    :
+        true,
+            "useLongnameInNav"
+    :
+        false,
+            "showInheritedInNav"
+    :
+        true,
+            "inverseNav"
+    :
+        true,
+            "methodHeadingReturns"
+    :
+        true
+    }
+,
+    "opts"
+:
+    {
+        "destination"
+    :
+        "./document",
+            "encoding"
+    :
+        "utf8",
+            "private"
+    :
+        true,
+            "recurse"
+    :
+        true,
+            "template"
+    :
+        "./docs_template"
+    }
+}
