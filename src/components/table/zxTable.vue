@@ -47,7 +47,7 @@
           <template v-if="item.eType==='Button'">
                <el-button
                    v-for="(btn,index) in item.formatter(scope.row)||item.btnList"
-                   :key="index"
+                   :key="zxTable"
                    :disabled="btn.disabled || (btn.isDisabled && btn.isDisabled(scope.row))"
                    :type="btn.type"
                    :size="btn.size || size"

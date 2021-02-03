@@ -3,9 +3,9 @@ import App from './App.vue'
 import router from './router'
 import Directives from './utils/directives'
 import ElementUI from 'element-ui'
+
 import 'element-ui/lib/theme-chalk/index.css'
 import log from './utils/log/log'
-
 import zxLib from 'zx-lib'
 Vue.use(zxLib)
 

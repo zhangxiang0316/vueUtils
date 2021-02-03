@@ -7,7 +7,7 @@
   <div class="index">
     <m-form ref="mForm" :formData="formData" :formCols="formCols" :rules="rules" @event="event" @submit="submit">
       <template v-slot:test>
-        <el-input v-slot:test v-model="formData.date5"></el-input>
+        <el-input v-model="formData.date5"></el-input>
       </template>
     </m-form>
   </div>

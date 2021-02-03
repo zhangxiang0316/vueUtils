@@ -3,7 +3,7 @@
  * 类注释：
  * 备注：
  */
-import zxTable from './index.vue'
+import zxTable from './zxTable.vue'
 
 zxTable.install = function (Vue) {
     Vue.component(zxTable.name, zxTable)

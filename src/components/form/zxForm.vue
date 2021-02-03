@@ -9,8 +9,8 @@
 <template>
   <el-form ref="elForm" :model="formData" :label-suffix="labelSuffix" :status-icon="statusIcon" :size="size"
            :inline="isInline" :label-width="labelWidth" :rules="rules">
-    <el-row v-for="(items,index) in formCols" :key="index">
-      <el-col v-for="(item,index) in items" :span="item.span" :key="index" :offset="item.offset">
+    <el-row v-for="(items,index) in formCols" :key="zxForm">
+      <el-col v-for="(item,index) in items" :span="item.span" :key="zxForm" :offset="item.offset">
         <template v-if="!item.noFormItem">
           <el-form-item :label="item.label" :prop="item.prop" v-if="!item.noShow">
             <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>

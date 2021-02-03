@@ -3,7 +3,7 @@
  * 类注释：
  * 备注：
  */
-import zxForm from './index.vue'
+import zxForm from './zxForm.vue'
 
 zxForm.install = function (Vue) {
     Vue.component(zxForm.name, zxForm)
