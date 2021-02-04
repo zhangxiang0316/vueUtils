@@ -35,11 +35,11 @@
         :table-data="tableData"
         :table-cols="tableCols"
         :pagination="pagination">
-      <template v-slot:input="data">
+      <template #input="data">
         <span v-if="data.data.type===1">{{ data.data.id }}</span>
         <el-input v-else v-model="data.data.id"/>
       </template>
-      <template v-slot:opt="data">
+      <template #opt="data">
         <el-button @click="play(data.data)">播放</el-button>
       </template>
       <template v-slot:empty>

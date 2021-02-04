@@ -4,7 +4,8 @@
 * 备注：
 */
 <template>
-  <el-card :body-style="{ padding: '0' }">
+  <el-card
+      :body-style="{ padding: '0' }">
     <el-table
         ref="elTable"
         :data="tableData"
@@ -24,8 +25,17 @@
         @select="select"
         @select-all="selectAll"
         @cell-click="cellClick">
-      <el-table-column v-if="isSelection" width="80" type="selection" align="center"/>
-      <el-table-column v-if="isIndex" type="index" width="60" :label="indexLabel" align="center"/>
+      <el-table-column
+          v-if="isSelection"
+          width="80"
+          type="selection"
+          align="center"/>
+      <el-table-column
+          v-if="isIndex"
+          type="index"
+          width="60"
+          :label="indexLabel"
+          align="center"/>
       <el-table-column
           v-for="item in tableCols"
           :key="item.id"
@@ -35,7 +45,11 @@
           :width="item.width"
           align="center">
         <template slot-scope="scope">
-          <slot v-if="item.eType==='slot'" :name="item.slotName" :data="scope.row"></slot>
+          <slot
+              v-if="item.eType==='slot'"
+              :name="item.slotName"
+              :data="scope.row">
+          </slot>
           <el-input
               v-if="item.eType==='Input'"
               v-model="scope.row[item.prop]"
@@ -44,18 +58,19 @@
               @focus="item.focus && item.focus(scope.row)"
               @blur="item.blur && item.blur(scope.row)">
           </el-input>
-          <template v-if="item.eType==='Button'">
-               <el-button
-                   v-for="(btn,index) in item.formatter(scope.row)||item.btnList"
-                   :key="zxTable"
-                   :disabled="btn.disabled || (btn.isDisabled && btn.isDisabled(scope.row))"
-                   :type="btn.type"
-                   :size="btn.size || size"
-                   :icon="btn.icon"
-                   @click="btn.handle(scope.row)">
-                 {{ btn.label }}
-               </el-button>
-           </template>
+          <template
+              v-if="item.eType==='Button'">
+            <el-button
+                v-for="(btn,index) in item.formatter(scope.row)||item.btnList"
+                :key="index"
+                :disabled="btn.disabled || (btn.isDisabled && btn.isDisabled(scope.row))"
+                :type="btn.type"
+                :size="btn.size || size"
+                :icon="btn.icon"
+                @click="btn.handle(scope.row)">
+              {{ btn.label }}
+            </el-button>
+          </template>
           <span v-if="!item.eType">
             {{ (item.formatter && item.formatter(scope.row)) || scope.row[item.prop] }}
           </span>
@@ -65,20 +80,23 @@
         <slot name="empty"></slot>
       </template>
     </el-table>
-    <page :pagination="pagination" :pageSizeList="pageSizeList" :layout="layout" @refresh="refresh"
-          :needToTop="needToTop"></page>
+    <zx-page
+        :pagination="pagination"
+        :pageSizeList="pageSizeList"
+        :layout="layout"
+        @refresh="refresh"
+        :needToTop="needToTop">
+    </zx-page>
   </el-card>
 </template>
 
 <script type="text/ecmascript-6">
-import page from './page'
-import mElement from '../form/components'
+import zxPage from './zxPage'
 
 export default {
-  name: "zx-table",
+  name: "zxTable",
   components: {
-    page,
-    mElement
+    zxPage,
   },
   props: {
     //点击页码后是否滚到顶端

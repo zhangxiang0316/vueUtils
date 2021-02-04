@@ -22,6 +22,8 @@ import zxSwitch from "./zxSwitch";
 import zxSlider from "./zxSlider";
 import zxSpan from "./zxSpan";
 import zxRate from "./zxRate";
+import zxIcon from "./zxIcon";
+import zxCascader from "./zxCascader";
 
 export default {
   name: "index",
@@ -39,7 +41,9 @@ export default {
     zxSwitch,
     zxSlider,
     zxSpan,
-    zxRate
+    zxRate,
+    zxIcon,
+    zxCascader
   },
   props: {
     item: {},

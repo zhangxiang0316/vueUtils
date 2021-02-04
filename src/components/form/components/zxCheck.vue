@@ -51,7 +51,6 @@ export default {
         value: this.formData[this.item.prop]
       })
     },
-
   },
   activated() {
   },

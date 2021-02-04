@@ -23,7 +23,7 @@
 <script type="text/ecmascript-6">
 
 export default {
-  name: 'page',
+  name: 'zxPage',
   components: {},
   props: {
     //点击页码后是否滚到顶端
