@@ -1,15 +1,18 @@
-/**
-* create by zhangxiang on 2021-01-26 15:29
-* 类注释：
-* 备注：
-*/
+/** * create by zhangxiang on 2021-01-26 15:29 * 类注释： * 备注： */
 <template>
   <div class="index">
-    <m-form ref="mForm" :formData="formData" :formCols="formCols" :rules="rules" @event="event" @submit="submit">
+    <zx-form
+      ref="mForm"
+      :formData="formData"
+      :formCols="formCols"
+      :rules="rules"
+      @event="event"
+      @submit="submit"
+    >
       <template #test>
         <el-input v-model="formData.date5"></el-input>
       </template>
-    </m-form>
+    </zx-form>
   </div>
 </template>
 
@@ -449,6 +452,4 @@ export default {
 }
 </script>
 
-<style scoped lang="less" rel="stylesheet/less">
-
-</style>
+<style scoped lang="less" rel="stylesheet/less"></style>

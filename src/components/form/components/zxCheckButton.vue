@@ -7,19 +7,20 @@
   <el-checkbox-group
       :min="item.min"
       :max="item.max"
-      v-model="formData[item.prop]">
+      v-model="formData[item.prop]"
+  >
     <el-checkbox-button
         v-for="option in options"
-        :key="option.value?option.value:option"
-        :label="option.value?option.value:option"
+        :key="option.value ? option.value : option"
+        :label="option.value ? option.value : option"
         :disabled="item.disabled"
         :style="item.style"
-        @change="change">
+        @change="change"
+    >
       {{ option.label ? option.label : option }}
     </el-checkbox-button>
   </el-checkbox-group>
 </template>
-
 
 <script type="text/ecmascript-6">
 import mixins from '../mixins'
@@ -58,12 +59,10 @@ export default {
   },
   created() {
     if (!this.formData[this.item.prop]) {
-      this.$set( this.formData,this.item.prop,[])
+      this.$set(this.formData, this.item.prop, [])
     }
   }
 }
 </script>
 
-<style scoped lang="less" rel="stylesheet/less">
-
-</style>
+<style scoped lang="less" rel="stylesheet/less"></style>

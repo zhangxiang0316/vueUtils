@@ -4,7 +4,12 @@
 * 备注：
 */
 <template>
-  <component :is="`zx${item.eType}`" :item="item" :form-data="formData" @event="event"></component>
+  <component
+      :is="`zx${item.eType}`"
+      :item="item"
+      :form-data="formData"
+      @event="event"
+  ></component>
 </template>
 
 <script type="text/ecmascript-6">
@@ -67,6 +72,4 @@ export default {
 }
 </script>
 
-<style scoped lang="less" rel="stylesheet/less">
-
-</style>
+<style scoped lang="less" rel="stylesheet/less"></style>

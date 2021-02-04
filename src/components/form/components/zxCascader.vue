@@ -19,7 +19,8 @@
       :debounce="item.debounce"
       :filter-method="item.filterMethod"
       :clearable="item.clearable"
-      @change="change">
+      @change="change"
+  >
   </el-cascader>
 </template>
 
@@ -53,6 +54,4 @@ export default {
 }
 </script>
 
-<style scoped lang="less" rel="stylesheet/less">
-
-</style>
+<style scoped lang="less" rel="stylesheet/less"></style>

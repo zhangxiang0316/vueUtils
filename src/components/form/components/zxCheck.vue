@@ -7,14 +7,16 @@
   <el-checkbox-group
       v-model="formData[item.prop]"
       :min="item.min"
-      :max="item.max">
+      :max="item.max"
+  >
     <el-checkbox
         v-for="option in options"
-        :key="option.value?option.value:option"
-        :label="option.value?option.value:option"
+        :key="option.value ? option.value : option"
+        :label="option.value ? option.value : option"
         :disabled="item.disabled"
         :style="item.style"
-        @change="change">
+        @change="change"
+    >
       {{ option.label ? option.label : option }}
     </el-checkbox>
   </el-checkbox-group>
@@ -58,12 +60,10 @@ export default {
   },
   created() {
     if (!this.formData[this.item.prop]) {
-      this.$set( this.formData,this.item.prop,[])
+      this.$set(this.formData, this.item.prop, [])
     }
   }
 }
 </script>
 
-<style scoped lang="less" rel="stylesheet/less">
-
-</style>
+<style scoped lang="less" rel="stylesheet/less"></style>

@@ -1,11 +1,11 @@
 /**
 * create by zhangxiang on 2021-01-28 09:31
-* 类注释：type====year/month/date/dates/ week/datetime/datetimerange/ daterange/monthrange
+* 类注释：type====year/month/date/dates/ week/datetime/datetimerange/daterange/monthrange
 * 备注：
 */
 <template>
   <el-date-picker
-      style="width:100%"
+      style="width: 100%"
       v-model="formData[item.prop]"
       :disabled="item.disabled"
       :type="item.type"
@@ -20,9 +20,12 @@
       :picker-options="item.pickerOptions"
       :default-value="item.defaultValue"
       :range-separator="item.rangeSeparator"
-      :start-placeholder="item.startPlaceholder?item.startPlaceholder:'开始日期'"
-      :end-placeholder="item.endPlaceholder?item.endPlaceholder:'结束日期'"
-      @change="change">
+      :start-placeholder="
+      item.startPlaceholder ? item.startPlaceholder : '开始日期'
+    "
+      :end-placeholder="item.endPlaceholder ? item.endPlaceholder : '结束日期'"
+      @change="change"
+  >
   </el-date-picker>
 </template>
 
@@ -56,6 +59,4 @@ export default {
 }
 </script>
 
-<style scoped lang="less" rel="stylesheet/less">
-
-</style>
+<style scoped lang="less" rel="stylesheet/less"></style>
