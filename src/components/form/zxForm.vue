@@ -9,7 +9,9 @@
 <template>
   <el-form ref="elForm" :model="formData" :label-suffix="labelSuffix" :status-icon="statusIcon" :size="size"
            :inline="isInline" :label-width="labelWidth" :label-position="labelPosition" :rules="rules">
+
     <el-row v-for="(items,index) in formCols" :key="index" :gutter="items.gutter">
+
       <el-col v-for="(item,index) in items" :span="item.span" :key="index" :offset="item.offset"
               @click.native="formItemClick(item)">
         <template v-if="!item.noFormItem">
@@ -31,10 +33,11 @@
 import mElement from './components'
 import {Message} from 'element-ui'
 
+
 export default {
   name: "zxForm",
   components: {
-    mElement
+    mElement,
   },
   props: {
     needToast: {type: Boolean, default: false},
