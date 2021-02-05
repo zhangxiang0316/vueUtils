@@ -117,7 +117,7 @@ export default {
     setFormCols(type) {
       switch (type) {
         case '输入框':
-          this.formCols.push([{eType: 'Input', label: "Input", prop: 'name1', span: 24, placeholder: ""}])
+          this.formCols.push([{eType: 'Input', label: "Input", prop: 'name1', span: 24}])
           break
         case '按钮':
           this.formCols.push([{eType: 'Button', value: "提交", type: "success", prop: 'submit', span: 2,},])
