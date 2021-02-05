@@ -5,6 +5,7 @@
 */
 <template>
   <el-cascader
+      style="width: 100%;"
       v-model="formData[item.prop]"
       :placeholder="item.placeholder"
       :style="item.style"
