@@ -5,7 +5,7 @@
 
 [在线预览](https://zhangxiang0316.github.io/vueUtils).
 
-## gizp压缩
+## gzip压缩
 
 ```
 //引入该插件

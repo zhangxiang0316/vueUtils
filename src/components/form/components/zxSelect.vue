@@ -5,6 +5,7 @@
 */
 <template>
   <el-select
+      style="width: 100%"
       v-model="formData[item.prop]"
       :placeholder="item.placeholder"
       :class="item.class"
