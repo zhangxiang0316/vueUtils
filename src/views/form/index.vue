@@ -5,14 +5,6 @@
 */
 <template>
   <div>
-    <el-header class="mheader" style="background: #63a35c">
-      <el-button @click="showDialog=!showDialog"> 查看json数据</el-button>
-      <el-button @click="showSetJson=!showSetJson"> 导入Json数据</el-button>
-      <el-button @click="exportVueFile"> 导出vue文件</el-button>
-      <el-button @click="copyJson" v-copy="copyFile"> 复制代码</el-button>
-      <el-button @click="clearPage"> 清空页面</el-button>
-      <el-button @click="showVue=!showVue"> 运行</el-button>
-    </el-header>
     <el-dialog :visible.sync="showDialog">
       <el-button @click="copyJson" v-copy="JSON.stringify(formCols)"> 复制Json</el-button>
       <el-button @click="exportJson"> 导出Json</el-button>
@@ -29,41 +21,51 @@
       <el-input type="textarea" :rows="20" v-model="jsonCols"></el-input>
       <el-button @click="setJsonOk"> 确定</el-button>
     </el-dialog>
-    <div class="index">
-      <div class="left">
-        <el-scrollbar>
-          <vuedraggable v-model="buttonList" @end="end" @start="start" :sort="false">
-            <el-button
-                v-for="item in buttonList"
-                :eType="item.eType"
-                :key="item.name"
-                style="width:120px">
-              {{ item.name }}
-            </el-button>
-          </vuedraggable>
-        </el-scrollbar>
-      </div>
-      <div class="center" ref="efContainer">
-        <el-scrollbar>
+    <div class="main">
+      <el-header class="mheader" style="background: #63a35c">
+        <el-button @click="showDialog=!showDialog"> 查看json数据</el-button>
+        <el-button @click="showSetJson=!showSetJson"> 导入Json数据</el-button>
+        <el-button @click="exportVueFile"> 导出vue文件</el-button>
+        <el-button @click="copyJson" v-copy="copyFile"> 复制代码</el-button>
+        <el-button @click="clearPage"> 清空页面</el-button>
+        <el-button @click="showVue=!showVue"> 运行</el-button>
+      </el-header>
+      <div class="index">
+        <div class="left">
+          <el-scrollbar>
+            <vuedraggable v-model="buttonList" @end="end" @start="start" :sort="false">
+              <el-button
+                  v-for="item in buttonList"
+                  :eType="item.eType"
+                  :key="item.name"
+                  style="width:120px">
+                {{ item.name }}
+              </el-button>
+            </vuedraggable>
+          </el-scrollbar>
+        </div>
+        <div class="center" ref="efContainer">
+          <el-scrollbar>
+            <m-form
+                ref="mForm"
+                :formData="formData"
+                :formCols="formCols"
+                :rules="rules"
+                @formItemClick="formItemClick"
+                @formItemDbClick="formItemDbClick">
+            </m-form>
+          </el-scrollbar>
+        </div>
+        <div class="right">
           <m-form
-              ref="mForm"
-              :formData="formData"
-              :formCols="formCols"
-              :rules="rules"
-              @formItemClick="formItemClick"
-              @formItemDbClick="formItemDbClick">
+              size="mini"
+              labelWidth="120px"
+              labelPosition="left"
+              @event="event"
+              :formData="formSetData"
+              :formCols="formSetCols">
           </m-form>
-        </el-scrollbar>
-      </div>
-      <div class="right">
-        <m-form
-            size="mini"
-            labelWidth="120px"
-            labelPosition="left"
-            @event="event"
-            :formData="formSetData"
-            :formCols="formSetCols">
-        </m-form>
+        </div>
       </div>
     </div>
   </div>
@@ -109,7 +111,7 @@ export default {
   },
   computed: {
     copyFile() {
-      return vueFile(this.formCols, this.rules)
+      return vueFile(this.formCols, this.rules, this.formData)
     },
   },
   methods: {
@@ -151,8 +153,9 @@ export default {
       downloadAnchorNode.remove();
       this.$message.success("正在下载中,请稍后...")
     },
+    //导出vue文件
     exportVueFile() {
-      var datastr = "data:text/json;charset=utf-8," + encodeURIComponent(vueFile(this.formCols, this.rules));
+      var datastr = "data:text/json;charset=utf-8," + encodeURIComponent(vueFile(this.formCols, this.rules, this.formData));
       var downloadAnchorNode = document.createElement('a')
       downloadAnchorNode.setAttribute("href", datastr);
       downloadAnchorNode.setAttribute("download", 'form.vue')
@@ -225,9 +228,9 @@ export default {
   padding: 0;
   width: 100%;
   height: 50px;
+  line-height: 50px;
   background-color: white;
   z-index: 99;
-
 }
 
 .el-button {
@@ -237,10 +240,12 @@ export default {
 .index {
   padding-top: 60px;
   display: flex;
-  height: 100%;
+  overflow: hidden;
+  height: 650px;
 
   .left {
     width: 200px;
+    overflow-y: scroll;
   }
 
   .center {
@@ -253,6 +258,7 @@ export default {
   }
 
   .right {
+    overflow-y: scroll;
     padding: 10px;
     width: 300px;
   }

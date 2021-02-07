@@ -105,8 +105,8 @@ export const buttonList = [
     {name: "计数器", eType: "InputNumber"},
     {name: "日期", eType: "DatePicker"},
     {name: "时间", eType: "TimePicker"},
-    {name: "按钮", eType: "Button"},
     {name: "评分", eType: "Rate"},
+    {name: "按钮", eType: "Button"},
 ]
 
 export const formSetCol = {
@@ -114,7 +114,7 @@ export const formSetCol = {
         [{label: "label名称", eType: "Input", prop: 'label'}],
         [{label: "prop名称", eType: "Input", prop: 'prop'}],
         [{label: "span", eType: "InputNumber", prop: 'span'}],
-        [{label: "max", eType: "InputNumber", prop: 'max', min: 5}],
+        [{label: "max", eType: "InputNumber", prop: 'max', min: 2}],
     ],
     Input: [
         [{label: "label名称", eType: "Input", prop: 'label'}],
@@ -245,7 +245,7 @@ export const formSetCol = {
 }
 
 
-export const vueFile = (formCols, rules) => {
+export const vueFile = (formCols, rules, formData) => {
     let file = `<template>
                     <div class="vueFile">
                     <zx-form
@@ -262,7 +262,7 @@ export const vueFile = (formCols, rules) => {
                   name: "vueFile",
                   data() {
                     return {
-                      formData: {},
+                      formData: ${JSON.stringify(formData)},
                       formCols: ${JSON.stringify(formCols)},
                       rules:${JSON.stringify(rules)},
                     }
