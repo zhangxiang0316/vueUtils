@@ -61,11 +61,13 @@
       <json-view deep="5" :data="{formCols:formCols,rules:rules,formData:formData}"/>
     </el-dialog>
     <el-dialog :visible.sync="showVue" :fullscreen="true">
-      <m-form
-          :formData="formData"
-          :formCols="formCols"
-          :rules="rules">
-      </m-form>
+      <el-card>
+        <m-form
+            :formData="formData"
+            :formCols="formCols"
+            :rules="rules">
+        </m-form>
+      </el-card>
     </el-dialog>
     <el-dialog :visible.sync="showSetJson">
       <el-input type="textarea" :rows="20" v-model="jsonCols"></el-input>
@@ -119,8 +121,13 @@ export default {
     },
     //必填校验添加
     event(params) {
+      console.log(params)
       if (params.prop === "isRule" && params.value) {
-        this.$set(this.rules, params.data.prop, {required: true, message: '必填校验', trigger: 'blue'})
+        this.$set(this.rules, params.data.prop, {
+          required: true,
+          message: params.data && params.data.tipMessage ? params.data.tipMessage : "值不能为空",
+          trigger: 'blue'
+        })
       } else if (params.prop === "isRule" && !params.value) {
         this.$refs.mForm.reset()
         this.$set(this.rules, params.data.prop, {})

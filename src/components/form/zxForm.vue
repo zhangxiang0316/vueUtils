@@ -23,7 +23,7 @@
         :key="index"
         :gutter="items&&items.gutter?items.gutter:0">
       <template v-if="canDraggable">
-        <vuedraggable>
+        <vuedraggable :scroll="true">
           <el-col
               v-for="item in items"
               :span="item.span"
@@ -119,13 +119,11 @@ export default {
               message: message[Object.keys(message)[0]][0].message ? message[Object.keys(message)[0]][0].message : "校验失败"
             })
           }
-
         });
       })
     },
     //重置
     reset() {
-      debugger
       this.$refs['elForm'].resetFields();
       this.formCols.forEach(items => {
         items.forEach(item => {
