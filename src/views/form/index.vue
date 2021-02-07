@@ -5,7 +5,7 @@
 */
 <template>
   <div class="form">
-    <el-header class="mheader">
+    <el-header class="mheader" style="text-align: right">
       <el-button @click="showDialog=!showDialog"> 查看json数据</el-button>
       <el-button @click="showSetJson=!showSetJson"> 导入Json数据</el-button>
       <el-button @click="exportVueFile"> 导出vue文件</el-button>
@@ -62,11 +62,11 @@
     </el-dialog>
     <el-dialog :visible.sync="showVue" :fullscreen="true">
       <el-card>
-        <m-form
+        <zx-form
             :formData="formData"
             :formCols="formCols"
             :rules="rules">
-        </m-form>
+        </zx-form>
       </el-card>
     </el-dialog>
     <el-dialog :visible.sync="showSetJson">
@@ -114,10 +114,16 @@ export default {
   methods: {
     //清空页面
     clearPage() {
-      this.formCols = [[]]
-      this.formData = {};
-      this.rules = {}
-      this.formSetCols = []
+      this.$confirm("是否要清空页面", '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.formCols = [[]]
+        this.formData = {};
+        this.rules = {}
+        this.formSetCols = []
+      })
     },
     //必填校验添加
     event(params) {

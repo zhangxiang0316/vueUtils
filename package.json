@@ -23,7 +23,7 @@
     "vue-router": "^3.4.9",
     "vue-signature-pad": "^2.0.2",
     "vuedraggable": "^2.24.3",
-    "zx-lib": "^1.0.5"
+    "zx-lib": "^1.0.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
