@@ -32,6 +32,7 @@
         <el-scrollbar>
           <m-form
               ref="mForm"
+              :canDraggable="true"
               :formData="formData"
               :formCols="formCols"
               :rules="rules"

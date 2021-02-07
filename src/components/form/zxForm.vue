@@ -22,22 +22,44 @@
         v-for="(items,index) in formCols"
         :key="index"
         :gutter="items&&items.gutter?items.gutter:0">
-      <el-col
-          v-for="(item,index) in items"
-          :span="item.span"
-          :key="item.prop"
-          :offset="item.offset"
-          @click.native="formItemClick(item)"
-          @dblclick.native="formItemDbClick(item)">
-        <el-form-item
-            v-if="!item.noShow"
-            :label="item.noFormItem?'':item.label"
-            :prop="item.prop"
-            :label-width="item.noFormItem?'0':labelWidth">
-          <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
-          <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
-        </el-form-item>
-      </el-col>
+      <template v-if="canDraggable">
+        <vuedraggable>
+          <el-col
+              v-for="item in items"
+              :span="item.span"
+              :key="item.prop"
+              :offset="item.offset"
+              @click.native="formItemClick(item)"
+              @dblclick.native="formItemDbClick(item)">
+            <el-form-item
+                v-if="!item.noShow"
+                :label="item.noFormItem?'':item.label"
+                :prop="item.prop"
+                :label-width="item.noFormItem?'0':labelWidth">
+              <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
+              <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
+            </el-form-item>
+          </el-col>
+        </vuedraggable>
+      </template>
+      <template v-else>
+        <el-col
+            v-for="item in items"
+            :span="item.span"
+            :key="item.prop"
+            :offset="item.offset"
+            @click.native="formItemClick(item)"
+            @dblclick.native="formItemDbClick(item)">
+          <el-form-item
+              v-if="!item.noShow"
+              :label="item.noFormItem?'':item.label"
+              :prop="item.prop"
+              :label-width="item.noFormItem?'0':labelWidth">
+            <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
+            <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
+          </el-form-item>
+        </el-col>
+      </template>
     </el-row>
   </el-form>
 </template>
@@ -45,14 +67,16 @@
 <script type="text/ecmascript-6">
 import mElement from './components'
 import {Message} from 'element-ui'
-
+import vuedraggable from 'vuedraggable'
 
 export default {
   name: "zxForm",
   components: {
     mElement,
+    vuedraggable
   },
   props: {
+    canDraggable: {type: Boolean, default: false},
     disabled: {type: Boolean, default: false},
     needToast: {type: Boolean, default: false},
     labelPosition: {type: String, default: "right"},
