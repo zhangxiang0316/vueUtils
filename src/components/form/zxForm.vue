@@ -8,12 +8,11 @@
 */
 <template>
   <el-form ref="elForm" :model="formData" :label-suffix="labelSuffix" :status-icon="statusIcon" :size="size"
-           :inline="isInline" :label-width="labelWidth" :label-position="labelPosition" :rules="rules">
-
+           :disabled="disabled" :inline="isInline" :label-width="labelWidth" :label-position="labelPosition"
+           :rules="rules">
     <el-row v-for="(items,index) in formCols" :key="index" :gutter="items.gutter">
-
       <el-col v-for="(item,index) in items" :span="item.span" :key="index" :offset="item.offset"
-              @click.native="formItemClick(item)">
+              @click.native="formItemClick(item)" @dblclick.native="formItemDbClick(item)">
         <template v-if="!item.noFormItem">
           <el-form-item :label="item.label" :prop="item.prop" v-if="!item.noShow">
             <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
@@ -21,8 +20,10 @@
           </el-form-item>
         </template>
         <template v-else>
-          <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
-          <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
+          <el-form-item :prop="item.prop" v-if="!item.noShow" label-width="0">
+            <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
+            <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
+          </el-form-item>
         </template>
       </el-col>
     </el-row>
@@ -40,6 +41,7 @@ export default {
     mElement,
   },
   props: {
+    disabled: {type: Boolean, default: false},
     needToast: {type: Boolean, default: false},
     labelPosition: {type: String, default: "right"},
     formData: {type: Object, default: null},
@@ -87,6 +89,7 @@ export default {
     },
     //重置
     reset() {
+      debugger
       this.$refs['elForm'].resetFields();
       this.formCols.forEach(items => {
         items.forEach(item => {
@@ -100,6 +103,9 @@ export default {
     },
     formItemClick(item) {
       this.$emit('formItemClick', item)
+    },
+    formItemDbClick(item) {
+      this.$emit('formItemDbClick', item)
     },
     //所有change以及click事件
     event(params) {

@@ -5,14 +5,25 @@
 */
 <template>
   <div>
-    <el-header style="background: #63a35c">
+    <el-header class="mheader" style="background: #63a35c">
       <el-button @click="showDialog=!showDialog"> 查看json数据</el-button>
       <el-button @click="showSetJson=!showSetJson"> 导入Json数据</el-button>
+      <el-button @click="exportVueFile"> 导出vue文件</el-button>
+      <el-button @click="copyJson" v-copy="copyFile"> 复制代码</el-button>
+      <el-button @click="clearPage"> 清空页面</el-button>
+      <el-button @click="showVue=!showVue"> 运行</el-button>
     </el-header>
     <el-dialog :visible.sync="showDialog">
       <el-button @click="copyJson" v-copy="JSON.stringify(formCols)"> 复制Json</el-button>
       <el-button @click="exportJson"> 导出Json</el-button>
-      <json-view :data="formCols"/>
+      <json-view deep="5" :data="{formCols:formCols,rules:rules,formData:formData}"/>
+    </el-dialog>
+    <el-dialog :visible.sync="showVue" :fullscreen="true">
+      <zx-form
+          :formData="formData"
+          :formCols="formCols"
+          :rules="rules">
+      </zx-form>
     </el-dialog>
     <el-dialog :visible.sync="showSetJson">
       <el-input type="textarea" :rows="20" v-model="jsonCols"></el-input>
@@ -20,58 +31,38 @@
     </el-dialog>
     <div class="index">
       <div class="left">
-        <vuedraggable @end="end" @start="start" :sort="false">
-          <el-row>
-            <el-button>输入框</el-button>
-          </el-row>
-          <el-row>
-            <el-button>按钮</el-button>
-          </el-row>
-          <el-row>
-            <el-button>单选</el-button>
-          </el-row>
-          <el-row>
-            <el-button>单选按钮</el-button>
-          </el-row>
-          <el-row>
-            <el-button>多选</el-button>
-          </el-row>
-          <el-row>
-            <el-button>多选按钮</el-button>
-          </el-row>
-          <el-row>
-            <el-button>InputNumber</el-button>
-          </el-row>
-          <el-row>
-            <el-button>日期</el-button>
-          </el-row>
-          <el-row>
-            <el-button>下拉框</el-button>
-          </el-row>
-          <el-row>
-            <el-button>时间选择器</el-button>
-          </el-row>
-          <el-row>
-            <el-button>Switch</el-button>
-          </el-row>
-        </vuedraggable>
+        <el-scrollbar>
+          <vuedraggable v-model="buttonList" @end="end" @start="start" :sort="false">
+            <el-button
+                v-for="item in buttonList"
+                :eType="item.eType"
+                :key="item.name"
+                style="width:120px">
+              {{ item.name }}
+            </el-button>
+          </vuedraggable>
+        </el-scrollbar>
       </div>
       <div class="center" ref="efContainer">
-        <m-form
-            ref="mForm"
-            :formData="formData"
-            :formCols="formCols"
-            :rules="rules"
-            @formItemClick="formItemClick">
-        </m-form>
+        <el-scrollbar>
+          <m-form
+              ref="mForm"
+              :formData="formData"
+              :formCols="formCols"
+              :rules="rules"
+              @formItemClick="formItemClick"
+              @formItemDbClick="formItemDbClick">
+          </m-form>
+        </el-scrollbar>
       </div>
       <div class="right">
         <m-form
-            labelPosition="top"
-            ref="mForm"
+            size="mini"
+            labelWidth="120px"
+            labelPosition="left"
+            @event="event"
             :formData="formSetData"
-            :formCols="formSetCols"
-        >
+            :formCols="formSetCols">
         </m-form>
       </div>
     </div>
@@ -82,6 +73,7 @@
 import vuedraggable from 'vuedraggable'
 import mForm from "@/components/form/zxForm";
 import jsonView from 'vue-json-views';
+import {eType, buttonList, formSetCol, vueFile} from './type'
 
 export default {
   name: "index",
@@ -93,7 +85,9 @@ export default {
   props: {},
   data() {
     return {
+      buttonList: buttonList,
       jsonCols: '',
+      showVue: false,
       showDialog: false,
       showSetJson: false,
       draggableModel: {},
@@ -106,51 +100,80 @@ export default {
         forceFallback: true,
       },
       formSetData: {},
-      formSetCols: [
-        [{label: "label名称", eType: "Input", prop: 'label'}],
-        [{label: "prop名称", eType: "Input", prop: 'prop'}],
-        [{label: "span", eType: "InputNumber", prop: 'span'}],
-        [{label: "placeholder", eType: "Input", prop: 'placeholder'}],
-        [{
-          label: "是否展示label",
-          eType: "Switch",
-          prop: 'noFormItem',
-        }],
-        [{label: "options", eType: "Input", prop: 'options'}],
-      ],
+      formSetCols: [],
       formData: {},
       formCols: [[]],
       rules: {},
+      index: 101
     }
   },
-  computed: {},
+  computed: {
+    copyFile() {
+      return vueFile(this.formCols, this.rules)
+    },
+  },
   methods: {
+    //清空页面
+    clearPage() {
+      this.formCols = [[]]
+      this.formData = {};
+      this.rules = {}
+      this.formSetCols = []
+    },
+    //必填校验添加
+    event(params) {
+      if (params.prop === "isRule" && params.value) {
+        this.$set(this.rules, params.data.prop, {required: true, message: '必填校验', trigger: 'blue'})
+      } else if (params.prop === "isRule" && !params.value) {
+        this.$refs.mForm.reset()
+        this.$set(this.rules, params.data.prop, {})
+        delete this.rules[params.data.prop]
+      }
+    },
+    //复制json数据
     copyJson() {
       this.$message({
         type: "success",
         message: "复制成功"
       })
     },
+    //导出json数据
     exportJson() {
-      var datastr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.formCols, null, '\t'));
+      var datastr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
+        formCols: this.formCols,
+        formData: this.formData,
+        rules: this.rules
+      }, null, '\t'));
       var downloadAnchorNode = document.createElement('a')
       downloadAnchorNode.setAttribute("href", datastr);
-      downloadAnchorNode.setAttribute("download", 'formCols.json')
+      downloadAnchorNode.setAttribute("download", 'data.json')
       downloadAnchorNode.click();
       downloadAnchorNode.remove();
       this.$message.success("正在下载中,请稍后...")
     },
+    exportVueFile() {
+      var datastr = "data:text/json;charset=utf-8," + encodeURIComponent(vueFile(this.formCols, this.rules));
+      var downloadAnchorNode = document.createElement('a')
+      downloadAnchorNode.setAttribute("href", datastr);
+      downloadAnchorNode.setAttribute("download", 'form.vue')
+      downloadAnchorNode.click();
+      downloadAnchorNode.remove();
+      this.$message.success("正在下载中,请稍后...")
+    },
+    //设置json数据
     setJsonOk() {
       this.formCols = JSON.parse(this.jsonCols)
       this.showSetJson = false
     },
+    //拖拽结束设置
     end(evt) {
-      let type = evt.item.innerText
-      let screenX = evt.originalEvent.clientX,
-          screenY = evt.originalEvent.clientY
-      let efContainer = this.$refs.efContainer
-      var containerRect = efContainer.getBoundingClientRect()
-      var left = screenX, top = screenY
+      let type = evt.item.attributes.eType.nodeValue,
+          screenX = evt.originalEvent.clientX,
+          screenY = evt.originalEvent.clientY,
+          efContainer = this.$refs.efContainer,
+          containerRect = efContainer.getBoundingClientRect(),
+          left = screenX,
+          top = screenY;
       if (left < containerRect.x || left > containerRect.width + containerRect.x || top < containerRect.y || containerRect.y > containerRect.y + containerRect.height) {
         this.$message.error("请把节点拖入到画布中")
         return
@@ -158,102 +181,30 @@ export default {
       this.setFormCols(type)
     },
     setFormCols(type) {
-      let item = {};
-      switch (type) {
-        case '输入框':
-          item = {eType: 'Input', label: "Input", prop: 'name1', span: 24}
-          break
-        case '按钮':
-          item = {eType: 'Button', value: "提交", type: "success", prop: 'submit', span: 2,}
-          break
-        case "单选":
-          item = {
-            eType: 'Radio',
-            label: "Radio",
-            options: [{label: "手机", value: "0"}, {label: "电脑", value: "1"}],
-            prop: 'date10',
-            span: 24,
-          }
-          break
-        case "单选按钮":
-          item = {
-            eType: 'RadioButton',
-            label: "RadioButton",
-            options: [{label: "手机", value: "0"}, {label: "电脑", value: "1"}],
-            prop: 'date11',
-            span: 24,
-          }
-          break
-        case "多选":
-          item = {
-            eType: 'Check',
-            label: "CheckBox",
-            options: '手机,电脑',
-            prop: 'date13',
-            span: 24,
-          }
-          break
-        case "多选按钮":
-          item = {
-            eType: 'CheckButton',
-            label: "CheckButton",
-            noShow: false,
-            options: ['手机', '电脑'],
-            prop: 'date15',
-            span: 24,
-          }
-          break
-        case "InputNumber":
-          item = {
-            eType: 'InputNumber',
-            label: "InputNumber",
-            prop: 'date16',
-            span: 24,
-          }
-          break
-        case "日期":
-          item = {
-            eType: 'DatePicker',
-            type: 'date',
-            label: "date",
-            valueFormat: "yyyy-MM-dd",
-            prop: 'date19',
-            span: 24,
-          }
-          break
-        case "下拉框":
-          item = {
-            eType: 'Select',
-            label: "Select",
-            options: [{label: "手机", value: "0"}, {label: "电脑", value: "1"}],
-            prop: 'date17',
-            span: 24,
-          }
-          break
-        case "时间选择器":
-          item = {
-            eType: 'TimePicker',
-            label: "TimePicker",
-            prop: 'date24',
-            noShow: false,
-            span: 24,
-          }
-          break
-        case "Switch":
-          item = {
-            eType: 'Switch',
-            label: "Switch",
-            prop: 'date25',
-            span: 24,
-          }
-          break
-      }
+      let item = JSON.parse(JSON.stringify(eType[type]));
+      item.prop = `prop${this.index}`
+      this.index++
+      this.formSetCols = formSetCol[item.mType || item.eType]
       this.formSetData = item
       let length = this.formCols.length
       this.formCols[length - 1].push(item)
     },
+    //选中设置属性
     formItemClick(item) {
+      this.formSetCols = formSetCol[item.mType || item.eType]
       this.formSetData = item
+    },
+    //双击删除
+    formItemDbClick(item) {
+      this.$confirm("是否要删除此项", '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let length = this.formCols.length
+        let index = this.formCols[length - 1].findIndex(i => i == item)
+        this.formCols[length - 1].splice(index, 1)
+      })
     },
     start(evt) {
 
@@ -269,11 +220,22 @@ export default {
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
+.mheader {
+  position: fixed;
+  padding: 0;
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  z-index: 99;
+
+}
+
 .el-button {
   margin: 10px;
 }
 
 .index {
+  padding-top: 60px;
   display: flex;
   height: 100%;
 
@@ -282,6 +244,7 @@ export default {
   }
 
   .center {
+    overflow-y: scroll;
     flex: 1;
     padding: 20px;
     border-left: 1px solid #999;

@@ -13,7 +13,7 @@
       :prefixIcon="item.prefixIcon"
       :show-password="item.showPassword"
       :maxlength="item.maxlength"
-      :rows="item.row"
+      :rows="item.rows"
       :autosize="item.autosize"
       :minlength="item.minlength"
       :show-word-limit="item.showWordLimit"

@@ -8,7 +8,6 @@
       style="width:100%"
       v-model="formData[item.prop]"
       :is-range="item.isRange"
-      :type="item.type"
       :clearable="item.clearable"
       :placeholder="item.placeholder"
       :picker-options="item.pickerOptions"

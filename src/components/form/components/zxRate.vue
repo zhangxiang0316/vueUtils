@@ -10,7 +10,7 @@
       :void-color="item.voidColor"
       :disabled-void-color="item.disabledVoidColor"
       :disabled-void-icon-class="item.disabledVoidIconClass"
-      :max="item.size"
+      :max="item.max"
       :disabled="item.disabled"
       :class="item.class"
       :icon-classes="item.iconClasses"

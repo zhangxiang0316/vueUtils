@@ -20,9 +20,7 @@
       :picker-options="item.pickerOptions"
       :default-value="item.defaultValue"
       :range-separator="item.rangeSeparator"
-      :start-placeholder="
-      item.startPlaceholder ? item.startPlaceholder : '开始日期'
-    "
+      :start-placeholder="item.startPlaceholder ? item.startPlaceholder : '开始日期'"
       :end-placeholder="item.endPlaceholder ? item.endPlaceholder : '结束日期'"
       @change="change"
   >
