@@ -7,24 +7,36 @@
 * 备注：
 */
 <template>
-  <el-form ref="elForm" :model="formData" :label-suffix="labelSuffix" :status-icon="statusIcon" :size="size"
-           :disabled="disabled" :inline="isInline" :label-width="labelWidth" :label-position="labelPosition"
-           :rules="rules">
-    <el-row v-for="(items,index) in formCols" :key="index" :gutter="items.gutter">
-      <el-col v-for="(item,index) in items" :span="item.span" :key="index" :offset="item.offset"
-              @click.native="formItemClick(item)" @dblclick.native="formItemDbClick(item)">
-        <template v-if="!item.noFormItem">
-          <el-form-item :label="item.label" :prop="item.prop" v-if="!item.noShow">
-            <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
-            <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
-          </el-form-item>
-        </template>
-        <template v-else>
-          <el-form-item :prop="item.prop" v-if="!item.noShow" label-width="0">
-            <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
-            <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
-          </el-form-item>
-        </template>
+  <el-form
+      ref="elForm"
+      :model="formData"
+      :label-suffix="labelSuffix"
+      :status-icon="statusIcon"
+      :size="size"
+      :disabled="disabled"
+      :inline="isInline"
+      :label-width="labelWidth"
+      :label-position="labelPosition"
+      :rules="rules">
+    <el-row
+        v-for="(items,index) in formCols"
+        :key="index"
+        :gutter="items&&items.gutter?items.gutter:0">
+      <el-col
+          v-for="(item,index) in items"
+          :span="item.span"
+          :key="item.prop"
+          :offset="item.offset"
+          @click.native="formItemClick(item)"
+          @dblclick.native="formItemDbClick(item)">
+        <el-form-item
+            v-if="!item.noShow"
+            :label="item.noFormItem?'':item.label"
+            :prop="item.prop"
+            :label-width="item.noFormItem?'0':labelWidth">
+          <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
+          <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
+        </el-form-item>
       </el-col>
     </el-row>
   </el-form>

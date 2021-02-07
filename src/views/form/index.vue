@@ -4,70 +4,72 @@
 * 备注：
 */
 <template>
-  <div>
+  <div class="form">
+    <el-header class="mheader">
+      <el-button @click="showDialog=!showDialog"> 查看json数据</el-button>
+      <el-button @click="showSetJson=!showSetJson"> 导入Json数据</el-button>
+      <el-button @click="exportVueFile"> 导出vue文件</el-button>
+      <el-button @click="copyJson" v-copy="copyFile"> 复制代码</el-button>
+      <el-button @click="clearPage"> 清空页面</el-button>
+      <el-button @click="showVue=!showVue"> 运行</el-button>
+    </el-header>
+    <div class="index">
+      <div class="left">
+        <el-scrollbar>
+          <vuedraggable @end="end" :sort="false">
+            <el-button
+                v-for="item in buttonList"
+                :eType="item.eType"
+                :key="item.name"
+                size="mini"
+                style="width:70px">
+              {{ item.name }}
+            </el-button>
+          </vuedraggable>
+        </el-scrollbar>
+      </div>
+      <div class="center" ref="efContainer">
+        <el-scrollbar>
+          <m-form
+              ref="mForm"
+              :formData="formData"
+              :formCols="formCols"
+              :rules="rules"
+              @formItemClick="formItemClick"
+              @formItemDbClick="formItemDbClick">
+          </m-form>
+        </el-scrollbar>
+      </div>
+      <div class="right">
+        <m-form
+            size="mini"
+            labelWidth="120px"
+            labelPosition="right"
+            @event="event"
+            :formData="formSetData"
+            :formCols="formSetCols">
+          <template #options="data">
+            <el-input placeholder="暂时替代数组"></el-input>
+          </template>
+        </m-form>
+      </div>
+    </div>
     <el-dialog :visible.sync="showDialog">
       <el-button @click="copyJson" v-copy="JSON.stringify(formCols)"> 复制Json</el-button>
       <el-button @click="exportJson"> 导出Json</el-button>
       <json-view deep="5" :data="{formCols:formCols,rules:rules,formData:formData}"/>
     </el-dialog>
     <el-dialog :visible.sync="showVue" :fullscreen="true">
-      <zx-form
+      <m-form
           :formData="formData"
           :formCols="formCols"
           :rules="rules">
-      </zx-form>
+      </m-form>
     </el-dialog>
     <el-dialog :visible.sync="showSetJson">
       <el-input type="textarea" :rows="20" v-model="jsonCols"></el-input>
       <el-button @click="setJsonOk"> 确定</el-button>
     </el-dialog>
-    <div class="main">
-      <el-header class="mheader" style="background: #63a35c">
-        <el-button @click="showDialog=!showDialog"> 查看json数据</el-button>
-        <el-button @click="showSetJson=!showSetJson"> 导入Json数据</el-button>
-        <el-button @click="exportVueFile"> 导出vue文件</el-button>
-        <el-button @click="copyJson" v-copy="copyFile"> 复制代码</el-button>
-        <el-button @click="clearPage"> 清空页面</el-button>
-        <el-button @click="showVue=!showVue"> 运行</el-button>
-      </el-header>
-      <div class="index">
-        <div class="left">
-          <el-scrollbar>
-            <vuedraggable v-model="buttonList" @end="end" @start="start" :sort="false">
-              <el-button
-                  v-for="item in buttonList"
-                  :eType="item.eType"
-                  :key="item.name"
-                  style="width:120px">
-                {{ item.name }}
-              </el-button>
-            </vuedraggable>
-          </el-scrollbar>
-        </div>
-        <div class="center" ref="efContainer">
-          <el-scrollbar>
-            <m-form
-                ref="mForm"
-                :formData="formData"
-                :formCols="formCols"
-                :rules="rules"
-                @formItemClick="formItemClick"
-                @formItemDbClick="formItemDbClick">
-            </m-form>
-          </el-scrollbar>
-        </div>
-        <div class="right">
-          <m-form
-              size="mini"
-              labelWidth="120px"
-              labelPosition="left"
-              @event="event"
-              :formData="formSetData"
-              :formCols="formSetCols">
-          </m-form>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -93,14 +95,6 @@ export default {
       showDialog: false,
       showSetJson: false,
       draggableModel: {},
-      draggableOptions: {
-        preventOnFilter: false,
-        sort: false,
-        disabled: false,
-        ghostClass: 'tt',
-        // 不使用H5原生的配置
-        forceFallback: true,
-      },
       formSetData: {},
       formSetCols: [],
       formData: {},
@@ -141,12 +135,12 @@ export default {
     },
     //导出json数据
     exportJson() {
-      var datastr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
+      let datastr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
         formCols: this.formCols,
         formData: this.formData,
         rules: this.rules
       }, null, '\t'));
-      var downloadAnchorNode = document.createElement('a')
+      let downloadAnchorNode = document.createElement('a')
       downloadAnchorNode.setAttribute("href", datastr);
       downloadAnchorNode.setAttribute("download", 'data.json')
       downloadAnchorNode.click();
@@ -155,8 +149,8 @@ export default {
     },
     //导出vue文件
     exportVueFile() {
-      var datastr = "data:text/json;charset=utf-8," + encodeURIComponent(vueFile(this.formCols, this.rules, this.formData));
-      var downloadAnchorNode = document.createElement('a')
+      let datastr = "data:text/json;charset=utf-8," + encodeURIComponent(vueFile(this.formCols, this.rules, this.formData));
+      let downloadAnchorNode = document.createElement('a')
       downloadAnchorNode.setAttribute("href", datastr);
       downloadAnchorNode.setAttribute("download", 'form.vue')
       downloadAnchorNode.click();
@@ -171,12 +165,10 @@ export default {
     //拖拽结束设置
     end(evt) {
       let type = evt.item.attributes.eType.nodeValue,
-          screenX = evt.originalEvent.clientX,
-          screenY = evt.originalEvent.clientY,
+          left = evt.originalEvent.clientX,
+          top = evt.originalEvent.clientY,
           efContainer = this.$refs.efContainer,
-          containerRect = efContainer.getBoundingClientRect(),
-          left = screenX,
-          top = screenY;
+          containerRect = efContainer.getBoundingClientRect();
       if (left < containerRect.x || left > containerRect.width + containerRect.x || top < containerRect.y || containerRect.y > containerRect.y + containerRect.height) {
         this.$message.error("请把节点拖入到画布中")
         return
@@ -191,6 +183,10 @@ export default {
       this.formSetData = item
       let length = this.formCols.length
       this.formCols[length - 1].push(item)
+      this.$nextTick(() => {
+        let container = this.$refs.efContainer
+        container.scrollTop = container.scrollHeight
+      })
     },
     //选中设置属性
     formItemClick(item) {
@@ -209,16 +205,7 @@ export default {
         this.formCols[length - 1].splice(index, 1)
       })
     },
-    start(evt) {
-
-    },
   },
-  activated() {
-  },
-  mounted() {
-  },
-  created() {
-  }
 }
 </script>
 
@@ -231,6 +218,7 @@ export default {
   line-height: 50px;
   background-color: white;
   z-index: 99;
+  border-bottom: 1px solid #999;
 }
 
 .el-button {
