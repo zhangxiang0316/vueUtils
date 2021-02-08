@@ -76,11 +76,11 @@
     </el-dialog>
     <el-dialog :visible.sync="showVue" :fullscreen="true">
       <el-card>
-        <zx-form
+        <m-form
             :formData="formData"
             :formCols="formCols"
             :rules="rules">
-        </zx-form>
+        </m-form>
       </el-card>
     </el-dialog>
     <el-dialog :visible.sync="showSetJson">
@@ -141,12 +141,11 @@ export default {
     },
     //必填校验添加
     event(params) {
-      console.log(params)
       if (params.prop === "isRule" && params.value) {
         this.$set(this.rules, params.data.prop, {
           required: true,
           message: params.data && params.data.tipMessage ? params.data.tipMessage : "值不能为空",
-          trigger: 'blue'
+          trigger: 'blur'
         })
       } else if (params.prop === "isRule" && !params.value) {
         this.$refs.mForm.reset()
@@ -208,8 +207,6 @@ export default {
       item.prop = `prop${this.index}`
       this.index++
       this.formSetCols = formSetCol[item.mType || item.eType]
-      console.log("formSetCols", this.formSetCols)
-      console.log('formSetData', item)
       this.formSetData = item
       let length = this.formCols.length
       this.formCols[length - 1].push(item)

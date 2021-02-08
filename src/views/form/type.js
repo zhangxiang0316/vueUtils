@@ -99,6 +99,12 @@ export const eType = {
         label: "颜色选择",
         prop: prop,
         span: 24,
+    },
+    Editor: {
+        eType: "Editor",
+        label: "富文本",
+        prop: prop,
+        span: 24
     }
 }
 
@@ -109,6 +115,7 @@ export const eType = {
 export const buttonList = [
     {name: "单行文本", eType: "Input"},
     {name: "多行文本", eType: "Textarea"},
+    {name: "富文本", eType: "Editor"},
     {name: "单选", eType: "Radio"},
     {name: "单选按钮", eType: "RadioButton"},
     {name: "多选", eType: "Check"},
@@ -134,7 +141,14 @@ export const formSetCol = {
         [{label: "字符数", eType: "Input", prop: 'maxlength'}],
         [{label: "后图标", eType: "Input", prop: 'suffixIcon'}],
         [{label: "前图标", eType: "Input", prop: 'prefixIcon'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
         [{label: "切换密码图标", eType: "Switch", prop: 'showPassword'}],
         [{label: "输入字数统计", eType: "Switch", prop: 'showWordLimit'}],
         [{label: "删除按钮", eType: "Switch", prop: 'clearable'}],
@@ -148,9 +162,23 @@ export const formSetCol = {
         [{label: "placeholder", eType: "Input", prop: 'placeholder'}],
         [{label: "字符数", eType: "Input", prop: 'maxlength'}],
         [{label: '行数', eType: "InputNumber", prop: 'rows'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
         [{label: "输入字数统计", eType: "Switch", prop: 'showWordLimit'}],
         [{label: "删除按钮", eType: "Switch", prop: 'clearable'}],
+        [{label: "必填提示语", eType: "Input", prop: 'tipMessage'}],
+        [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
+        [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
+    ],
+    Editor: [
+        [{label: "标题名称", eType: "Input", prop: 'label'}],
+        [{label: "字段名", eType: "Input", prop: 'prop'}],
         [{label: "必填提示语", eType: "Input", prop: 'tipMessage'}],
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
@@ -161,7 +189,14 @@ export const formSetCol = {
         [{label: "valueFormat", eType: "Input", prop: 'valueFormat'}],
         [{label: "placeholder", eType: "Input", prop: 'placeholder'}],
         [{label: "format", eType: "Input", prop: 'format'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
         [{
             label: "时间类型",
             eType: "Select",
@@ -179,7 +214,14 @@ export const formSetCol = {
         [{label: "字段名", eType: "Input", prop: 'prop'}],
         [{label: "valueFormat", eType: "Input", prop: 'valueFormat'}],
         [{label: "placeholder", eType: "Input", prop: 'placeholder'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
         [{label: "必填提示语", eType: "Input", prop: 'tipMessage'}],
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
         [{label: "是否为时间范围", eType: 'Switch', prop: 'isRange'}],
@@ -190,7 +232,14 @@ export const formSetCol = {
         [{label: "标题名称", eType: "Input", prop: 'label'}],
         [{label: "字段名", eType: "Input", prop: 'prop'}],
         [{label: "placeholder", eType: "Input", prop: 'placeholder'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
         [{label: "步长", eType: "InputNumber", prop: 'step', min: 1}],
         [{label: "精度", eType: 'InputNumber', prop: 'precision', min: 0}],
         [{
@@ -211,7 +260,14 @@ export const formSetCol = {
         [{label: "关闭文字", eType: "Input", prop: 'inactiveText'}],
         [{label: "打开值", eType: "Input", prop: 'activeValue'}],
         [{label: "关闭值", eType: "Input", prop: 'inactiveValue'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
         [{label: "必填提示语", eType: "Input", prop: 'tipMessage'}],
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
@@ -222,7 +278,14 @@ export const formSetCol = {
         [{label: "字段名", eType: "Input", prop: 'prop'}],
         [{label: "文字", eType: "Input", prop: 'value'}],
         [{label: "图标类名", eType: "Input", prop: 'icon'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
         [{label: "类型", eType: "Select", prop: 'type', options: 'primary,success,info,warning,danger'}],
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
         [{label: "朴素按钮", eType: "Switch", prop: 'plain'}],
@@ -233,7 +296,14 @@ export const formSetCol = {
     Radio: [
         [{label: "标题名称", eType: "Input", prop: 'label'}],
         [{label: "字段名", eType: "Input", prop: 'prop'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
         [{label: "必填提示语", eType: "Input", prop: 'tipMessage'}],
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
@@ -242,7 +312,14 @@ export const formSetCol = {
     RadioButton: [
         [{label: "标题名称", eType: "Input", prop: 'label'}],
         [{label: "字段名", eType: "Input", prop: 'prop'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
         [{label: "必填提示语", eType: "Input", prop: 'tipMessage'}],
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
@@ -252,7 +329,14 @@ export const formSetCol = {
     Check: [
         [{label: "标题名称", eType: "Input", prop: 'label'}],
         [{label: "字段名", eType: "Input", prop: 'prop'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
         [{label: "必填提示语", eType: "Input", prop: 'tipMessage'}],
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
@@ -262,7 +346,14 @@ export const formSetCol = {
     CheckButton: [
         [{label: "标题名称", eType: "Input", prop: 'label'}],
         [{label: "字段名", eType: "Input", prop: 'prop'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
         [{label: "必填提示语", eType: "Input", prop: 'tipMessage'}],
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
@@ -272,7 +363,14 @@ export const formSetCol = {
     Select: [
         [{label: "标题名称", eType: "Input", prop: 'label'}],
         [{label: "字段名", eType: "Input", prop: 'prop'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
         [{label: "必填提示语", eType: "Input", prop: 'tipMessage'}],
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
@@ -283,8 +381,15 @@ export const formSetCol = {
     Rate: [
         [{label: "标题名称", eType: "Input", prop: 'label'}],
         [{label: "字段名", eType: "Input", prop: 'prop'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
-        [{label: "max", eType: "InputNumber", prop: 'max', min: 2}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
+        [{label: "max", eType: "InputNumber", prop: 'max', min: 5}],
         [{label: "未选中的颜色", eType: "ColorPicker", prop: 'voidColor'}],
         [{label: "允许半选", eType: "Switch", prop: 'allowHalf'}],
         [{label: "选中颜色数组", eType: "Input", prop: 'colors'}],
@@ -294,7 +399,14 @@ export const formSetCol = {
     ColorPicker: [
         [{label: "标题名称", eType: "Input", prop: 'label'}],
         [{label: "字段名", eType: "Input", prop: 'prop'}],
-        [{label: "span", eType: "Slider", prop: 'span', max: 24, min: 1, marks: {6: '6', 12: '12', 18: '18'}}],
+        [{
+            label: "span",
+            eType: "Slider",
+            prop: 'span',
+            max: 24,
+            min: 1,
+            marks: {6: '6', 12: '12', 18: '18', 24: '24'}
+        }],
         [{label: "支持透明度", eType: "Switch", prop: 'showAlpha'}],
         [{label: "必填提示语", eType: "Input", prop: 'tipMessage'}],
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],

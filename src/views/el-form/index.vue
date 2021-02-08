@@ -210,6 +210,13 @@ export default {
             span: 6,
           },
         ],
+        [{
+          eType: 'Editor',
+          label: "Editor",
+          height: 300,
+          prop: 'date35',
+          span: 24,
+        },],
         [
           {eType: 'Button', value: "提交", type: "success", prop: 'submit', span: 2,},
           {eType: 'Button', value: "重置", type: "success", prop: 'reset', span: 2,}
@@ -220,6 +227,7 @@ export default {
           {required: true, message: '请选择活动区域', trigger: 'change'}
         ],
         date11: {required: true, message: '请选择活动区域', trigger: 'change'},
+        date35: {required: true, message: '请选择活动区域', trigger: 'change'},
       },
       show: true
     }

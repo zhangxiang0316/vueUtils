@@ -4,6 +4,7 @@
 * noShow      设置该条是否展示
 * noFormItem  设置是否有label
 * needToast   form校验是否需要Toast提示
+* canDraggable 是否可拖拽排序
 * 备注：
 */
 <template>
@@ -76,6 +77,7 @@ export default {
     vuedraggable
   },
   props: {
+    //是否可拖拽排序
     canDraggable: {type: Boolean, default: false},
     disabled: {type: Boolean, default: false},
     needToast: {type: Boolean, default: false},
@@ -143,8 +145,8 @@ export default {
     },
     //所有change以及click事件
     event(params) {
-      this.$emit('event', params)
-      console.log('event', params)
+      this.$emit('event',params)
+      console.log('event',  JSON.stringify(params))
       if (params.prop === "submit") {
         this.submit().then(res => {
           this.$emit('submit')
