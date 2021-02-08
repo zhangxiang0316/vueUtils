@@ -1,4 +1,8 @@
 let prop = "prop"
+/**
+ * 每种类型对应表单
+ * @type {{TimePicker: {prop: string, eType: string, label: string, span: number}, InputNumber: {prop: string, eType: string, label: string, span: number}, ColorPicker: {prop: string, eType: string, label: string, span: number}, Rate: {prop: string, eType: string, label: string, span: number}, Check: {prop: string, eType: string, options: string, label: string, span: number}, Radio: {prop: string, eType: string, options: string, label: string, span: number}, RadioButton: {prop: string, eType: string, options: string, label: string, span: number}, Input: {prop: string, eType: string, label: string, span: number}, Textarea: {prop: string, eType: string, label: string, type: string, rows: number, mType: string, span: number}, Switch: {prop: string, eType: string, label: string, span: number}, Button: {prop: string, eType: string, type: string, value: string, span: number}, Select: {prop: string, eType: string, options: string, label: string, span: number}, DatePicker: {prop: string, eType: string, valueFormat: string, label: string, type: string, span: number}, CheckButton: {noShow: boolean, prop: string, eType: string, options: string, label: string, span: number}}}
+ */
 export const eType = {
     Input: {
         eType: 'Input',
@@ -98,6 +102,10 @@ export const eType = {
     }
 }
 
+/**
+ * 所有表单类型
+ * @type {({name: string, eType: string}|{name: string, eType: string}|{name: string, eType: string}|{name: string, eType: string}|{name: string, eType: string})[]}
+ */
 export const buttonList = [
     {name: "单行文本", eType: "Input"},
     {name: "多行文本", eType: "Textarea"},
@@ -114,7 +122,10 @@ export const buttonList = [
     {name: "颜色", eType: "ColorPicker"},
     {name: "按钮", eType: "Button"},
 ]
-
+/**
+ * 每种类型控制字段
+ * @type {{TimePicker: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{min: number, max: number, prop: string, eType: string, label: string, marks: {"12": string, "6": string, "18": string}}[])[], InputNumber: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{min: number, max: number, prop: string, eType: string, label: string, marks: {"12": string, "6": string, "18": string}}[]|{min: number, prop: string, eType: string, label: string}[])[], ColorPicker: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{min: number, max: number, prop: string, eType: string, label: string, marks: {"12": string, "6": string, "18": string}}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[])[], Rate: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{min: number, max: number, prop: string, eType: string, label: string, marks: {"12": string, "6": string, "18": string}}[]|{min: number, prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[])[], Check: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{min: number, max: number, prop: string, eType: string, label: string, marks: {"12": string, "6": string, "18": string}}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[])[], Radio: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{min: number, max: number, prop: string, eType: string, label: string, marks: {"12": string, "6": string, "18": string}}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[])[], RadioButton: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{min: number, max: number, prop: string, eType: string, label: string, marks: {"12": string, "6": string, "18": string}}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[])[], Input: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[])[], Textarea: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[])[], Switch: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[])[], Button: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{min: number, max: number, prop: string, eType: string, label: string, marks: {"12": string, "6": string, "18": string}}[]|{prop: string, eType: string, options: string, label: string}[])[], Select: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{min: number, max: number, prop: string, eType: string, label: string, marks: {"12": string, "6": string, "18": string}}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[])[], DatePicker: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[])[], CheckButton: ({prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[]|{min: number, max: number, prop: string, eType: string, label: string, marks: {"12": string, "6": string, "18": string}}[]|{prop: string, eType: string, label: string}[]|{prop: string, eType: string, label: string}[])[]}}
+ */
 export const formSetCol = {
     Input: [
         [{label: "标题名称", eType: "Input", prop: 'label'}],
@@ -291,7 +302,13 @@ export const formSetCol = {
     ]
 }
 
-
+/**
+ * 导出vue文件模板
+ * @param formCols
+ * @param rules
+ * @param formData
+ * @returns {string}
+ */
 export const vueFile = (formCols, rules, formData) => {
     let file = `<template>
                     <div class="vueFile">
