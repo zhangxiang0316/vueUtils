@@ -43,6 +43,7 @@
       </div>
       <div class="right">
         <m-form
+            ref="rightForm"
             size="mini"
             labelWidth="120px"
             labelPosition="right"
@@ -50,7 +51,20 @@
             :formData="formSetData"
             :formCols="formSetCols">
           <template #options="data">
-            <el-input placeholder="暂时替代数组"></el-input>
+            <div v-for="(item,index) in data.data.options">
+              <el-row>
+                <el-col :span="9">
+                  <el-input placeholder="key" v-model="item.label"></el-input>
+                </el-col>
+                <el-col :span="9">
+                  <el-input placeholder="value" v-model="item.value"></el-input>
+                </el-col>
+                <el-col :span="4" :offset="2">
+                  <i class="el-icon-delete" @click="data.data.options.splice(index,1)"></i>
+                </el-col>
+              </el-row>
+            </div>
+            <el-button @click="data.data.options.push({label:'',value:''})">新增</el-button>
           </template>
         </m-form>
       </div>
@@ -194,6 +208,8 @@ export default {
       item.prop = `prop${this.index}`
       this.index++
       this.formSetCols = formSetCol[item.mType || item.eType]
+      console.log("formSetCols", this.formSetCols)
+      console.log('formSetData', item)
       this.formSetData = item
       let length = this.formCols.length
       this.formCols[length - 1].push(item)

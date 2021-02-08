@@ -29,21 +29,21 @@ export const eType = {
     Radio: {
         eType: 'Radio',
         label: "单选",
-        options: '手机,电脑',
+        options: [{label: "手机", value: "1"}, {label: "电脑", value: "2"}],
         prop: prop,
         span: 24,
     },
     RadioButton: {
         eType: 'RadioButton',
         label: "单选按钮",
-        options: '手机,电脑',
+        options: [{label: "手机", value: "1"}, {label: "电脑", value: "2"}],
         prop: prop,
         span: 24,
     },
     Check: {
         eType: 'Check',
         label: "多选",
-        options: '手机,电脑',
+        options: [{label: "手机", value: "1"}, {label: "电脑", value: "2"}],
         prop: prop,
         span: 24,
     },
@@ -51,7 +51,7 @@ export const eType = {
         eType: 'CheckButton',
         label: "多选按钮",
         noShow: false,
-        options: '手机,电脑',
+        options: [{label: "手机", value: "1"}, {label: "电脑", value: "2"}],
         prop: prop,
         span: 24,
     },
@@ -72,7 +72,7 @@ export const eType = {
     Select: {
         eType: 'Select',
         label: "下拉框",
-        options: "手机,电脑",
+        options: [{label: "手机", value: "1"}, {label: "电脑", value: "2"}],
         prop: prop,
         span: 24,
     },
@@ -238,7 +238,6 @@ export const formSetCol = {
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
         [{label: "数据", eType: "slot", prop: 'options', slotName: "options"}],
-        [{label: "数据String", eType: "Input", prop: 'options'}],
     ],
     RadioButton: [
         [{label: "标题名称", eType: "Input", prop: 'label'}],
@@ -248,7 +247,7 @@ export const formSetCol = {
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
         [{label: "数据", eType: "slot", prop: 'options', slotName: "options"}],
-        [{label: "数据String", eType: "Input", prop: 'options'}],
+        // [{label: "数据String", eType: "Input", prop: 'options'}],
     ],
     Check: [
         [{label: "标题名称", eType: "Input", prop: 'label'}],
@@ -258,7 +257,7 @@ export const formSetCol = {
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
         [{label: "数据", eType: "slot", prop: 'options', slotName: "options"}],
-        [{label: "数据String", eType: "Input", prop: 'options'}],
+        // [{label: "数据String", eType: "Input", prop: 'options'}],
     ],
     CheckButton: [
         [{label: "标题名称", eType: "Input", prop: 'label'}],
@@ -268,7 +267,7 @@ export const formSetCol = {
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
         [{label: "数据", eType: "slot", prop: 'options', slotName: "options"}],
-        [{label: "数据String", eType: "Input", prop: 'options'}],
+        // [{label: "数据String", eType: "Input", prop: 'options'}],
     ],
     Select: [
         [{label: "标题名称", eType: "Input", prop: 'label'}],
@@ -279,7 +278,7 @@ export const formSetCol = {
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
         [{label: "数据", eType: "slot", prop: 'options', slotName: "options",}],
         [{label: "可删除", eType: "Switch", prop: 'clearable'}],
-        [{label: "数据String", eType: "Input", prop: 'options'}]
+        // [{label: "数据String", eType: "Input", prop: 'options'}]
     ],
     Rate: [
         [{label: "标题名称", eType: "Input", prop: 'label'}],

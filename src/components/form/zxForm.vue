@@ -36,7 +36,7 @@
                 :label="item.noFormItem?'':item.label"
                 :prop="item.prop"
                 :label-width="item.noFormItem?'0':labelWidth">
-              <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
+              <slot v-if="item.eType==='slot'" :name="item.slotName" :data="{...item,...formData}"></slot>
               <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
             </el-form-item>
           </el-col>
@@ -55,7 +55,7 @@
               :label="item.noFormItem?'':item.label"
               :prop="item.prop"
               :label-width="item.noFormItem?'0':labelWidth">
-            <slot v-if="item.eType==='slot'" :name="item.slotName"></slot>
+            <slot v-if="item.eType==='slot'" :name="item.slotName" :data="{...item,...formData}"></slot>
             <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
           </el-form-item>
         </el-col>
