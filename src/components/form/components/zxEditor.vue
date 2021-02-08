@@ -41,6 +41,7 @@ export default {
       }
       editor.config.onchangeTimeout = 500 // 修改为 500ms
       editor.create()
+      editor.txt.html(this.formData[this.item.prop]?this.formData[this.item.prop]:"")
       this.editor = editor
     },
     change() {
