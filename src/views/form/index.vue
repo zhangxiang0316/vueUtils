@@ -53,13 +53,13 @@
           <template #options="data">
             <div v-for="(item,index) in data.data.options">
               <el-row>
-                <el-col :span="9">
+                <el-col :span="10">
                   <el-input placeholder="key" v-model="item.label"></el-input>
                 </el-col>
-                <el-col :span="9">
+                <el-col :span="10">
                   <el-input placeholder="value" v-model="item.value"></el-input>
                 </el-col>
-                <el-col :span="4" :offset="2">
+                <el-col :span="2" :offset="2">
                   <i class="el-icon-delete" @click="data.data.options.splice(index,1)"></i>
                 </el-col>
               </el-row>

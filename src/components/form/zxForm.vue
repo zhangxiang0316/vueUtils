@@ -24,7 +24,7 @@
         :key="index"
         :gutter="items&&items.gutter?items.gutter:0">
       <template v-if="canDraggable">
-        <vuedraggable :scroll="true">
+        <vuedraggable :scroll="true" chosenClass="chosen" >
           <el-col
               v-for="item in items"
               :span="item.span"
@@ -145,8 +145,8 @@ export default {
     },
     //所有change以及click事件
     event(params) {
-      this.$emit('event',params)
-      console.log('event',  JSON.stringify(params))
+      this.$emit('event', params)
+      console.log('event', JSON.stringify(params))
       if (params.prop === "submit") {
         this.submit().then(res => {
           this.$emit('submit')
@@ -190,3 +190,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.chosen{
+  background-color: #eaffea !important;
+}
+</style>

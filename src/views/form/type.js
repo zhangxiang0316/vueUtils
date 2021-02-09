@@ -374,8 +374,8 @@ export const formSetCol = {
         [{label: "必填提示语", eType: "Input", prop: 'tipMessage'}],
         [{label: "是否必填", eType: 'Switch', prop: 'isRule'}],
         [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
-        [{label: "数据", eType: "slot", prop: 'options', slotName: "options",}],
         [{label: "可删除", eType: "Switch", prop: 'clearable'}],
+        [{label: "数据", eType: "slot", prop: 'options', slotName: "options",}],
         // [{label: "数据String", eType: "Input", prop: 'options'}]
     ],
     Rate: [
