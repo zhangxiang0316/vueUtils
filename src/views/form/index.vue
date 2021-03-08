@@ -17,14 +17,16 @@
       <div class="left">
         <el-scrollbar>
           <vuedraggable @end="end" :sort="false">
-            <el-button
-                v-for="item in buttonList"
-                :eType="item.eType"
-                :key="item.name"
-                size="mini"
-                style="width:70px">
-              {{ item.name }}
-            </el-button>
+            <transition-group>
+              <el-button
+                  v-for="item in buttonList"
+                  :eType="item.eType"
+                  :key="item.name"
+                  size="mini"
+                  style="width:70px">
+                {{ item.name }}
+              </el-button>
+            </transition-group>
           </vuedraggable>
         </el-scrollbar>
       </div>
@@ -191,6 +193,7 @@ export default {
     },
     //拖拽结束设置
     end(evt) {
+      console.log(evt)
       let type = evt.item.attributes.eType.nodeValue,
           left = evt.originalEvent.clientX,
           top = evt.originalEvent.clientY,
@@ -215,7 +218,7 @@ export default {
         container.scrollTop = container.scrollHeight
       })
     },
-    //选中设置属性
+    //选中设置属性   
     formItemClick(item) {
       this.formSetCols = formSetCol[item.mType || item.eType]
       this.formSetData = item

@@ -88,6 +88,12 @@ module.exports = {
                     "^/audio2020": ""
                 }
             },
+            '/getBoxList': {
+                target: "http://piaofang.maoyan.com/getBoxList",
+                pathRewrite: {
+                    "^/getBoxList": ""
+                }
+            },
         }, // string | Object
         before: app => {
         },

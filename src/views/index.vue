@@ -31,6 +31,12 @@
         <el-button @click="goPage('form')">拖拽表单</el-button>
       </el-col>
     </el-row>
+    <el-row>
+      <el-col :span="3">
+        <el-button @click="goPage('movie')">电影票房</el-button>
+      </el-col>
+    </el-row>
+
   </div>
 </template>
 
@@ -58,5 +64,7 @@ export default {
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-
+.el-row {
+  margin: 10px 0;
+}
 </style>

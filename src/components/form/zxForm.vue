@@ -24,35 +24,37 @@
         :key="index"
         :gutter="items&&items.gutter?items.gutter:0">
       <template v-if="canDraggable">
-        <vuedraggable :scroll="true" chosenClass="chosen" >
-          <el-col
-              v-for="item in items"
-              :span="item.span"
-              :key="item.prop"
-              :offset="item.offset"
-              @click.native="formItemClick(item)"
-              @dblclick.native="formItemDbClick(item)">
-            <el-form-item
+        <vuedraggable :scroll="true" chosenClass="chosen">
+          <transition-group>
+            <el-col
+                v-for="item in items"
                 v-if="!item.noShow"
-                :label="item.noFormItem?'':item.label"
-                :prop="item.prop"
-                :label-width="item.noFormItem?'0':labelWidth">
-              <slot v-if="item.eType==='slot'" :name="item.slotName" :data="{...item,...formData}"></slot>
-              <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
-            </el-form-item>
-          </el-col>
+                :span="item.span"
+                :key="item.prop"
+                :offset="item.offset"
+                @click.native="formItemClick(item)"
+                @dblclick.native="formItemDbClick(item)">
+              <el-form-item
+                  :label="item.noFormItem?'':item.label"
+                  :prop="item.prop"
+                  :label-width="item.noFormItem?'0':labelWidth">
+                <slot v-if="item.eType==='slot'" :name="item.slotName" :data="{...item,...formData}"></slot>
+                <m-element v-else :item="item" :form-data="formData" @event="event"></m-element>
+              </el-form-item>
+            </el-col>
+          </transition-group>
         </vuedraggable>
       </template>
       <template v-else>
         <el-col
             v-for="item in items"
             :span="item.span"
+            v-if="!item.noShow"
             :key="item.prop"
             :offset="item.offset"
             @click.native="formItemClick(item)"
             @dblclick.native="formItemDbClick(item)">
           <el-form-item
-              v-if="!item.noShow"
               :label="item.noFormItem?'':item.label"
               :prop="item.prop"
               :label-width="item.noFormItem?'0':labelWidth">
@@ -192,7 +194,7 @@ export default {
 </script>
 
 <style>
-.chosen{
+.chosen {
   background-color: #eaffea !important;
 }
 </style>

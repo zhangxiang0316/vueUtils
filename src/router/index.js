@@ -52,6 +52,11 @@ const routers = [
         name: 'elForm',
         component: resolve => require(['@/views/el-form/index.vue'], resolve)
     },
+    {
+        path: '/movie',
+        name: 'movie',
+        component: resolve => require(['@/views/movie/index.vue'], resolve)
+    },
 
 ]
 Vue.use(Router)

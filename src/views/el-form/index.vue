@@ -7,8 +7,7 @@
         :formCols="formCols"
         :rules="rules"
         @event="event"
-        @submit="submit"
-    >
+        @submit="submit">
       <template #test>
         <el-input v-model="formData.date5"></el-input>
       </template>
