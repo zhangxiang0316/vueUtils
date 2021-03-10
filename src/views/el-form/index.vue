@@ -1,6 +1,7 @@
 /** * create by zhangxiang on 2021-01-26 15:29 * 类注释： * 备注： */
 <template>
   <div class="index">
+    <el-date-picker v-model="tiem" format="yyyy-MM-dd日 HH:mm:ss秒" style="width: 100%" type="datetime"></el-date-picker>
     <m-form
         ref="mForm"
         :formData="formData"
@@ -25,6 +26,8 @@ export default {
   props: {},
   data() {
     return {
+      format: "yyyy年MM月dd日 HH时mm分ss",
+      tiem: "",
       CascaderOptions: CascaderOptions,
       formData: {
         data27: "32134324",
@@ -267,8 +270,25 @@ export default {
   mounted() {
   },
   created() {
+    let format = "yyyy年MM月dd日 hh时mm分ss秒";
+    console.log("---1----->", format)
+    let index = format.indexOf('HH') !== -1 ? format.indexOf('HH') : format.indexOf('hh')
+    console.log(index)
+    console.log(format.slice(0, format.indexOf('HH') !== -1 ? format.indexOf('HH') : format.indexOf('hh')))
+    console.log(format.slice( format.indexOf('HH') !== -1 ? format.indexOf('HH') : format.indexOf('hh'),format.length-1))
+    console.log("---2----->", format.replace(/\W?D{1,2}|\W?Do|\W?d{1,4}|\W?M{1,4}|\W?y{2,4}/g, '').trim())
+    console.log("---3----->", format.replace(/\W?m{1,2}|\W?ZZ/g, '').replace(/\W?h{1,2}|\W?s{1,3}|\W?a/gi, '').trim())
   }
+
 }
+
+// var extractDateFormat = exports.extractDateFormat = function extractDateFormat(format) {
+//   return format.replace(/\W?m{1,2}|\W?ZZ/g, '').replace(/\W?h{1,2}|\W?s{1,3}|\W?a/gi, '').trim();
+// };
+//
+// var extractTimeFormat = exports.extractTimeFormat = function extractTimeFormat(format) {
+//   return format.replace(/\W?D{1,2}|\W?Do|\W?d{1,4}|\W?M{1,4}|\W?y{2,4}/g, '').trim();
+// };
 </script>
 
 <style scoped lang="less" rel="stylesheet/less"></style>
