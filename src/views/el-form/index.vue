@@ -1,7 +1,7 @@
 /** * create by zhangxiang on 2021-01-26 15:29 * 类注释： * 备注： */
 <template>
   <div class="index">
-    <el-date-picker v-model="tiem" format="yyyy-MM-dd日 HH:mm:ss秒" style="width: 100%" type="datetime"></el-date-picker>
+    <el-date-picker v-model="tiem" format="yyyy-MM-dd日 mm:ss" style="width: 100%" type="datetime"></el-date-picker>
     <m-form
         ref="mForm"
         :formData="formData"

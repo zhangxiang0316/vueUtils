@@ -9,6 +9,7 @@
     "doc": "jsdoc -r -c conf.json"
   },
   "dependencies": {
+    "@smallwei/avue": "^2.8.2",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "element-ui": "^2.15.0",

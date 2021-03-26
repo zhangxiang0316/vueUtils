@@ -35,20 +35,27 @@
       <el-col :span="3">
         <el-button @click="goPage('movie')">电影票房</el-button>
       </el-col>
+      <el-col :span="3">
+        <el-button @click="goPage('calender')">日历</el-button>
+      </el-col>
     </el-row>
-
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+
 export default {
   name: "index",
   components: {},
   props: {},
   data() {
-    return {}
+    return {
+      obj:{},
+    }
   },
-  computed: {},
+  computed: {
+
+  },
   methods: {
     goPage(name) {
       this.$router.push({name: name})

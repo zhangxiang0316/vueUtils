@@ -10,6 +10,10 @@ import VueSignaturePad from "vue-signature-pad";
 import {VueJsonp} from 'vue-jsonp'
 import './assets/iconfont/iconfont.css'
 
+import Avue from '@smallwei/avue';
+import '@smallwei/avue/lib/index.css';
+Vue.use(Avue);
+
 Vue.use(VueJsonp)
 Vue.use(zxLib)
 Vue.use(VueSignaturePad)

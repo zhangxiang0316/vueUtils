@@ -57,6 +57,11 @@ const routers = [
         name: 'movie',
         component: resolve => require(['@/views/movie/index.vue'], resolve)
     },
+    {
+        path: '/calender',
+        name: 'calender',
+        component: resolve => require(['@/views/calender/calender.vue'], resolve)
+    },
 
 ]
 Vue.use(Router)
