@@ -62,6 +62,11 @@ const routers = [
         name: 'calender',
         component: resolve => require(['@/views/calender/calender.vue'], resolve)
     },
+    {
+        path: '/draggableTest',
+        name: 'draggableTest',
+        component: resolve => require(['@/views/form/draggableTest.vue'], resolve)
+    },
 
 ]
 Vue.use(Router)

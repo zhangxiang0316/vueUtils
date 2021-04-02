@@ -446,3 +446,109 @@ export const vueFile = (formCols, rules, formData) => {
                 </script>`
   return file
 }
+
+export const buttons = [
+  {
+    eType: 'Input',
+    label: "单行文本",
+    prop: prop,
+    span: 24
+  },
+  {
+    eType: 'Input',
+    mType: 'Textarea',
+    label: "多行文本",
+    span: 24,
+    type: "textarea",
+    prop: prop,
+    rows: 5,
+  },
+  {
+    eType: 'Button',
+    value: "提交",
+    label: "按钮",
+    type: "success",
+    prop: 'submit',
+    span: 24
+  },
+  {
+    eType: 'Radio',
+    label: "单选",
+    options: [{label: "手机", value: "1"}, {label: "电脑", value: "2"}],
+    prop: prop,
+    span: 24,
+  },
+  {
+    eType: 'RadioButton',
+    label: "单选按钮",
+    options: [{label: "手机", value: "1"}, {label: "电脑", value: "2"}],
+    prop: prop,
+    span: 24,
+  },
+  {
+    eType: 'Check',
+    label: "多选",
+    options: [{label: "手机", value: "1"}, {label: "电脑", value: "2"}],
+    prop: prop,
+    span: 24,
+  },
+  {
+    eType: 'CheckButton',
+    label: "多选按钮",
+    noShow: false,
+    options: [{label: "手机", value: "1"}, {label: "电脑", value: "2"}],
+    prop: prop,
+    span: 24,
+  },
+  {
+    eType: 'InputNumber',
+    label: "计数器",
+    prop: prop,
+    span: 24,
+  },
+  {
+    eType: 'DatePicker',
+    type: 'date',
+    label: "日期",
+    valueFormat: "yyyy-MM-dd",
+    prop: prop,
+    span: 24,
+  },
+  {
+    eType: 'Select',
+    label: "下拉框",
+    options: [{label: "手机", value: "1"}, {label: "电脑", value: "2"}],
+    prop: prop,
+    span: 24,
+  },
+  {
+    eType: 'TimePicker',
+    label: "时间",
+    prop: prop,
+    span: 24,
+  },
+  {
+    eType: 'Switch',
+    label: "开关",
+    prop: prop,
+    span: 24,
+  },
+  {
+    eType: 'Rate',
+    label: "评分",
+    prop: prop,
+    span: 24,
+  },
+  {
+    eType: 'ColorPicker',
+    label: "颜色选择",
+    prop: prop,
+    span: 24,
+  },
+  {
+    eType: "Editor",
+    label: "富文本",
+    prop: prop,
+    span: 24
+  }
+]

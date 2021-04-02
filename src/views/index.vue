@@ -33,6 +33,9 @@
     </el-row>
     <el-row>
       <el-col :span="3">
+        <el-button @click="goPage('draggableTest')">分组拖拽</el-button>
+      </el-col>
+      <el-col :span="3">
         <el-button @click="goPage('movie')">电影票房</el-button>
       </el-col>
       <el-col :span="3">

@@ -1,13 +1,8 @@
-/**
-* create by zhangxiang on 2021-03-11 17:08
-* 类注释：
-* 备注：
-*/
 <template>
   <div class="calendar">
-<!--    <section class="header">
+    <section class="header">
       {{ selectData.year }}年{{ selectData.month }}月{{ selectData.day }}日
-    </section>-->
+    </section>
     <ul class="week-area">
       <li
           class="week-item"
@@ -16,7 +11,7 @@
         <span class="week-font calendar-item">{{ item }}</span>
       </li>
     </ul>
-    <div
+    <section
         ref="calendar"
         class="data-container"
         :style="{
@@ -27,7 +22,7 @@
         @touchmove.stop.prevent="touchMove"
         @touchend="touchEnd"
     >
-      <div
+      <section
           class="month-area"
           :style="{
           transform: `translateX(${-(translateIndex + 1) * 100}%)`,
@@ -61,8 +56,8 @@
             </li>
           </ul>
         </div>
-      </div>
-      <div
+      </section>
+      <section
           class="touch-area"
           :style="`height: ${touchAreaHeight}px; padding-top: ${touchAreaPadding}px;`">
         <div
@@ -70,8 +65,8 @@
             :style="`height: ${touchAreaHeight - touchAreaPadding}px`">
           <div class="touch-item"></div>
         </div>
-      </div>
-    </div>
+      </section>
+    </section>
   </div>
 </template>
 
@@ -403,7 +398,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .calendar {
   overflow-x: hidden;
 }
@@ -428,6 +423,7 @@ export default {
   color: #fff;
 }
 .week-area {
+  width: 100%;
   display: flex;
 }
 .week-item {

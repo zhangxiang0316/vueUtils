@@ -218,7 +218,7 @@ export default {
         container.scrollTop = container.scrollHeight
       })
     },
-    //选中设置属性   
+    //选中设置属性
     formItemClick(item) {
       this.formSetCols = formSetCol[item.mType || item.eType]
       this.formSetData = item
