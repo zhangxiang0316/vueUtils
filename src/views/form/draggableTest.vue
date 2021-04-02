@@ -8,18 +8,21 @@
     <el-row>
       <el-col :span="4" style="border-right: 1px solid #eee">
         <vuedraggable
-            :list="buttonList"
+            v-model="buttonList"
+            :animation="1000"
             :group="{ name:'people', pull:'clone',put:false}"
             :sort="false"
             ghostClass="ghost">
-          <el-button
-              v-for="item in buttonList"
-              :eType="item.eType"
-              :key="item.label"
-              size="mini"
-              style="width:150px;margin-top: 20px">
-            {{ item.label }}
-          </el-button>
+          <transition-group>
+            <el-button
+                v-for="item in buttonList"
+                :eType="item.eType"
+                :key="item.label"
+                size="mini"
+                style="width:150px;margin-top: 20px">
+              {{ item.label }}
+            </el-button>
+          </transition-group>
         </vuedraggable>
       </el-col>
       <el-col :span="20" style="height: 500px">
@@ -30,7 +33,8 @@
             label-position="right">
           <vuedraggable
               v-model="list"
-              v-bind="{group:'people', ghostClass: 'ghost'}" style="height: 500px"
+              v-bind="{group:'people', ghostClass: 'ghost'}"
+              style="height: 500px"
               @add="handleWidgetAdd">
             <el-form-item
                 v-for="item in list"
@@ -76,7 +80,7 @@ export default {
       const to = evt.to
       console.log('拖拽到容器事件-to', to)
       console.log('拖拽到容器事件-之前的data.list', this.list)
-      this.list[newIndex].prop=`prop_${new Date().getTime()}`
+      this.list[newIndex].prop = `prop_${new Date().getTime()}`
     },
   },
   activated() {
@@ -89,5 +93,16 @@ export default {
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-
+.ghost{
+  background: #F56C6C;
+  border: 2px solid #F56C6C;
+  outline-width: 0;
+  height: 3px;
+  box-sizing: border-box;
+  font-size: 0;
+  content: '';
+  overflow: hidden;
+  padding: 0;
+  margin: 2px;
+}
 </style>
