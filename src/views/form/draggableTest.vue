@@ -37,7 +37,8 @@
               style="height: 500px"
               @add="handleWidgetAdd">
             <el-form-item
-                v-for="item in list"
+                v-for="(item,index) in list"
+                :key="`item${index}`"
                 :label="item.noFormItem?'':item.label"
                 :prop="item.prop">
               <m-element :item="item" :form-data="formData" @event="event"></m-element>
