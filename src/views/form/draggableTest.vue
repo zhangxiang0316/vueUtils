@@ -192,22 +192,18 @@ export default {
           trigger: 'blur'
         })
       } else if (params.prop === "isRule" && !params.value) {
-        this.$refs.mForm.reset()
+        this.$refs['elForm'].resetFields();
         this.$set(this.rules, params.data.prop, {})
         delete this.rules[params.data.prop]
       }
     },
     handleWidgetAdd(evt) {
-      console.log('拖拽到容器事件-add', evt)
-      const newIndex = evt.newIndex // 当前拖拽到容器的元素索引
-      const to = evt.to
-      console.log('拖拽到容器事件-to', to)
-      console.log('拖拽到容器事件-之前的data.list', this.list)
-      this.list[newIndex].prop = `prop_${new Date().getTime()}`
-      console.log(this.list[newIndex])
-      let item = this.list[newIndex]
+      const newIndex = evt.newIndex
+      let item = JSON.parse(JSON.stringify(this.list[newIndex]))
+      item.prop = `prop_${new Date().getTime()}`
       this.formSetData = item
       this.formSetCols = formSetCol[item.mType || item.eType]
+      this.$set(this.list, newIndex, item)
     },
     //复制json数据
     copyJson() {
