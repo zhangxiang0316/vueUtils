@@ -26,7 +26,7 @@
     "vue-signature-pad": "^2.0.2",
     "vuedraggable": "^2.24.3",
     "xlsx": "^0.16.9",
-    "zx-lib": "^1.0.6"
+    "zx-lib": "^1.0.7"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

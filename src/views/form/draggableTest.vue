@@ -71,7 +71,7 @@
         </el-scrollbar>
       </div>
       <div class="right">
-        <m-form
+        <zx-form
             ref="rightForm"
             size="mini"
             labelWidth="120px"
@@ -95,7 +95,7 @@
             </div>
             <el-button @click="data.data.options.push({label:'',value:''})">新增</el-button>
           </template>
-        </m-form>
+        </zx-form>
       </div>
     </div>
 
