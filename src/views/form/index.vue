@@ -56,7 +56,7 @@
             <div v-for="(item,index) in data.data.options">
               <el-row>
                 <el-col :span="10">
-                  <el-input placeholder="key" v-model="item.label"></el-input>
+                  <el-input placeholder="label" v-model="item.label"></el-input>
                 </el-col>
                 <el-col :span="10">
                   <el-input placeholder="value" v-model="item.value"></el-input>

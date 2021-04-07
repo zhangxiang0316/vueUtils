@@ -466,7 +466,7 @@ export const buttons = [
   {
     eType: 'Button',
     value: "提交",
-    label: "按钮",
+    labels: "按钮",
     type: "success",
     prop: 'submit',
     span: 24
