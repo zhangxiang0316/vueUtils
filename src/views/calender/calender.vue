@@ -1,8 +1,5 @@
 <template>
   <div class="calendar">
-    <section class="header">
-      {{ selectData.year }}年{{ selectData.month }}月{{ selectData.day }}日
-    </section>
     <ul class="week-area">
       <li
           class="week-item"
@@ -31,7 +28,7 @@
         <div
             class="banner-area"
             :style="{
-            transform: `translateY(${offsetY}px)`,
+            transform: `translateY(${offsetY-10}px)`,
             transitionDuration: `${needHeightAnimation ? transitionDuration : 0}s`
           }">
           <ul
@@ -48,22 +45,16 @@
                 :class="[
                 'data-item',
                 { 'selected': item.isSelected },
-                { 'other-item': item.type !== 'normal' && !isWeekView },
+                // { 'other-item': item.type !== 'normal' && !isWeekView },
               ]"
                 :style="`height: ${itemHeight}px`"
                 @click="checkoutDate(item)">
-              <span class="data-font calendar-item">{{ item.day }}</span>
+              <div class="data-font calendar-item" v-show="item.type == 'normal'||isWeekView ">
+                <div>{{ item.day }}</div>
+                <div style="font-size: 11px">{{ getLunarDay(item) }}</div>
+              </div>
             </li>
           </ul>
-        </div>
-      </section>
-      <section
-          class="touch-area"
-          :style="`height: ${touchAreaHeight}px; padding-top: ${touchAreaPadding}px;`">
-        <div
-            class="touch-container"
-            :style="`height: ${touchAreaHeight - touchAreaPadding}px`">
-          <div class="touch-item"></div>
         </div>
       </section>
     </section>
@@ -71,6 +62,8 @@
 </template>
 
 <script>
+import calendar from '@/utils/calender/calender'
+
 export default {
   name: 'calender',
   data() {
@@ -91,15 +84,14 @@ export default {
         y: 0
       },
       isWeekView: false, // 周视图还是月视图
-      itemHeight: 50, // 子元素行高
+      itemHeight: 55, // 子元素行高
       needHeightAnimation: false, // 高度变化是否需要动画
       offsetY: 0, // 周视图 Y轴偏移量
       lineNum: 0, // 当前视图总行数
       lastWeek: [], // 周视图 前一周数据
       nextWeek: [], // 周视图 后一周数据
       isDelay: true, // 是否延迟 (动画结束在处理数据)
-      touchAreaHeight: 40, // 底部区域高度
-      touchAreaPadding: 10, // 底部区域padding
+      touchAreaHeight: 10, // 底部区域高度
       isClicked: false, // 点选元素 (去除周视图切换月份时的动画延迟)
     }
   },
@@ -108,7 +100,7 @@ export default {
   },
   watch: {
     dataArr: {
-      handler (val) {
+      handler(val) {
         this.changeAllData(val)
       },
       deep: true,
@@ -121,6 +113,14 @@ export default {
     },
   },
   methods: {
+    getLunarDay(time) {
+      const lunarDay = calendar.solar2lunar(time.year, time.month, time.day);
+      console.log(time.month + "-" + time.day, lunarDay)
+      if (lunarDay.IDayCn == '初一')
+        return lunarDay.IMonthCn
+      else
+        return lunarDay.IDayCn;
+    },
     // 更新轮播数组
     changeAllData(val) {
       if (this.isSelectedCurrentDate && !this.isWeekView) return
@@ -157,7 +157,7 @@ export default {
     },
     // 获取指定月份数据
     getMonthData(date, unSelected = false) {
-      const { year, month, day } = date
+      const {year, month, day} = date
       let dataArr = []
       let daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
       if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
@@ -223,24 +223,24 @@ export default {
     },
     // 获取前(后)一个月的年月日信息
     getPreMonth(date, appointDay = 1) {
-      let { year, month } = date || this.selectData
+      let {year, month} = date || this.selectData
       if (month === 1) {
         year -= 1
         month = 12
       } else {
         month -= 1
       }
-      return { year, month, day: appointDay }
+      return {year, month, day: appointDay}
     },
     getNextMonth(appointDay = 1) {
-      let { year, month } = this.selectData
+      let {year, month} = this.selectData
       if (month === 12) {
         year += 1
         month = 1
       } else {
         month += 1
       }
-      return { year, month, day: appointDay }
+      return {year, month, day: appointDay}
     },
     // 切换上(下)一月
     handlePreMonth() {
@@ -252,7 +252,7 @@ export default {
     // 处理月数据
     dealMonthData(type, appointDay = 1) {
       this.isSelectedCurrentDate = false
-      switch(type) {
+      switch (type) {
         case 'PRE_MONTH':
           this.selectData = this.getPreMonth('', appointDay)
           break
@@ -302,14 +302,13 @@ export default {
     },
     touchEnd() {
       this.isTouching = false
-      const { x, y } = this.touch
+      const {x, y} = this.touch
       // 月视图
-      if (Math.abs(x) > Math.abs(y) && Math.abs(x) > 0.3) {
+      if (Math.abs(x) > Math.abs(y) && Math.abs(x) > 0.2) {
         if (x > 0) { // 左
           this.translateIndex -= 1
           this.isWeekView ? this.handlePreWeek() : this.handlePreMonth()
-        }
-        else if (x < 0) { // 右
+        } else if (x < 0) { // 右
           this.translateIndex += 1
           this.isWeekView ? this.handleNextWeek() : this.handleNextMonth()
         }
@@ -319,8 +318,7 @@ export default {
         if (y > 0) { // 下
           this.isWeekView = false
           this.offsetY = 0
-        }
-        else if (y < 0) { // 上
+        } else if (y < 0) { // 上
           this.isWeekView = true
           this.dealWeekViewData()
         }
@@ -336,7 +334,7 @@ export default {
       const totalLine = Math.ceil(length / 7)
       const sliceStart = (indexOfLine - 1) * 7
       const sliceEnd = sliceStart + 7
-      return { indexOfLine, totalLine, sliceStart, sliceEnd }
+      return {indexOfLine, totalLine, sliceStart, sliceEnd}
     },
     // 生成前(后)一周数据
     dealWeekViewSliceStart() {
@@ -354,7 +352,7 @@ export default {
         const preDataArr = this.getMonthData(preInfo, true)
         const preDay = this.dataArr[0].day - 1 || preDataArr[preDataArr.length - 1].day
         const preIndex = preDataArr.findIndex(item => item.day === preDay && item.type === 'normal')
-        const { sliceStart: preSliceStart, sliceEnd: preSliceEnd } = this.getInfoOfWeekView(preIndex, preDataArr.length)
+        const {sliceStart: preSliceStart, sliceEnd: preSliceEnd} = this.getInfoOfWeekView(preIndex, preDataArr.length)
         this.lastWeek = preDataArr.slice(preSliceStart, preSliceEnd)
       } else {
         this.lastWeek = this.dataArr.slice(sliceStart - 7, sliceEnd - 7)
@@ -365,7 +363,10 @@ export default {
         const nextDataArr = this.getMonthData(nextInfo, true)
         const nextDay = this.dataArr[this.dataArr.length - 1].type === 'normal' ? 1 : this.dataArr[this.dataArr.length - 1].day + 1
         const nextIndex = nextDataArr.findIndex(item => item.day === nextDay)
-        const { sliceStart: nextSliceStart, sliceEnd: nextSliceEnd } = this.getInfoOfWeekView(nextIndex, nextDataArr.length)
+        const {
+          sliceStart: nextSliceStart,
+          sliceEnd: nextSliceEnd
+        } = this.getInfoOfWeekView(nextIndex, nextDataArr.length)
         this.nextWeek = nextDataArr.slice(nextSliceStart, nextSliceEnd)
       } else {
         this.nextWeek = this.dataArr.slice(sliceStart + 7, sliceEnd + 7)
@@ -381,8 +382,12 @@ export default {
     },
     // 处理周数据
     dealWeekData(type) {
-      const { year, month, day } = type === 'PRE_WEEK' ? this.lastWeek.find(item => item.type === 'normal') : this.nextWeek[0]
-      this.selectData = { year, month, day }
+      const {
+        year,
+        month,
+        day
+      } = type === 'PRE_WEEK' ? this.lastWeek.find(item => item.type === 'normal') : this.nextWeek[0]
+      this.selectData = {year, month, day}
       this.dataArr = this.getMonthData(this.selectData)
       this.lineNum = Math.ceil(this.dataArr.length / 7)
       this.offsetY -= this.itemHeight
@@ -402,6 +407,7 @@ export default {
 .calendar {
   overflow-x: hidden;
 }
+
 .header {
   padding: 0 5px;
   font-size: 18px;
@@ -410,62 +416,80 @@ export default {
   line-height: 44px;
   margin: 0 calc((14.285% - 40px) / 2 + 6px);
 }
+
 .calendar-item {
   display: block;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   text-align: center;
-  line-height: 40px;
 }
+
 .selected .calendar-item {
-  background: #2b4450;
+  background: #ee9900;
   border-radius: 50%;
   color: #fff;
 }
+
 .week-area {
-  width: 100%;
   display: flex;
+  padding: 0;
+  margin: 0;
 }
+
 .week-item {
-  height: 45px;
+  line-height: 50px;
+  height: 50px;
   flex: 0 0 14.285%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .week-font {
   font-size: 15px;
   color: #2b4450;
   font-weight: 500;
 }
+
 .data-container {
   overflow: hidden;
   position: relative;
 }
+
 .banner-area {
   width: 300%;
   display: flex;
 }
+
 .data-area {
+  padding: 0;
   width: 100%;
   height: 100%;
   display: flex;
   flex-flow: row wrap;
 }
+
+li {
+  list-style-type: none;
+}
+
+
 .data-item {
   flex: 0 0 14.285%;
-  display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .data-font {
   color: #2b4450;
   font-size: 18px;
   font-weight: 400;
 }
+
 .other-item .data-font {
   color: #ccc;
 }
+
 .touch-area {
   width: 100%;
   box-sizing: border-box;
@@ -474,6 +498,7 @@ export default {
   left: 0;
   bottom: 0;
 }
+
 .touch-container {
   width: 100%;
   box-sizing: border-box;
@@ -482,6 +507,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
 .touch-item {
   width: 40px;
   height: 5px;
