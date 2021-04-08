@@ -2,6 +2,12 @@
  * create by zhangxiang on 2020-12-31 10:31
  * 类注释：拖拽修改dialog大小
  * 备注：
+ <el-dialog
+ title="提示"
+ v-draggable
+ v-dialogSize
+ :visible.sync="dialogVisible"
+ width="30%">
  */
 export default {
     bind(el) {

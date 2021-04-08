@@ -1,33 +1,32 @@
 <template>
   <div class="hello" v-waterMarker="waterMarker">
+    <p v-clampy="2" style="width: 200px">Long text to clamp here Long text to clamp hereLong text to clamp hereLong text
+      to clamp here</p>
     <div>
-      <button @click="debounceClick" v-debounceTime>防抖</button>
+      <el-button v-debounce="debounceClick">防抖</el-button>
+      <el-button v-throttle="debounceClick">节流</el-button>
     </div>
     <div>
-      <button v-copy="copyText">复制</button>
+      <el-button v-copy="copyText" @click="copyOK">复制</el-button>
+    </div>
+    <div>
+      <el-input placeholder="不能输入表情" type="text" v-model="copyText" v-emoji/>
     </div>
 
     <div>
-      <input type="text" v-model="copyText" v-emoji/>
+      <el-input placeholder="只能输入正整数" v-model="inputNumber" v-inputNumber/>
     </div>
     <div>
-      <button v-longpress="longpress">长按</button>
+      <el-button v-longpress="longpress">长按</el-button>
     </div>
     <div>
-      <button v-permission="'1'">权限按钮1</button>
+      <el-button v-permission="'1'">权限按钮1</el-button>
       <!-- 不显示 -->
-      <button v-permission="'5'">权限按钮2</button>
+      <el-button v-permission="'5'">权限按钮2</el-button>
     </div>
     <div>
-
-      <el-input type="textarea" v-model="copyText" v-maxLen></el-input>
-      <el-form>
-        <el-form-item>
-          <el-input type="text" v-model="copyText"></el-input>
-        </el-form-item>
-      </el-form>
+      <el-button @click="dialogVisible = true">展示dialog</el-button>
     </div>
-    <el-button @click="dialogVisible = true">展示dialog</el-button>
     <el-dialog
         title="提示"
         v-draggable
@@ -40,18 +39,21 @@
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
-    <div v-dragBorder style="background: blue;width: 50px;height: 50px;border-radius: 50%">fdfsfsdf</div>
 
   </div>
 </template>
 
 <script>
-
+// import clampy from '@clampy-js/vue-clampy';
+// import Vue from 'vue';
+//
+// Vue.use(clampy);
 export default {
   name: 'HelloWorld',
   props: {},
   data() {
     return {
+      inputNumber: "",
       canClick: true,
       dialogVisible: false,
       waterMarker: {text: '版权所有', textColor: 'rgba(180, 180, 180, 0.4)'},
@@ -59,9 +61,8 @@ export default {
     }
   },
   methods: {
-    jieLiu() {
-      console.log("-----888--->", "fsdfsdffsdfsfsfdsfds")
-      this.copyText = "werwrerwr"
+    copyOK() {
+      this.$message.success('复制成功')
     },
     clickOutside() {
       console.log("------>", '点击了外面')

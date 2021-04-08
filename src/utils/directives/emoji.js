@@ -1,3 +1,9 @@
+/**
+ * create by zhangxiang on 2021-04-08 13:58
+ * 类注释：禁止输入表情
+ * 备注：<input type="text" v-model="copyText" v-emoji/>
+ */
+
 let findEle = (parent, type) => {
   return parent.tagName.toLowerCase() === type
     ? parent
@@ -17,7 +23,7 @@ const emoji = {
     el.$inp = $inp
     $inp.handle = function () {
       let val = $inp.value
-      console.log("-------",val)
+      console.log("-------", val)
       $inp.value = val.replace(regRule, '')
       trigger($inp, 'input')
     }

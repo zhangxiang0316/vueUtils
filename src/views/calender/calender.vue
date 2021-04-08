@@ -49,7 +49,7 @@
               ]"
                 :style="`height: ${itemHeight}px`"
                 @click="checkoutDate(item)">
-              <div class="data-font calendar-item" v-show="item.type == 'normal'||isWeekView ">
+              <div class="data-font calendar-item" v-if="item.type == 'normal'||isWeekView ">
                 <div>{{ item.day }}</div>
                 <div style="font-size: 11px">{{ getLunarDay(item) }}</div>
               </div>

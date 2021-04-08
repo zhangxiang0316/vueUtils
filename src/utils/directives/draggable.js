@@ -1,3 +1,9 @@
+/**
+ * el-dialog拖拽指令
+ * <el-dialog title="提示" v-draggable>
+ * @type {{bind(*, *, *, *): void}}
+ */
+
 const draggable = {
   bind(el, binding, vnode, oldVnode) {
     const dialogHeaderEl = el.querySelector('.el-dialog__header')
@@ -24,7 +30,7 @@ const draggable = {
         styT = +sty.top.replace(/\px/g, '')
       }
 
-      document.onmousemove = function(e) {
+      document.onmousemove = function (e) {
         // 通过事件委托，计算移动的距离
         const l = e.clientX - disX
         const t = e.clientY - disY
@@ -37,7 +43,7 @@ const draggable = {
         // binding.value({x:e.pageX,y:e.pageY})
       }
 
-      document.onmouseup = function(e) {
+      document.onmouseup = function (e) {
         document.onmousemove = null
         document.onmouseup = null
       }

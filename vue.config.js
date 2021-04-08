@@ -16,6 +16,7 @@ function resolve(dir) {
 }
 
 module.exports = {
+
     // 基本路径
     publicPath: './',
     //  构建时的输出目录
@@ -31,7 +32,7 @@ module.exports = {
     // 是否使用带有浏览器内编译器的完整构建版本
     runtimeCompiler: false,
     //  babel-loader 默认会跳过 node_modules 依赖。
-    transpileDependencies: [/* string or regex */],
+    transpileDependencies: [],
     //  是否为生产环境构建生成 source map？
     productionSourceMap: true,
     //  设置生成的 HTML 中 <link rel='stylesheet'> 和 <script> 标签的 crossorigin 属性。
