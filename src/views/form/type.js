@@ -201,7 +201,17 @@ export const formSetCol = {
       label: "时间类型",
       eType: "Select",
       prop: 'type',
-      options: 'year,month,date,dates,week,datetime,datetimerange,daterange,monthrange'
+      options: [
+        {label: '年', value: 'year'},
+        {label: '月', value: 'month'},
+        {label: '日', value: 'date'},
+        {label: '多日期', value: 'dates'},
+        {label: '星期', value: 'week'},
+        {label: '日期时间', value: 'datetime'},
+        {label: '日期时间范围', value: 'datetimerange'},
+        {label: '日期范围', value: 'daterange'},
+        {label: '月份范围', value: 'monthrange'}
+      ]
     }],
     [{label: "对齐方式", eType: "Select", prop: 'align', options: 'left, center, right'}],
     [{label: "必填提示语", eType: "Input", prop: 'tipMessage'}],

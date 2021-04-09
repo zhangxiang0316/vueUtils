@@ -56,7 +56,7 @@ export default {
     this.initEditor()
   },
   created() {
-    this.id = "zxEditor" + parseInt(Math.random() * 1000000)
+    this.id = "zxEditor_" + new Date().getTime()
   },
   beforeDestroy() {
     this.editor.destroy()
