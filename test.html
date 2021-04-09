@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+
+<div id="app">
+  <zx-form
+    ref="mForm"
+    :form-data="formData"
+    :form-cols="formCols"
+    :rules="rules"
+    @event="event"
+    @submit="submit">
+    <template #test>
+      <el-input v-model="formData.date5"></el-input>
+    </template>
+  </zx-form>
+</div>
+</body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/zx-lib/lib/zx-lib.umd.min.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        formData: {
+          data27: "32134324",
+        },
+        formCols: [
+          [
+            {
+              eType: 'Input',
+              placeholder: "请输入姓名",
+              label: "Input",
+              prop: 'name1',
+              noShow: false,
+              span: 6,
+              suffixIcon: "el-icon-eleme"
+            },
+            {eType: 'slot', label: "自定义slot", slotName: "test", prop: 'date5', span: 6,},
+            {
+              eType: 'Radio',
+              label: "Radio",
+              options: [{label: "手机", value: "0"}, {label: "电脑", value: "1"}],
+              prop: 'date10',
+              span: 6,
+            },
+            {
+              eType: 'RadioButton',
+              label: "RadioButton",
+              options: [{label: "手机", value: "0"}, {label: "电脑", value: "1"}],
+              prop: 'date11',
+              span: 6,
+            },
+          ],
+          [
+            {
+              eType: 'InputNumber',
+              label: "InputNumber",
+              prop: 'date16',
+              span: 6,
+            },
+            {
+              eType: 'CheckButton',
+              label: "CheckButton",
+              noShow: false,
+              // options: [{label: "手机", value: "0"}, {label: "电脑", value: "1"}],
+              // options: '手机,电脑',
+              options: ['手机', '电脑'],
+              prop: 'date15',
+              span: 6,
+            },
+            {
+              eType: 'Check',
+              label: "CheckBox",
+              // options: [{label: "手机", value: "0"}, {label: "电脑", value: "1"}],
+              options: '手机,电脑',
+              prop: 'date13',
+              span: 6,
+            },
+            {
+              eType: 'DatePicker',
+              type: 'year',
+              label: "year",
+              valueFormat: "yyyy",
+              prop: 'date18',
+              span: 6,
+            },
+          ],
+          [
+            {
+              eType: 'Select',
+              label: "Select",
+              options: [{label: "手机", value: "0"}, {label: "电脑", value: "1"}],
+              prop: 'date17',
+              span: 6,
+            },
+            {
+              eType: 'DatePicker',
+              type: 'date',
+              label: "date",
+              valueFormat: "yyyy-MM-dd",
+              prop: 'date19',
+              span: 6,
+            },
+            {
+              eType: 'DatePicker',
+              type: 'datetime',
+              label: "datetime",
+              valueFormat: "yyyy-MM-dd hh:mm:ss",
+              prop: 'date20',
+              span: 6,
+            },
+            {
+              eType: 'Check',
+              label: "CheckBox",
+              options: '手机',
+              prop: 'date30',
+              span: 6,
+            },
+          ],
+          [
+            {
+              eType: 'DatePicker',
+              type: 'daterange',
+              label: "daterange",
+              valueFormat: "yyyy-MM-dd",
+              prop: 'date21',
+              span: 6,
+            },
+            {
+              eType: 'DatePicker',
+              type: 'datetimerange',
+              label: "datetimerange",
+              valueFormat: "yyyy-MM-dd hh:mm:ss",
+              prop: 'date22',
+              span: 6,
+            },
+            {
+              eType: 'DatePicker',
+              type: 'dates',
+              label: "dates",
+              valueFormat: "yyyy-MM-dd",
+              prop: 'date23',
+              span: 6,
+            },
+            {
+              eType: 'TimePicker',
+              label: "TimePicker",
+              prop: 'date24',
+              noShow: false,
+              span: 6,
+            },
+          ],
+          [
+            {
+              eType: 'Switch',
+              label: "Switch",
+              prop: 'date25',
+              span: 6,
+            },
+            {
+              eType: 'Slider',
+              label: "Slider",
+              prop: 'date26',
+              noShow: false,
+              span: 6,
+            },
+            {
+              eType: "Span",
+              prop: "data27",
+              // noFormItem: true,
+              span: 6,
+              formatter: (data) => {
+                console.log(data)
+              }
+            },
+            {
+              eType: 'Rate',
+              label: "Rate",
+              prop: 'date29',
+              span: 6,
+            },
+          ],
+          [
+            {
+              eType: 'Icon',
+              elementUi: true,
+              label: "elementUIIcon",
+              class: "el-icon-share",
+              prop: 'date31',
+              span: 6,
+            },
+            {
+              eType: 'Icon',
+              label: "Icon",
+              class: "icon-yiduxinxi",
+              prop: 'date32',
+              span: 6,
+            },
+            {
+              eType: 'Cascader',
+              label: "Cascader",
+              options: [],
+              prop: 'date33',
+              span: 6,
+            },
+          ],
+          [{
+            eType: 'Editor',
+            label: "Editor",
+            height: 300,
+            prop: 'date35',
+            span: 24,
+          },],
+          [
+            {eType: 'Button', value: "提交", type: "success", prop: 'submit', span: 2,},
+            {eType: 'Button', value: "重置", type: "success", prop: 'reset', span: 2,}
+          ]
+        ],
+        rules: {
+          date5: [
+            {required: true, message: '请选择活动区域', trigger: 'change'}
+          ],
+          date11: {required: true, message: '请选择活动区域', trigger: 'change'},
+          date35: {required: true, message: '请选择活动区域', trigger: 'change'},
+        },
+      }
+    },
+    methods: {
+      /**
+       * 各种事件合集
+       * @param params
+       */
+      event(params) {
+        console.log(params, this.formData)
+        this.$refs.mForm.setNoShow('date10', this.show)
+        this.$refs.mForm.setOptions('date15',
+          [
+            {label: "手机", value: "0"},
+            {label: "电脑", value: "1"},
+            {label: "平板", value: "2"}
+          ])
+        this.show = !this.show
+      },
+      /**
+       * 提交事件
+       */
+      submit() {
+        this.$refs.mForm.setNoShow("date13", true)
+        this.$refs.mForm.setOptions("date33", this.CascaderOptions)
+        console.log('submit', this.formData)
+      },
+      submits() {
+        Promise.all([this.$refs.mForm.submit(), this.$refs.mForm1.submit()]).then(datas => {
+          console.log("---同时提交-->", '校验成功')
+        })
+      }
+    },
+  })
+</script>
+</html>
