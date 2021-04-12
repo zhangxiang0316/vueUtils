@@ -1,5 +1,7 @@
 <template>
   <div class="calendar">
+    <button @click="checkoutCurrentDate">转到今天</button>
+    <div>{{ selectData.year }}年{{ selectData.month }}月{{ selectData.day }}</div>
     <ul class="week-area">
       <li
           class="week-item"
@@ -45,13 +47,16 @@
                 :class="[
                 'data-item',
                 { 'selected': item.isSelected },
-                // { 'other-item': item.type !== 'normal' && !isWeekView },
+                { 'other-item': item.type !== 'normal' && !isWeekView },
               ]"
                 :style="`height: ${itemHeight}px`"
                 @click="checkoutDate(item)">
-              <div class="data-font calendar-item" v-if="item.type == 'normal'||isWeekView ">
+              <div class="data-font calendar-item" v-if="item.type === 'normal'||isWeekView ">
                 <div>{{ item.day }}</div>
                 <div style="font-size: 11px">{{ getLunarDay(item) }}</div>
+              </div>
+              <div class="tips" v-if="(item.type === 'normal'||isWeekView) && index%4 === 2">
+                <div class="tip"></div>
               </div>
             </li>
           </ul>
@@ -404,6 +409,19 @@ export default {
 </script>
 
 <style>
+.tips {
+  width: 45px;
+  text-align: center;
+}
+
+.tip {
+  margin: 0 auto;
+  background: #f00;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+}
+
 .calendar {
   overflow-x: hidden;
 }

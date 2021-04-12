@@ -67,6 +67,11 @@ const routers = [
         name: 'draggableTest',
         component: resolve => require(['@/views/form/draggableTest.vue'], resolve)
     },
+    {
+        path: '/qrcode',
+        name: 'qrcode',
+        component: resolve => require(['@/views/qrcode/index.vue'], resolve)
+    },
 
 ]
 Vue.use(Router)

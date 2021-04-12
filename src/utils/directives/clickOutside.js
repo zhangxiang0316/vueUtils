@@ -1,3 +1,8 @@
+/**
+ * create by zhangxiang on 2021-04-08 13:58
+ * 类注释：文本截断
+ * 备注：<p v-click-outside="clickOutside"/>  显示行数
+ */
 const HANDLERS_PROPERTY = '__v-click-outside'
 const HAS_WINDOWS = typeof window !== 'undefined'
 const HAS_NAVIGATOR = typeof navigator !== 'undefined'

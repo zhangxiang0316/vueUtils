@@ -3,7 +3,7 @@
     <p v-clampy="2" style="width: 200px">Long text to clamp here Long text to clamp hereLong text to clamp hereLong text
       to clamp here</p>
     <div>
-      <el-button v-debounce="debounceClick">防抖</el-button>
+      <el-button v-debounce="debounceClick" v-click-outside="clickOutside">防抖</el-button>
       <el-button v-throttle="debounceClick">节流</el-button>
     </div>
     <div>
