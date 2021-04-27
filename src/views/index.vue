@@ -46,6 +46,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import {getOS} from 'outils'
 
 export default {
   name: "index",
@@ -69,6 +70,7 @@ export default {
   mounted() {
   },
   created() {
+    console.log(getOS())
   }
 }
 </script>

@@ -54,7 +54,7 @@
     // 扫描源文件和导览时递归到子目录。 -r
     "recurse": true,
     // 设置【生成文件模板】 ink-docstrap 和 minami 模板
-//     "template": "./node_modules/ink-docstrap/template"
+    //     "template": "./node_modules/ink-docstrap/template"
     "template": "./node_modules/minami"
   }
 }

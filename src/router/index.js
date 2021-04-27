@@ -72,6 +72,11 @@ const routers = [
         name: 'qrcode',
         component: resolve => require(['@/views/qrcode/index.vue'], resolve)
     },
+    {
+        path: '/echarts',
+        name: 'echarts',
+        component: resolve => require(['@/components/mCharts/index.vue'], resolve)
+    },
 
 ]
 Vue.use(Router)

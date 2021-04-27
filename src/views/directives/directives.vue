@@ -21,8 +21,10 @@
     </div>
     <div>
       <el-button v-permission="'1'">权限按钮1</el-button>
-      <!-- 不显示 -->
+      <!-- 无权限 -->
       <el-button v-permission="'5'">权限按钮2</el-button>
+
+      <el-button v-permission="'demo'">权限按钮3</el-button>
     </div>
     <div>
       <el-button @click="dialogVisible = true">展示dialog</el-button>
@@ -66,9 +68,6 @@ export default {
     longpress() {
       console.log("长按指令生效")
     },
-    handleClick() {
-      console.log("----handleClick-----")
-    },
     debounceClick() {
       console.log('只触发一次')
     }
@@ -77,7 +76,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped lang="less" rel="stylesheet/less">
 /*.hello {
   position: absolute;
 }*/
@@ -95,5 +94,38 @@ export default {
 
 div {
   margin-top: 30px;
+}
+
+
+.permission-disabled {
+  position: relative;
+  cursor: not-allowed !important;
+  pointer-events: none; // 阻止元素成为鼠标事件
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: 9;
+    background: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.v-tooltip__content {
+  background: #616161;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 5px 8px;
+  position: absolute;
+  transition: 0.15s cubic-bezier(0.25, 0.8, 0.5, 1);
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  display: block;
+  width: auto;
+  white-space: nowrap;
+  opacity: 0;
 }
 </style>

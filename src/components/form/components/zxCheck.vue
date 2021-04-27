@@ -1,3 +1,4 @@
+
 /**
 * create by zhangxiang on 2021-01-27 18:18
 * 类注释：
@@ -60,7 +61,8 @@ export default {
   },
   created() {
     if (!this.formData[this.item.prop]) {
-      this.$set(this.formData, this.item.prop, [])
+      this.$set(this.formData, thi
+      s.item.prop, [])
     }
   }
 }
