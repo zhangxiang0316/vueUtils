@@ -61,8 +61,7 @@ export default {
   },
   created() {
     if (!this.formData[this.item.prop]) {
-      this.$set(this.formData, thi
-      s.item.prop, [])
+      this.$set(this.formData, this.item.prop, [])
     }
   }
 }
