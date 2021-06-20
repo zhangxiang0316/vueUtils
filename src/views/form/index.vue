@@ -5,13 +5,17 @@
 */
 <template>
   <div class="form">
-    <el-header class="mheader" style="text-align: right">
-      <el-button @click="showDialog=!showDialog"> 查看json数据</el-button>
-      <el-button @click="showSetJson=!showSetJson"> 导入Json数据</el-button>
-      <el-button @click="exportVueFile"> 导出vue文件</el-button>
-      <el-button @click="copyJson" v-copy="copyFile"> 复制代码</el-button>
-      <el-button @click="clearPage"> 清空页面</el-button>
-      <el-button @click="showVue=!showVue"> 运行</el-button>
+    <el-header class="mheader" >
+      <div style="float: left;margin-left: 20px;font-size: 25px">翔仔表单拖拽系统</div>
+      <div style="text-align: right;">
+        <el-button @click="showDialog=!showDialog"> 查看json数据</el-button>
+        <el-button @click="showSetJson=!showSetJson"> 导入Json数据</el-button>
+        <el-button @click="exportVueFile"> 导出vue文件</el-button>
+        <el-button @click="copyJson" v-copy="copyFile"> 复制代码</el-button>
+        <el-button @click="clearPage"> 清空页面</el-button>
+        <el-button @click="showVue=!showVue"> 运行</el-button>
+      </div>
+
     </el-header>
     <div class="index">
       <div class="left">

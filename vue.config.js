@@ -73,7 +73,7 @@ module.exports = {
     devServer: {
         host: '0.0.0.0',
         port: 8088,
-        https: true,
+        https: false,
         hotOnly: true,
         // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/cli-service.md#配置代理
         proxy: {
