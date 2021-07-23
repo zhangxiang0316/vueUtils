@@ -24,6 +24,8 @@ Vue.use(Directives)
 Vue.use(ElementUI, {size: 'small', zIndex: 3000})
 Vue.config.productionTip = false
 Vue.prototype.$log = log;
+import {message} from './utils/message/message'
+Vue.prototype.$message = message;
 
 new Vue({
     router,
