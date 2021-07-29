@@ -12,6 +12,8 @@ import zxLib from 'zx-lib'
 import VueSignaturePad from "vue-signature-pad";
 import {VueJsonp} from 'vue-jsonp'
 import './assets/iconfont/iconfont.css'
+import {Keyframes} from 'vue-keyframes';
+Vue.use(Keyframes);
 
 import Avue from '@smallwei/avue';
 import '@smallwei/avue/lib/index.css';

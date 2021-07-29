@@ -77,6 +77,21 @@ const routers = [
         name: 'echarts',
         component: resolve => require(['@/components/mCharts/index.vue'], resolve)
     },
+    {
+        path: '/animation',
+        name: 'animation',
+        component: resolve => require(['@/views/anmin/index.vue'], resolve)
+    },
+    {
+        path: '/draggable',
+        name: 'draggable',
+        component: resolve => require(['@/views/draggable/index.vue'], resolve)
+    },
+    {
+        path: '/clock',
+        name: 'clock',
+        component: resolve => require(['@/views/clock/index.vue'], resolve)
+    },
 
 ]
 Vue.use(Router)

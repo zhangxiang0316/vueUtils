@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html style='height: 100%'>
+<head>
+    <meta charset='utf-8'>
+</head>
+<body style='height: 100%; margin: 0'>
+<div id='container' style='height: 100%;width: 1000px;margin: 0 auto'></div>
+
+<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js'></script>
+<script type='text/javascript'>
+    var dom = document.getElementById('container')
+    var myChart = echarts.init(dom)
+    var option
+
+    var w = 100,
+        h = 33
+
+    var data = {
+        'children': [
+            {
+                'children': [
+                    {
+                        'children': [
+                            {
+                                'children': [],
+                                'name': '低压车间表计62'
+                            },
+                            {
+                                'children': [],
+                                'name': '低压车间表计84'
+                            }
+                        ],
+                        'name': '低压关口表计1'
+                    },
+                    {
+                        'children': [
+                            {
+                                'children': [],
+                                'name': '低压车间表计82'
+                            },
+                            {
+                                'children': [],
+                                'name': '低压车间表计44'
+                            }
+                        ],
+                        'name': '低压关口表计1'
+                    }
+                ],
+                'name': '高压子表计122'
+            },
+            {
+                'children': [
+                    {
+                        'children': [],
+                        'name': '低压关口表计101'
+                    },
+                    {
+                        'children': [],
+                        'name': '低压关口表计131'
+                    }
+                ],
+                'name': '高压子表计141'
+            }
+        ],
+        'name': '高压总表计102'
+    }
+
+    var option = {
+        tooltip: {
+            trigger: 'item',
+            triggerOn: 'mousemove'
+        },
+        series: [
+            {
+                type: 'tree',
+                data: [data],
+                left: '2%',
+                right: '2%',
+                top: '5%',
+                bottom: '10%',
+                symbol: 'rect',
+                orient: 'vertical',
+                expandAndCollapse: true,//默认：true；子树折叠和展开的交互，默认打开 。
+                edgeShape: 'polyline',
+                initialTreeDepth: 8,//默认：2，树图初始展开的层级（深度）。根节点是第 0 层，然后是第 1 层、第 2 层，... ，直到叶子节点
+                symbolSize: [w, h],
+                label: {
+                    normal: {
+                        fontSize: 12,//文字的字体大小\
+                        color: '#f00'
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        color: '#24BC9D'
+                    }
+                },
+                animationDurationUpdate: 700
+            }
+        ]
+    }
+
+    if (option && typeof option === 'object') {
+        myChart.setOption(option)
+    }
+
+    myChart.on('click', function (params) {
+        console.log(params)
+    })
+
+</script>
+</body>
+</html>

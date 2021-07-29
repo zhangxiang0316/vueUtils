@@ -268,4 +268,3 @@
   Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
-//# sourceMappingURL=clampy.umd.js.map

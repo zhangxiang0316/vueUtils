@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app" style="width:100%;height:100%;margin-right: auto">
+    <key-frames loop="true" style="text-align: center;width: 30%;height: 40%">
+        <img v-for="(item,index) in 45" duration="41" :src="getSrc(index)">
+    </key-frames>
+</div>
+</body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+
+        data() {
+            return {}
+        },
+        methods: {
+            getSrc(index) {
+                if (index < 10) {
+                    return `../src/assets/cy/臭氧雷达000${index}.png`
+                } else {
+                    return `../src/assets/cy/臭氧雷达00${index}.png`
+                }
+            }
+        },
+
+        components: {
+            keyFrames: {
+                mounted() {
+                    this.animateNextFrame();
+                    if (!JSON.parse(this.autoRun)) {
+                        this.stop = true;
+                    }
+                },
+                template: '<div></div>',
+                watch: {
+                    stop(val) {
+                        if (!val) {
+                            this.animateNextFrame();
+                        }
+                    }
+                },
+                methods: {
+                    callFn(fn, noFrame) {
+                        if (fn !== false && typeof (fn) === 'function') {
+                            noFrame ? fn(this.$el) : fn(this.$el, this.frameNum);
+                        } else if (fn !== false && window[fn] !== undefined) {
+                            noFrame ? window[fn](this.$el) : window[fn](this.$el, this.frameNum);
+                        } else {
+                            return false;
+                        }
+                    },
+                    animateNextFrame() {
+                        if (this.stop === true) {
+                            return false;
+                        }
+                        if (this.frameNum > 0) {
+                            const freeze = this.frames.data[this.frameNum - 1].freeze;
+                            if (!freeze) {
+                                this.$set(this.frames.visibility, this.frameNum - 1, false);
+                            }
+                        }
+                        this.$set(this.frames.visibility, this.frameNum, true);
+                        setTimeout(() => {
+                            // if ( this.frameNum === 0 ) {
+                            this.callFn(this.onAnimate);
+                            // }
+                        })
+                        this.waitForDelay(() => {
+                            if (this.frameNum < Object.keys(this.frames.data).length - 1) {
+                                this.frameNum++;
+                                this.animateNextFrame();
+                            } else {
+                                this.callFn(this.onEnd, true);
+                                if (JSON.parse(this.loop)) {
+                                    this.resetFrames();
+                                }
+                            }
+                        });
+                    },
+                    waitForDelay(fn) {
+                        const currentFrame = this.frames.data[this.frameNum];
+                        const delay = this.frameNum === -1 ? this.delay : currentFrame.duration;
+                        clearTimeout(this.timer);
+                        this.timer = setTimeout(fn, delay);
+                    },
+                    resetFrames() {
+                        for (const i in this.frames.visibility) {
+                            if ({}.hasOwnProperty.call(this.frames.visibility, i)) {
+                                this.$set(this.frames.visibility, i, false);
+                            }
+                        }
+                        this.frameNum = -1;
+                        this.animateNextFrame();
+                    }
+                },
+                data() {
+                    return {
+                        register: false,
+                        frames: {visibility: {}, data: {}},
+                        frameNum: -1,
+                        timer: null,
+                        count: 0,
+                        stop: false
+                    };
+                },
+                props: {
+                    loop: {default: false},
+                    delay: {default: 0},
+                    onAnimate: {default: false},
+                    onEnd: {default: false},
+                    autoRun: {default: true},
+                    component: {default: 'div'}
+                },
+                render(createElement) {
+                    if (!this.register) {
+                        const children = this.$slots.default
+                            .filter(node => !node.text);
+                        children.map((child, index) => {
+                            this.resetFrames();
+                            let duration = 200;
+                            let freeze = false;
+                            if (child.data !== undefined && child.data.attrs !== undefined) {
+                                duration = child.data.attrs.duration === undefined ? 200 : child.data.attrs.duration;
+                                freeze = child.data.attrs.freeze === undefined ? false : child.data.attrs.freeze;
+                            }
+                            this.$set(this.frames.data, index, {
+                                duration: parseInt(duration, 10),
+                                freeze: freeze
+                            });
+                            if (index === children.length - 1) {
+                                this.register = true;
+                            }
+                            return true;
+                        });
+                    }
+                    const children = this.$slots.default
+                        .filter(node => !node.text)
+                        .map((child, index) => {
+                            let val = null;
+                            if (this.frames.visibility[index]) {
+                                if (child.data !== undefined && child.data.attrs !== undefined) {
+                                    delete child.data.attrs.freeze;
+                                    delete child.data.attrs.duration;
+                                }
+                                val = child;
+                            } else {
+                                this.$set(this.frames.visibility, index, false);
+                                val = false;
+                            }
+                            return val;
+                        });
+
+                    const x = createElement(
+                        this.component,
+                        {},
+                        children
+                    );
+                    return x;
+                }
+            }
+        },
+    })
+</script>
+</html>
