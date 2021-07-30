@@ -1,7 +1,7 @@
 /** * create by zhangxiang on 2021-01-26 15:29 * 类注释： * 备注： */
 <template>
   <div class="index">
-    <el-date-picker v-model="tiem" format="yyyy-MM-dd日 mm:ss" style="width: 100%" type="datetime"></el-date-picker>
+    <select-tree width="200" v-model="selected" :options="options" :props="defaultProps"></select-tree>
     <m-form
         ref="mForm"
         :formData="formData"
@@ -18,14 +18,62 @@
 
 <script type="text/ecmascript-6">
 import mForm from '@/components/form'
+import selectTree from "@/components/selectTree";
 import {CascaderOptions} from './data'
 
 export default {
   name: "index",
-  components: {mForm},
+  components: {
+    mForm,
+    selectTree
+  },
   props: {},
   data() {
     return {
+      selected:'',
+
+      defaultProps: {
+        // parent: 'parentId',   // 父级唯一标识
+        value: 'label',          // 唯一标识
+        label: 'label',       // 标签显示
+        children: 'children', // 子级
+      },
+      // 数据列表
+      options: [{
+        label: '一级 1',
+        children: [{
+          label: '二级 1-1',
+          children: [{
+            label: '三级 1-1-1'
+          }]
+        }]
+      }, {
+        label: '一级 2',
+        children: [{
+          label: '二级 2-1',
+          children: [{
+            label: '三级 2-1-1'
+          }]
+        }, {
+          label: '二级 2-2',
+          children: [{
+            label: '三级 2-2-1'
+          }]
+        }]
+      }, {
+        label: '一级 3',
+        children: [{
+          label: '二级 3-1',
+          children: [{
+            label: '三级 3-1-1'
+          }]
+        }, {
+          label: '二级 3-2',
+          children: [{
+            label: '三级 3-2-1'
+          }]
+        }]
+      }],
       format: "yyyy年MM月dd日 HH时mm分ss",
       tiem: "",
       CascaderOptions: CascaderOptions,
@@ -275,7 +323,7 @@ export default {
     let index = format.indexOf('HH') !== -1 ? format.indexOf('HH') : format.indexOf('hh')
     console.log(index)
     console.log(format.slice(0, format.indexOf('HH') !== -1 ? format.indexOf('HH') : format.indexOf('hh')))
-    console.log(format.slice( format.indexOf('HH') !== -1 ? format.indexOf('HH') : format.indexOf('hh'),format.length-1))
+    console.log(format.slice(format.indexOf('HH') !== -1 ? format.indexOf('HH') : format.indexOf('hh'), format.length - 1))
     console.log("---2----->", format.replace(/\W?D{1,2}|\W?Do|\W?d{1,4}|\W?M{1,4}|\W?y{2,4}/g, '').trim())
     console.log("---3----->", format.replace(/\W?m{1,2}|\W?ZZ/g, '').replace(/\W?h{1,2}|\W?s{1,3}|\W?a/gi, '').trim())
   }
