@@ -92,6 +92,11 @@ const routers = [
         name: 'clock',
         component: resolve => require(['@/views/clock/index.vue'], resolve)
     },
+    {
+        path: '/tree',
+        name: 'tree',
+        component: resolve => require(['@/views/tree/index.vue'], resolve)
+    },
 
 ]
 Vue.use(Router)
