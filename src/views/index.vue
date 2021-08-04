@@ -49,6 +49,15 @@
       <el-col :span="3">
         <el-button @click="goPage('calender')">日历</el-button>
       </el-col>
+      <el-col :span="3">
+        <el-button @click="goPage('tree')">树</el-button>
+      </el-col>
+      <el-col :span="3">
+        <el-button @click="goPage('animation')">帧动画</el-button>
+      </el-col>
+      <el-col :span="3">
+        <el-button @click="goPage('clock')">时钟</el-button>
+      </el-col>
     </el-row>
   </div>
 </template>

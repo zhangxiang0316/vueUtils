@@ -2,14 +2,22 @@
   <div class="card">
     <ul>
       <li v-for="(item,index) in treeData" :key="index">
-        <div class="item" :class="{'line-left':index!==0,'line-right':index!=treeData.length-1}">
-          <div class="item-name" :class="{'line-bottom':item.child&&item.child.length>0,'line-top':!treeFirst}">
+        <div
+            class="item"
+            :class="{'line-left':index!==0,'line-right':index!=treeData.length-1}">
+          <div
+              class="item-name"
+              :class="{'line-bottom':item.show && item.child && item.child.length>0,'line-top':!treeFirst}"
+              @click="show(item)">
             <div>
               {{ item.name }}
             </div>
+            <div class="add" v-if="item.child && item.child.length>0">
+              {{ item.show ? '-' : '+' }}
+            </div>
           </div>
         </div>
-        <tree-item v-if="item.child&&item.child.length>0" :tree-data="item.child"/>
+        <tree-item v-if="item.show && item.child && item.child.length>0 " :tree-data="item.child"/>
       </li>
     </ul>
   </div>
@@ -28,14 +36,20 @@ export default {
       default: false
     }
   },
+  methods: {
+    show(item) {
+      item.show = !item.show
+    }
+  }
 }
 </script>
 <style>
-ul,li{
+ul, li {
   list-style: none;
   padding: 0;
   margin: 0;
 }
+
 .card ul {
   display: flex;
   justify-content: center
@@ -55,6 +69,23 @@ ul,li{
   margin: 20px;
   background: #06b7fd;
   color: #fff
+}
+
+.card ul li .item-name .add {
+  position: absolute;
+  border: 2px solid red;
+  border-radius: 100%;
+  bottom: -7px;
+  color: red;
+  width: 14px;
+  height: 14px;
+  line-height: 13px;
+  font-size: 15px;
+  text-align: center;
+  z-index: 100;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
 }
 
 .card .line-bottom:after {

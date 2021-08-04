@@ -19,9 +19,11 @@ export default {
       treeData: [
         {
           "name": "软件部",
+          show: false,
           "child": [
             {
               "name": "前端",
+              show: false,
               "child": [
                 {
                   "name": "张三"
@@ -45,9 +47,11 @@ export default {
             },
             {
               "name": "架构师",
+              show: false,
               "child": [
                 {
                   "name": "前端",
+                  show: false,
                   "child": [
                     {
                       "name": "孩子"
@@ -58,29 +62,10 @@ export default {
                   ]
                 },
                 {
-                  "name": "342"
+                  "name": "阿凡达"
                 }
               ]
             },
-            {
-              "name": "认为",
-              "child": [
-                {
-                  "name": "发送到",
-                  "child": [
-                    {
-                      "name": "发送到"
-                    },
-                    {
-                      "name": "富士达"
-                    }
-                  ]
-                },
-                {
-                  "name": "防守打法"
-                }
-              ]
-            }
           ]
         }
       ]
