@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Swiper demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_695306_0fo55mcu0auk.css">
+    <style>
+        #app{
+            position: relative;
+            margin: 0 auto;
+            width: 375px;
+            height:667px;
+            background: grey;
+        }
+        #app .ball{
+            width: 20px;
+            height: 20px;
+            position:absolute;
+            right:15px;
+            top:80px;
+            z-index:200;
+        }
+        #app .ball .inner{
+            position: absolute;
+            top: 0;
+            width:16px;
+            height:16px;
+            border-radius:50%;
+            background-color:rgb(0,160,220);
+        }
+        #app .box{
+            position: absolute;
+            bottom: 600px;
+            left: 200px;
+            width:60px;
+            height:60px;
+            font-size: 60px;
+            color: rgb(0,160,220);
+            transform: translateX(-20px);
+        }
+        button{
+            position: absolute;
+            z-index: 10;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color:rgb(0,160,220);
+            text-align: center;
+            color:#fff;
+            padding: 0;
+            outline: none;
+        }
+
+        .show{
+            opacity: 0;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="ball">
+        <button @click="addCart">+</button>
+        <div v-for="ball in balls"
+             :class="{show: !ball.run}"
+             class="inner" ref="ball">
+        </div>
+    </div>
+    <i class="box iconfont icon-shangpinguanli" ref="cart"></i>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            balls: [
+                {run: false},
+                {run: false},
+                {run: false},
+                {run: false},
+                {run: false}
+            ],
+            ballIndex: 0
+        },
+        computed: {
+            notRun() {
+                return this.balls.filter(v => !v.run)
+            }
+        },
+        watch: {
+            ballIndex(nv) {
+                this.ballIndex = nv == this.balls.length ? 0 : nv;
+            }
+        },
+        methods: {
+            parabola(element, options, arc, duration){
+                duration = duration || 800;
+                var start = this.offset(element);
+                var x = options.left - start.left,
+                    y = options.top - start.top;
+                var a = arc, c = 0, b = (y - a * x * x) / x;
+                var date = +new Date();
+                var timer = setInterval(() => {
+                    var elapsed = Math.min(+new Date() - date, duration);
+                    var _x = elapsed * x / duration,
+                        _y = a * _x * _x + b * _x + c;
+                    this.offset(element, {left : _x + start.left, top : _y + start.top});
+                    if(elapsed === duration)
+                        clearInterval(timer);
+                },1000/60)
+            },
+            offset(element,coord){
+                if(typeof coord === "undefined"){
+                    var _top = 0, _left = 0;
+                    while(element !== null){
+                        _top += element.offsetTop;
+                        _left += element.offsetLeft;
+                        element = element.offsetParent;
+                    }
+                    return {top : _top, left : _left};
+                }
+                var _top = 0, _left = 0, parent = element.offsetParent;
+                while(parent !== null){
+                    _top += parent.offsetTop;
+                    _left += parent.offsetLeft;
+                    parent = parent.offsetParent;
+                }
+                _left = coord.left - _left;/*要设置的相对文档的定位距离相当于是用此距离减去其父元素在文档中的定位*/
+                _top = coord.top - _top;
+                // css(element,{left : _left+"px", top : _top+"px"});
+                element.style.left =  _left+"px";
+                element.style.top =  _top+"px";
+            },
+            addCart() {
+                var idx = this.ballIndex;
+                console.log(idx)
+                this.balls[idx].run = true;
+                this.parabola(this.$refs.ball[idx], this.offset(this.$refs.cart), 0.01, 800);
+                setTimeout(() => {
+                    this.balls[idx].run = false;
+                    this.$refs.ball[idx].style.top = "";
+                    this.$refs.ball[idx].style.left = "";
+                }, 850);
+                this.ballIndex++;
+            }
+        },
+        mounted() {
+        }
+    })
+</script>
+</body>

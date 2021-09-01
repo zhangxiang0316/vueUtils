@@ -6,7 +6,7 @@
 <template>
   <div class="form">
     <el-header class="mheader" >
-      <div style="float: left;margin-left: 20px;font-size: 25px">翔仔表单拖拽系统</div>
+      <div style="float: left;margin-left: 20px;font-size: 25px">表单拖拽系统</div>
       <div style="text-align: right;">
         <el-button @click="showDialog=!showDialog"> 查看json数据</el-button>
         <el-button @click="showSetJson=!showSetJson"> 导入Json数据</el-button>

@@ -67,6 +67,7 @@ ul, li {
   height: 30px;
   padding: 5px;
   margin: 20px;
+  border-radius: 5px;
   background: #06b7fd;
   color: #fff
 }
@@ -128,4 +129,6 @@ ul, li {
   left: 0;
   right: calc(-50% - 22px)
 }
+
+
 </style>

@@ -2,6 +2,7 @@
 <template>
   <div class="index">
     <select-tree width="200" v-model="selected" :options="options" :props="defaultProps"></select-tree>
+    <tree-select width="200" v-model="selected" :options="options" :props="defaultProps"></tree-select>
     <m-form
         ref="mForm"
         :formData="formData"
@@ -19,11 +20,14 @@
 <script type="text/ecmascript-6">
 import mForm from '@/components/form'
 import selectTree from "@/components/selectTree";
+import treeSelect from "@/components/treeSelect/treeSelect";
 import {CascaderOptions} from './data'
+import TreeSelect from "../../components/treeSelect/treeSelect";
 
 export default {
   name: "index",
   components: {
+    TreeSelect,
     mForm,
     selectTree
   },

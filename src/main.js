@@ -15,9 +15,13 @@ import './assets/iconfont/iconfont.css'
 import {Keyframes} from 'vue-keyframes';
 Vue.use(Keyframes);
 
+import animate from 'animate.css'
+
 import Avue from '@smallwei/avue';
 import '@smallwei/avue/lib/index.css';
 Vue.use(Avue);
+
+Vue.use(animate)
 
 Vue.use(VueJsonp)
 Vue.use(zxLib)

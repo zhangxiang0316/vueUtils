@@ -97,7 +97,11 @@ const routers = [
         name: 'tree',
         component: resolve => require(['@/views/tree/index.vue'], resolve)
     },
-
+    {
+        path: '/treeTest',
+        name: 'tree',
+        component: resolve => require(['@/views/tree/test.vue'], resolve)
+    },
 ]
 Vue.use(Router)
 const vueRouter = new Router({

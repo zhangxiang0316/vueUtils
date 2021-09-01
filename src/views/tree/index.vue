@@ -1,7 +1,7 @@
 <template>
   <div class="tree">
     <div class="tree-content" @mousedown.stop="move">
-      <tree-item :tree-data="treeData" :tree-first="true"/>
+      <tree-item :tree-data="treeData"  :tree-first="true"/>
     </div>
   </div>
 </template>
