@@ -10,7 +10,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import echarts from "echarts";
+import * as echarts from "echarts";
 import './china'
 function randomData() {
   return Math.round(Math.random()*500);

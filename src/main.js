@@ -15,6 +15,9 @@ import './assets/iconfont/iconfont.css'
 import {Keyframes} from 'vue-keyframes';
 Vue.use(Keyframes);
 
+import VueParticles from 'vue-particles'
+Vue.use(VueParticles)
+
 import animate from 'animate.css'
 
 import Avue from '@smallwei/avue';
