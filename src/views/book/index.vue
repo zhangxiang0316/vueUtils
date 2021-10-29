@@ -15,14 +15,14 @@
     </div>
     <div style="height: 1000px;flex: 4;margin-left: 30px; overflow-y: scroll">
       <div style="line-height:50px; text-align: center;position: absolute;background: white;left: 50%">{{ title }}</div>
-      <div style="white-space: pre-wrap;word-wrap:break-word;word-break:break-all;margin-top: 50px;" v-html="content"></div>
+      <div style="white-space: pre-wrap;word-wrap:break-word;word-break:break-all;margin-top: 50px;"
+           v-html="content"></div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import axios from "axios";
-
 
 
 export default {
@@ -35,12 +35,13 @@ export default {
       content: '',
       title: "",
       selectIndex: -1,
+      bookId: '',
     }
   },
   computed: {},
   methods: {
     loadData() {
-      axios.get('/api/pc/getCatalog', {params: {data: {book_id: '4356290733'}}}).then(res => {
+      axios.get('/api/pc/getCatalog', {params: {data: {book_id: this.bookId}}}).then(res => {
         console.log(res.data)
         this.zhangList = res.data.data.novel.items
       })
@@ -50,8 +51,8 @@ export default {
       axios.get('/api/pc/getChapterContent', {
         params: {
           data: {
-            book_id: '4356290733',
-            cid: `4356290733|${item.cid}`,
+            book_id: this.bookId,
+            cid: `${this.bookId}|${item.cid}`,
             need_bookinfo: 0
           }
         }
@@ -67,6 +68,7 @@ export default {
   mounted() {
   },
   created() {
+    this.bookId = this.$route.query.bookId
     this.loadData()
   }
 }

@@ -1,0 +1,340 @@
+body {
+	margin: 0;
+}
+
+@keyframes FlyOne {
+	10% {
+		transform: translateX(7vw) translateY(-10vh) rotate(0deg);
+	}
+	40% {
+		transform: translateX(2vw) translateY(-30vh) rotate(5deg);
+	}
+	70% {
+		transform: translateX(10vw) translateY(-70vh) rotate(-5deg);
+	}
+	100% {
+		transform: translateX(3vw) translateY(-120vh) rotate(3deg);
+	}
+}
+
+@keyframes FlyTwo {
+	10% {
+		transform: translateX(2vw) translateY(-15vh) rotate(0deg);
+	}
+	40% {
+		transform: translateX(10vw) translateY(-60vh) rotate(5deg);
+	}
+	70% {
+		transform: translateX(3vw) translateY(-90vh) rotate(-5deg);
+	}
+	100% {
+		transform: translateX(12vw) translateY(-100vh) rotate(3deg);
+		opacity: 0.1;
+	}
+}
+
+@keyframes FlyThree {
+	10% {
+		transform: translateX(5vw) translateY(-20vh) rotate(0deg);
+		opacity: 1;
+	}
+	40% {
+		transform: translateX(1vw) translateY(-50vh) rotate(5deg);
+		opacity: 0.8;
+	}
+	70% {
+		transform: translateX(7vw) translateY(-80vh) rotate(-5deg);
+		opacity: 0.7;
+	}
+	100% {
+		transform: translateX(14vw) translateY(-100vh) rotate(3deg);
+		opacity: 0.1;
+	}
+}
+
+@keyframes FlyFour {
+	100% {
+		transform: translateY(-100vh);
+		opacity: 0.1;
+	}
+}
+
+@keyframes Wink {
+	100% {
+		width: 0;
+	}
+}
+
+.moon-content {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background: linear-gradient(-180deg, #041039, #418cbc, #fff);
+	overflow: hidden;
+}
+
+.moon {
+	position: absolute;
+	border-radius: 100%;
+	width: 15vw;
+	height: 15vw;
+	background: radial-gradient(#fffee8, #fdfe8e, #faf193);
+	box-shadow: 0 0 40px 20px #fff;
+	left: 1vw;
+	top: 1vw;
+}
+
+.moon-shadow {
+	width: 4vw;
+	height: 7vw;
+	border-radius: 100%;
+	position: absolute;
+	top: 1vw;
+	left: 4.7vw;
+	background: linear-gradient(51deg, #f8de2b, #f5d633, #fdf956, #feff7f, #fefec6);
+}
+
+#moonShadow {
+	filter: url(#filter);
+}
+
+.kongming-latern, .kongming-latern-litle {
+	position: absolute;
+	height: 5.1vw;
+	width: 3.5vw;
+	bottom: -8vw;
+	background: linear-gradient(#92090e, #ea3d2d, #fbf885);
+	animation: FlyOne 22s linear infinite;
+}
+
+.latern-left {
+	border-left: 5vw solid transparent;
+	border-right: 1vw solid transparent;
+	border-bottom: 0.9vw solid #ea4c35;
+	transform: rotate(-90deg);
+	position: relative;
+	top: 2.5vw;
+	left: -3.4vw;
+}
+
+.latern-right {
+	border-left: 1vw solid transparent;
+	border-right: 5vw solid transparent;
+	border-bottom: 0.9vw solid #ea4c35;
+	transform: rotate(90deg);
+	position: relative;
+	top: 1.6vw;
+	left: 0.9vw;
+}
+
+.latern-bottom {
+	position: relative;
+	top: 3vw;
+	width: 3.5vw;
+	height: 1.2vw;
+	background: radial-gradient(#fff, #fbf885, #ea3d2d);
+	border-radius: 2vw;
+}
+
+.kongming-latern {
+	z-index: 2;
+}
+
+.kongming-latern:nth-child(2), .kongming-latern:nth-child(3) {
+	animation: FlyThree 18s linear infinite;
+	animation-delay: 6s;
+	height: 3.7vw;
+	left: 5vw;
+	width: 2.5vw;
+	bottom: -10vw;
+}
+
+.kongming-latern:nth-child(2) {
+	bottom: -7vw;
+	left: 2vw;
+	animation: FlyTwo 15s linear infinite;
+	animation-delay: 2s;
+}
+
+.kongming-latern:nth-child(2) .latern-left, .kongming-latern:nth-child(3) .latern-left {
+	border-left: 3vw solid transparent;
+	top: 1.5vw;
+	left: -2.4vw;
+}
+
+.kongming-latern:nth-child(2) .latern-right, .kongming-latern:nth-child(3) .latern-right {
+	border-right: 3vw solid transparent;
+	top: 0.6vw;
+	left: 0.9vw;
+}
+
+.kongming-latern:nth-child(2) .latern-bottom, .kongming-latern:nth-child(3) .latern-bottom {
+	top: 1.6vw;
+	height: 1vw;
+	width: 2.5vw;
+}
+
+.kongming-latern-litle {
+	height: 2vw;
+	left: 5vw;
+	width: 1.2vw;
+	bottom: 5vw;
+	animation: FlyFour 15s linear infinite;
+}
+
+.kongming-latern-litle .latern-left {
+	border-left: 1.7vw solid transparent;
+	border-right: 0.3vw solid transparent;
+	border-bottom: 0.5vw solid #ea4c35;
+	top: 0.75vw;
+	left: -1.2vw;
+}
+
+.kongming-latern-litle .latern-right {
+	border-left: 0.3vw solid transparent;
+	border-right: 1.7vw solid transparent;
+	border-bottom: 0.5vw solid #ea4c35;
+	top: 0.26vw;
+	left: 0.4vw;
+}
+
+.kongming-latern-litle .latern-bottom {
+	top: 0.6vw;
+	width: 1.2vw;
+	height: 0.5vw;
+}
+
+.star {
+	position: absolute;
+	height: 0.1vw;
+	width: 0.1vw;
+	border-radius: 1vw;
+	background: #fff;
+}
+
+.top-roof {
+	position: absolute;
+	bottom: 6vw;
+	right: 0;
+	border-left: 10vw solid transparent;
+	border-right: 0vw solid transparent;
+	border-bottom: 4vw solid #2b2a49;
+}
+
+.top-roof:before {
+	content: '';
+	border-bottom: 0.7vw solid #2b2a49;
+	width: 11vw;
+	height: 5vw;
+	position: absolute;
+	border-bottom-left-radius: 50%;
+	border-top-left-radius: 50%;
+	transform: rotate(-23deg) translate(0.7vw, -3vw);
+	right: -0.2vw;
+}
+
+.top-roof:after {
+	content: '';
+	width: 10vw;
+	height: 2vw;
+	background: linear-gradient(#23314e, #657297, transparent);
+	position: absolute;
+	right: 0;
+	top: 4vw;
+	border-bottom-left-radius: 3vw;
+}
+
+.tile {
+	position: absolute;
+	width: 0.6vw;
+	height: 1.5vw;
+	background: linear-gradient(90deg, #f7fcff, #667396, #2b2a49);
+	right: 0;
+	border-radius: 0.2vw;
+	transform: rotate(45deg) translate(-4vw, 8vw);
+}
+
+.edge {
+	position: absolute;
+	right: 9vw;
+	width: 0.7vw;
+	height: 0.4vw;
+	background: #f7fcff;
+	border-radius: 50%;
+	top: 4vw;
+	z-index: 1;
+}
+
+.roof-body {
+	position: absolute;
+	top: 5vw;
+	right: 0;
+	width: 8vw;
+	height: 3vw;
+	background: linear-gradient(#a6a9c2, #f7fcff);
+}
+
+.bottom-roof {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.bottom-roof .tile {
+	transform: rotate(45deg) translate(0vw, -4.5vw);
+	height: 4vw;
+	width: 0.7vw;
+}
+
+.word {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	padding: 2em;
+	filter: contrast(20);
+}
+
+h1 {
+	font-family: Righteous;
+	color: white;
+	font-size: 45px;
+	text-transform: uppercase;
+	line-height: 1;
+	animation: letterspacing 5s infinite alternate ease-in-out;
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 40%;
+	transform: translate3d(-50%, -50%, 0);
+	letter-spacing: 2.0rem;
+}
+
+@keyframes letterspacing {
+	0% {
+		letter-spacing: -2.2rem;
+		filter: blur(.3rem);
+	}
+	50% {
+		filter: blur(.5rem);
+	}
+	100% {
+		letter-spacing: .5rem;
+		filter: blur(0rem);
+		color: #fff;
+	}
+}
+
+.object-content {
+	position: absolute;
+	right: 0;
+	font-size: 36px;
+	color: #f7fcff;
+	bottom: 180px;
+	text-align: right;
+}
+
+@media screen and (max-width:1080px) {
+	.object-content {
+		font-size: 18px;
+	}
+}

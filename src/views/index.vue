@@ -59,7 +59,7 @@
         <el-button @click="goPage('clock')">时钟</el-button>
       </el-col>
       <el-col :span="3">
-        <el-button @click="goPage('book')">小说</el-button>
+        <el-button @click="goPage('typeList')">小说</el-button>
       </el-col>
     </el-row>
   </div>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>月亮</title>
+	<link rel="stylesheet" type="text/css" href="./css/index.css" />
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<body>
+	<div class="moon-content">
+		<div class="sky" id="sky">
+			<!-- 月亮 -->
+			<div class="moon">
+				<div class="moon-shadow" id="moonShadow"></div>
+				<svg width="0" height="0">
+					<filter id="filter">
+						<feTurbulence type="fractalNoise" baseFrequency="0.034" numOctaves="4" seed="0" />
+						<feDisplacementMap in="SourceGraphic" scale="150" />
+					</filter>
+				</svg>
+			</div>
+		</div>
+		<div class="latern" id="latern">
+			<div class="kongming-latern">
+				<div class="latern-left"></div>
+				<div class="latern-right"></div>
+				<div class="latern-bottom"></div>
+			</div>
+			<div class="kongming-latern">
+				<div class="latern-left"></div>
+				<div class="latern-right"></div>
+				<div class="latern-bottom"></div>
+			</div>
+			<div class="kongming-latern">
+				<div class="latern-left"></div>
+				<div class="latern-right"></div>
+				<div class="latern-bottom"></div>
+			</div>
+			<div class="kongming-latern-litle">
+				<div class="latern-left"></div>
+				<div class="latern-right"></div>
+				<div class="latern-bottom"></div>
+			</div>
+		</div>
+		<!-- 房子 -->
+		<div class="house" id="house">
+			<div class="top-roof" id="topRoof">
+				<div class="tile"></div>
+				<div class="edge"></div>
+				<div class="roof-body"></div>
+			</div>
+			<div class="bottom-roof" id="bottomRoof">
+			</div>
+		</div>
+		<div class="word">
+			<h1 >
+				但愿人长久，千里共婵娟。
+			</h1>
+		</div>
+    </div>
+</body>
+<script type="text/javascript">
+	$(function () {
+		function numberRandom(max, min) {
+			var num = (Math.random() * (max - min) + min).toFixed(2)
+			return num;
+		}
+
+		// 孔明灯
+		for (let index = 0; index < 25; index++) {
+			let left = document.createElement('div');
+			left.className = 'latern-left';
+
+			let right = document.createElement('div');
+			right.className = 'latern-right';
+
+			let bottom = document.createElement('div');
+			bottom.className = 'latern-bottom';
+
+			let kongMing = document.createElement('div');
+			kongMing.className = 'kongming-latern-litle';
+			kongMing.style =
+				'left:' +
+				numberRandom(150, 0) +
+				'vw; bottom:' +
+				numberRandom(-4, -15) +
+				'vw; animation: FlyFour ' +
+				numberRandom(20, 15) +
+				's linear infinite; animation-delay:' +
+				numberRandom(15, 1) +
+				's;';
+
+			kongMing.appendChild(left);
+			kongMing.appendChild(right);
+			kongMing.appendChild(bottom);
+			document.getElementById('latern').appendChild(kongMing);
+		}
+
+		// 星星
+		for (let index = 0; index < 100; index++) {
+			let star = document.createElement('div');
+			star.className = 'star';
+			star.style = 'left: ' +
+				numberRandom(150, 0) +
+				'vw; top: ' +
+				numberRandom(45, 0) +
+				'vh; animation-delay: ' +
+				numberRandom(60, 0) +
+				's; animation: Wink ' +
+				numberRandom(60, 0) +
+				's linear infinite;';
+
+			document.getElementById('sky').appendChild(star);
+		}
+
+		// 上屋檐
+		let yMultiple = 1.3;
+		for (let index = 0; index < 7; index++) {
+			let tile = document.createElement('div');
+			tile.className = 'tile';
+			tile.style = 'transform: rotate(45deg) translate(' +
+				((index + 1) * 0.6 - 4) +
+				'vw, ' +
+				(8 - (index + yMultiple)) +
+				'vw); height: ' +
+				(1.5 + (index + 1) * 0.7) +
+				'vw;';
+			yMultiple += 0.4;
+			document.getElementById('topRoof').appendChild(tile);
+
+			let edge = document.createElement('div');
+			edge.className = 'edge';
+			edge.style = 'right: ' + (9.1 - (index + 1) * 1.2) + 'vw;';
+			document.getElementById('topRoof').appendChild(edge);
+		}
+
+		// 下屋檐
+		for (let index = 0; index < 18; index++) {
+			let tile = document.createElement('div');
+			tile.className = 'tile';
+			tile.style = 'right: ' +
+				(2 + index * 0.98) +
+				'vw;';
+			document.getElementById('bottomRoof').appendChild(tile);
+		}
+	})
+
+</script>
+
+</html>

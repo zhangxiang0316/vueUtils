@@ -107,6 +107,16 @@ const routers = [
         name: 'book',
         component: resolve => require(['@/views/book/index.vue'], resolve)
     },
+    {
+        path: '/bookList',
+        name: 'bookList',
+        component: resolve => require(['@/views/book/bookList.vue'], resolve)
+    },
+    {
+        path: '/typeList',
+        name: 'typeList',
+        component: resolve => require(['@/views/book/typeList.vue'], resolve)
+    },
 ]
 Vue.use(Router)
 const vueRouter = new Router({
