@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <vue-particles
+<!--    <vue-particles
         color="#f00"
          style="position: absolute;width: 100%;height: 100%"
         :particleOpacity="0.7"
@@ -19,7 +19,7 @@
         clickMode="push"
         class="lizi"
     >
-    </vue-particles>
+    </vue-particles>-->
     <router-view></router-view>
   </div>
 </template>

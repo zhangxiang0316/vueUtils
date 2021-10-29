@@ -102,6 +102,11 @@ const routers = [
         name: 'tree',
         component: resolve => require(['@/views/tree/test.vue'], resolve)
     },
+    {
+        path: '/book',
+        name: 'book',
+        component: resolve => require(['@/views/book/index.vue'], resolve)
+    },
 ]
 Vue.use(Router)
 const vueRouter = new Router({

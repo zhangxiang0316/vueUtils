@@ -95,6 +95,12 @@ module.exports = {
                     "^/getBoxList": ""
                 }
             },
+            '/api': {
+                target: "https://dushu.baidu.com/api",
+                pathRewrite: {
+                    "^/api": ""
+                }
+            },
         }, // string | Object
         before: app => {
         },
