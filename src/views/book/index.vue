@@ -6,7 +6,7 @@
 <template>
   <div style="display: flex">
     <div style="height: 1000px;flex: 1;border-right: 1px solid #aaa;overflow-y: scroll">
-      <div v-for="(item,index) in zhangList"
+      <div v-for="(item,index) in list"
            style="line-height: 30px;text-align: center"
            @click="loadDetail(item,index)"
            :class="{select:index===selectIndex}">
@@ -31,7 +31,7 @@ export default {
   props: {},
   data() {
     return {
-      zhangList: [],
+      list: [],
       content: '',
       title: "",
       selectIndex: -1,
@@ -43,7 +43,7 @@ export default {
     loadData() {
       axios.get('/api/pc/getCatalog', {params: {data: {book_id: this.bookId}}}).then(res => {
         console.log(res.data)
-        this.zhangList = res.data.data.novel.items
+        this.list = res.data.data.novel.items
       })
     },
     loadDetail(item, index) {

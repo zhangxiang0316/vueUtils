@@ -5,10 +5,10 @@
 */
 <template>
   <div class="typeList">
-    <div v-for="category in categoryData" style="margin-bottom: 20px;background: white">
+    <div v-for="category in categoryData" :key="category" style="margin-bottom: 20px;background: white">
       <div style="line-height: 40px;text-align: center;">{{ category.title }}</div>
       <div style="text-align: center">
-        <el-button v-for=" cate in category.cateList" @click="itemClick(category.queryParams[0].channel,cate.text)">
+        <el-button v-for=" cate in category.cateList" :key="cate" @click="itemClick(category.queryParams[0].channel,cate.text)">
           {{ cate.text }}
         </el-button>
       </div>

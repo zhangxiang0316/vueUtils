@@ -7,6 +7,7 @@
   <div class="index">
 
     <pinyin-select
+        style="margin: 20px"
         v-model="obj.aa"
         placeholder="拼音搜索"
         :options="list"
@@ -60,6 +61,9 @@
       </el-col>
       <el-col :span="3">
         <el-button @click="goPage('typeList')">小说</el-button>
+      </el-col>
+      <el-col :span="3">
+        <el-button @click="goPage('three')">3D</el-button>
       </el-col>
     </el-row>
   </div>

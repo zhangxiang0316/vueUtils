@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Monospace;
+            font-weight: bold;
+            background-color: #ccccff;
+            margin: 0px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
+</body>
+<script src="js/Three90.js"></script>
+<!-- 加载obj和mtl -->
+<script src="js/loaders/DDSLoader.js"></script>
+<script src="js/loaders/MTLLoader.js"></script>
+<script src="js/loaders/OBJLoader.js"></script>
+<!-- (1)判断canvas兼容。(2)判断webgl兼容性。(3)在页面添加不兼容提示信息 -->
+<script src="js/Detector.js"></script>
+<!-- 频率监视器 -->
+<script src="js/Stats.js"></script>
+<!-- 鼠标操作 -->
+<script src="js/OrbitControls.js"></script>
+<!-- 监听用户按键盘的 -->
+<script src="js/THREEx.KeyboardState.js"></script>
+<!-- 快键键全屏 -->
+<script src="js/THREEx.FullScreen.js"></script>
+<!-- 自动适应窗口大小变化 -->
+<script src="js/THREEx.WindowResize.js"></script>
+
+<script src="util.js"></script>
+<script>
+    // 鼠标点击
+    var outlineMesh;
+    document.addEventListener("mousedown", onDocumentMouseDown, false);
+
+    init();
+    animate();
+
+    function init() {
+        scr();
+        lights();
+        objects();
+        // addfloor();
+        others();
+    }
+
+    function lights() {
+        var ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+        scene.add(ambientLight);
+
+        var pointLight = new THREE.PointLight(0xffffff, 0.8);
+        // scene.add(pointLight);
+        camera.add(pointLight);
+    }
+
+    function objects() {
+        // 三个货架
+        loadcontainer();
+        // 箱子
+        var cubeGeom = new THREE.CubeGeometry(100, 100, 100);
+        var material = new THREE.MeshLambertMaterial({color: 0x3385FF, transparent: true, opacity: 0.85})
+        var cube = new THREE.Mesh(cubeGeom, material);
+        cube.position.set(-280, 210, 150);
+        scene.add(cube);
+
+        var woody = woodycube(80, 80, 80);
+        woody.position.set(20, 330, 0);
+        woody.material.transparent = true;
+        woody.material.opacity = 0.5;
+        scene.add(woody);
+
+        // 注意，clone出来的就不是boxgeom了
+        var phongGeom = new THREE.CubeGeometry();
+        var phongmaterial = new THREE.MeshPhongMaterial({color: 0x677784});
+        var phongmesh = new THREE.Mesh(phongGeom.copy(cubeGeom), phongmaterial);
+        phongmesh.position.set(320, 342, 80);
+        scene.add(phongmesh);
+
+        console.log(getMeshs().length);
+    }
+
+    function loadcontainer() {
+        var onProgress = function (xhr) {
+            if (xhr.lengthComputable) {
+                var percentComplete = xhr.loaded / xhr.total * 100;
+                console.log(Math.round(percentComplete, 2) + '% downloaded');
+            }
+        };
+
+        var onError = function (xhr) {
+        };
+        var mtlLoader = new THREE.MTLLoader();
+        mtlLoader.load('objs/container.mtl', function (materials) {
+            materials.preload();
+            var loader = new THREE.OBJLoader();
+            loader.setMaterials(materials);
+            loader.load('objs/container.obj', function (object) {
+                object.traverse(function (child) {
+                    if (child instanceof THREE.Mesh) {
+                        child.material.transparent = false;
+                        child.material.opacity = 1;
+                        if (child.material instanceof Array) {
+                            for (var i = 0, length = child.material.length; i < length; i++)
+                                child.material[i].transparent = false;
+                        }
+                    }
+                });
+                for (var i = 0; i < 3; i++) {
+                    var temp = object.clone();
+                    temp.position.set(-100 + 300 * i, 150, 0);
+                    scene.add(temp);
+                }
+            }, onProgress, onError);
+        });
+
+    }
+
+    function loadmale() {
+        var onProgress = function (xhr) {
+            if (xhr.lengthComputable) {
+                var percentComplete = xhr.loaded / xhr.total * 100;
+                console.log(Math.round(percentComplete, 2) + '% downloaded');
+            }
+        };
+
+        var onError = function (xhr) {
+        };
+
+        THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
+
+        var mtlLoader = new THREE.MTLLoader();
+        mtlLoader.setPath('objs/male02/');
+        mtlLoader.load('male02.mtl', function (materials) {
+            console.log(materials);
+            materials.preload();
+
+            var objLoader = new THREE.OBJLoader();
+            objLoader.setMaterials(materials);
+            objLoader.setPath('objs/male02/');
+            objLoader.load('male02.obj', function (object) {
+
+                object.position.y = 10;
+                scene.add(object);
+
+            }, onProgress, onError);
+
+        });
+    }
+
+    // 没有考虑group，所以通过obj加载的物体无法点选
+    function getMeshs() {
+        var meshs = [];
+        for (var i = 0, length = scene.children.length; i < length; i++) {
+            if (scene.children[i] instanceof THREE.Mesh && scene.children[i].geometry instanceof THREE.BoxGeometry) {
+                meshs.push(scene.children[i]);
+            }
+        }
+        return meshs;
+    }
+
+    function onDocumentMouseDown(e) {
+        e.preventDefault();
+        rotate = false;
+        //将鼠标点击位置的屏幕坐标转成threejs中的标准坐标,具体解释见代码释义
+        var mouse = {};
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        //新建一个三维单位向量 假设z方向就是0.5
+        //根据照相机，把这个向量转换到视点坐标系
+        var vector = new THREE.Vector3(mouse.x, mouse.y, 0.5).unproject(camera);
+        console.log(vector);
+        var sub = vector.sub(camera.position);
+        console.log(sub);
+        var param2 = sub.normalize();
+        var raycaster = new THREE.Raycaster(camera.position, param2);
+        console.log("---------------------------------------------");
+
+        //射线和模型求交，选中一系列直线
+        var intersects = raycaster.intersectObjects(getMeshs());
+
+        if (intersects.length > 0) {
+            //选中第一个射线相交的物体
+            scene.remove(outlineMesh);
+            var SELECTED = intersects[0].object;
+            var outlineMaterial2 = new THREE.MeshBasicMaterial({color: 0x00ff00, side: THREE.BackSide});
+            outlineMesh = new THREE.Mesh(SELECTED.geometry.clone(), outlineMaterial2);
+            outlineMesh.position.set(SELECTED.position.x, SELECTED.position.y, SELECTED.position.z);
+            outlineMesh.scale.multiplyScalar(1.05);
+            scene.add(outlineMesh);
+        }
+
+    }
+</script>
+</html>

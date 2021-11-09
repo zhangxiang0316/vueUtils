@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body
+        {
+            font-family: Monospace;
+            font-weight: bold;
+            background-color: #ccccff;
+            margin: 0px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="ThreeJS" style="z-index: 1; position: absolute; left:0px; top:0px"></div>
+</body>
+<script src="js/Three90.js"></script>
+<!-- (1)判断canvas兼容。(2)判断webgl兼容性。(3)在页面添加不兼容提示信息 -->
+<script src="js/Detector.js"></script>
+<!-- 频率监视器 -->
+<script src="js/Stats.js"></script>
+<!-- 鼠标操作 -->
+<script src="js/OrbitControls.js"></script>
+<!-- 监听用户按键盘的 -->
+<script src="js/THREEx.KeyboardState.js"></script>
+<!-- 快键键全屏 -->
+<script src="js/THREEx.FullScreen.js"></script>
+<!-- 自动适应窗口大小变化 -->
+<script src="js/THREEx.WindowResize.js"></script>
+
+<script src="util.js"></script>
+<script>
+    init();
+    animate();
+
+    function init(){
+        scr();
+        lights();
+        objects();
+        addfloor();
+        others()
+    }
+
+    function lights() {
+        // 光线
+        light  = new THREE.PointLight(0x977596);
+        light.position.set(0,0,0);
+        scene.add(light);
+
+        light  = new THREE.PointLight(0xff3333);
+        light.position.set(200,200,-200);
+        scene.add(light);
+    }
+
+    function objects() {
+        // 球体
+        var sphereGeometry = new THREE.SphereGeometry( 50, 32, 16 );
+        var sphereMaterial = new THREE.MeshLambertMaterial( {color: "#8888ff"} );
+        var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+        sphere.position.set(100, 50, -50);
+        scene.add(sphere);
+
+        // 立方体
+        var cubeMaterialArray = [];
+        cubeMaterialArray.push( new THREE.MeshBasicMaterial( { color: 0xff3333 } ) );// 右
+        cubeMaterialArray.push( new THREE.MeshBasicMaterial( { color: 0xff8800 } ) );// 左
+        cubeMaterialArray.push( new THREE.MeshBasicMaterial( { color: "#ffff33" } ) );// 上
+        cubeMaterialArray.push( new THREE.MeshBasicMaterial( { color: 0x33ff33 } ) );// 下
+        cubeMaterialArray.push( new THREE.MeshBasicMaterial( { color: 0x3333ff } ) );// 前
+        cubeMaterialArray.push( new THREE.MeshBasicMaterial( { color: 0x8833ff } ) );// 后
+        var cubeGeometry = new THREE.CubeGeometry( 100, 100, 100, 1, 1, 1 );
+        cube = new THREE.Mesh( cubeGeometry, cubeMaterialArray );
+        cube.position.set(-100, 100, -50);
+        scene.add( cube );
+
+        // 月球表面球体
+        var sphereGeom =  new THREE.SphereGeometry( 100, 32, 16 );
+        var moonTexture = textureLoader.load( 'images/moon.jpg' );
+        var moonMaterial = new THREE.MeshBasicMaterial( { map: moonTexture } );
+        var moon = new THREE.Mesh( sphereGeom.clone(), moonMaterial );
+        moon.position.set(-150, 200, 200);
+        scene.add( moon );
+
+        // // 改变了颜色的月球
+        // var moonMaterial_colored = new THREE.MeshLambertMaterial( { map: moonTexture, color: 0xff8800} );
+        // var moon_colored = new THREE.Mesh( sphereGeom.clone(), moonMaterial_colored );
+        // moon_colored.position.set(-300, 50, 100);
+        // scene.add( moon_colored );
+
+        // 木头箱子
+        var woody = woodycube(100,200,85) ;
+        woody.position.set(150, 50, 100);
+        scene.add( woody );
+
+        // 3D文字
+        var loader = new THREE.FontLoader();
+        var chromeTexture = textureLoader.load( 'images/Chrome.png' );
+        chromeTexture.wrapS = chromeTexture.wrapT = THREE.RepeatWrapping;
+        chromeTexture.repeat.set( 0.5, 0.5 );
+        var chromeMaterial = new THREE.MeshBasicMaterial( { map: chromeTexture } );
+
+        var lavaTexture = THREE.ImageUtils.loadTexture( 'images/lava.jpg' );
+        lavaTexture.wrapS = lavaTexture.wrapT = THREE.RepeatWrapping;
+        lavaTexture.repeat.set( 0.05, 0.05 );
+        var lavaMaterial = new THREE.MeshBasicMaterial( { map: lavaTexture } );
+
+        var materialArray = [ lavaMaterial, chromeMaterial ];
+        loader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
+
+            var textGeo = new THREE.TextGeometry( "Hugeo", {
+
+                font: font,
+
+                size: 200,
+                height: 50,
+                curveSegments: 12,
+
+                bevelThickness: 2,
+                bevelSize: 5,
+                bevelEnabled: true
+
+            } );
+
+            var mesh = new THREE.Mesh( textGeo, materialArray );
+
+
+            textGeo.computeBoundingBox();
+            var textWidth = textGeo.boundingBox.max.x - textGeo.boundingBox.min.x;
+
+            mesh.position.set( -0.5 * textWidth, 20, -300 );
+            mesh.rotation.x = -Math.PI / 4;
+            scene.add(mesh);
+
+        } );
+
+    }
+</script>
+</html>

@@ -1,0 +1,44 @@
+.wrap {
+    width: 600px;
+    margin: 0 auto;
+    padding-top: 200px;
+    font-size: 18px;
+}
+
+.button {
+    display: inline-block;
+    border-radius: 5px;
+    background-color: #ce9a2b;
+    text-align: center;
+    font-weight: bold;
+    padding: 40px;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 3px #7a5b19, 0px 4px #6d5117, 0px 5px #604814, 0px 6px #543f11, 0px 7px #47350f, 0px 8px #36280b, 0px 12px 6px -1px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.7), inset 0 0 3px rgba(252, 252, 252, 0.6);
+    -webkit-box-shadow: 0px 3px #7a5b19, 0px 4px #6d5117, 0px 5px #604814, 0px 6px #543f11, 0px 7px #47350f, 0px 8px #36280b, 0px 12px 6px -1px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.7), inset 0 0 3px rgba(252, 252, 252, 0.6);
+    box-shadow: 0 3px #7a5b19, 0 4px #6d5117, 0 5px #604814, 0 6px #543f11, 0 7px #47350f, 0 8px #36280b, 0 12px 6px -1px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.7), inset 0 0 3px rgba(252, 252, 252, 0.6);
+   /*box-shadow:  1px 1px #7a5b19 ,2px 2px #7a5b19,3px 4px #7a5b19,4px 4px #7a5b19,5px 5px #7a5b19,6px 6px #7a5b19,7px 7px #7a5b19;*/
+    border: solid 1px #7a5b19;
+    background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.14), rgba(255, 255, 255, 0.14));
+    background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.14), rgba(255, 255, 255, 0.14));
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.14), rgba(255, 255, 255, 0.14));
+    -moz-transition: -moz-transform 100ms, box-shadow 100ms, background-color 200ms, color 200ms;
+    -o-transition: -o-transform 100ms, box-shadow 100ms, background-color 200ms, color 200ms;
+    -webkit-transition: -webkit-transform 100ms, box-shadow 100ms, background-color 200ms, color 200ms;
+    transition: transform 100ms, box-shadow 100ms, background-color 200ms, color 200ms;
+}
+
+.button:hover {
+    background-color: #a47a22;
+}
+
+.button:active {
+    -moz-transform: translateY(5px);
+    -ms-transform: translateY(5px);
+    -webkit-transform: translateY(5px);
+    transform: translateY(5px);
+    -moz-box-shadow: 0px 3px #7a5b19, 0px 1px #47350f, 0px 5px 2px 0px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.7), inset 0 0 3px rgba(252, 252, 252, 0.6);
+    -webkit-box-shadow: 0px 3px #7a5b19, 0px 1px #47350f, 0px 5px 2px 0px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.7), inset 0 0 3px rgba(252, 252, 252, 0.6);
+    box-shadow: 0px 3px #7a5b19, 0px 1px #47350f, 0px 5px 2px 0px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.7), inset 0 0 3px rgba(252, 252, 252, 0.6);
+}
