@@ -5,7 +5,7 @@
 */
 <template>
   <div class="index">
-    <div style="width: 1000px;height: 1000px" id="threeContainer"></div>
+    <div style="width: 2000px;height: 1000px"  id="threeContainer"></div>
   </div>
 </template>
 
@@ -18,6 +18,7 @@ import {TransformControls} from "three/examples/jsm/controls/TransformControls";
 
 
 export default {
+
   name: "index",
   components: {},
   props: {},
@@ -28,56 +29,67 @@ export default {
   methods: {
     init() {
       this.scene = new THREE.Scene();
-      const axisHelper = new THREE.AxisHelper(2000);
-      this.scene.add(axisHelper);
-      this.scene.add(new THREE.AmbientLight(0x404040, 6)); //环境光
-      this.light = new THREE.DirectionalLight(0xffffff, ); //从正上方（不是位置）照射过来的平行光，0.45的强度
-      this.light.position.set(-40, 60, -10);
-      // this.light.position.multiplyScalar(0.3);
-      this.light.castShadow = true;
-      this.scene.add(this.light);
-      /**
-       * 相机设置
-       */
-      let container = document.getElementById("threeContainer");//显示3D模型的容器
-      this.camera = new THREE.PerspectiveCamera(
-          70,
-          container.clientWidth / container.clientHeight,
-          0.1,
-          10
-      );
-      this.camera.position.z = 1;
+      this.scene.background = new THREE.Color(0xcfcfcf);
 
-      const mesh = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100 ), new THREE.MeshPhongMaterial( { color: 0x999999, depthWrite: false } ) );
-      mesh.rotation.x = - Math.PI / 2;
+      this.clock = new THREE.Clock();
+      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      this.camera.position.set(0, 100, 150);
+      this.camera.lookAt(new THREE.Vector3(0, 0, 0));
+      this.camera.updateProjectionMatrix(); //相机更新
+
+      var ambient = new THREE.AmbientLight(0xffffff, 0.1);
+      this.scene.add(ambient);
+
+      this.dirLight = new THREE.DirectionalLight(0xffffff);
+      this.dirLight.position.set(-30, 120, -100);
+      this.dirLight.castShadow = true;
+      this.dirLight.shadow.camera.top = 100;
+      this.dirLight.shadow.camera.bottom = -100;
+      this.dirLight.shadow.camera.left = -100;
+      this.dirLight.shadow.camera.right = 100;
+      this.dirLight.shadow.camera.near = 0.1;
+      this.dirLight.shadow.camera.far = 500;
+      this.scene.add(this.dirLight);
+
+      const mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(1000, 1000), new THREE.MeshPhongMaterial({
+        color: 0x9cfcf99,
+        depthWrite: false
+      }));
+      mesh.rotation.x = -Math.PI / 2;
+      mesh.position.set(0, -20, 0)
       mesh.receiveShadow = true;
-      this. scene.add( mesh );
+      this.scene.add(mesh);
+
+      // PolarGridHelper( radius：标网格的半径, radials：径向线的数量, circles：圆圈数,
+      // divisions：每个圆圈使用的线段数, color1：用于网格元素的第一种颜色, color2：用于网格元素的第一种颜色 )
+      var radius = 1000;
+      var radials = 16;
+      var circles = 8;
+      var divisions = 64;
+      var PolarGridHelper = new THREE.PolarGridHelper(radius, radials, circles, divisions);
+      PolarGridHelper.position.set(0, -20, 0)
+      this.scene.add(PolarGridHelper)
       /**
        * 创建渲染器对象
        */
+      let container = document.getElementById("threeContainer");
       this.renderer = new THREE.WebGLRenderer({alpha: true});
       this.renderer.setSize(container.clientWidth, container.clientHeight);
-      this.renderer.setClearColor("#eee"); //设置背景颜色
-      this.renderer.shadowMapEnabled = true
+      this.renderer.setPixelRatio(window.devicePixelRatio);
+      this.renderer.shadowMap.enabled = true;
+      this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      this.renderer.gammaInput = true;
+      this.renderer.gammaOutput = true;
       container.appendChild(this.renderer.domElement);
       //创建控件对象
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+      this.controls.autoRotate = true;
+      this.controls.autoRotateSpeed = 1;
+      let self = this
+      this.controls.addEventListener('change', function () {
+        self.renderer.render(self.scene, self.camera);
+      })
       this.loadLoader()
-    },
-
-    initDragControls() {
-      let transformControls = new TransformControls(this.camera, this.renderer.domElement)
-      this.scene.add(transformControls)
-      const dragControls = new DragControls([this.mesh], this.camera, this.renderer.domElement)
-      dragControls.addEventListener('hoveron', event => {
-        transformControls.attach(event.object)
-      })
-      dragControls.addEventListener('dragstart', event => {
-        this.controls.enabled = false
-      })
-      dragControls.addEventListener('dragend', event => {
-        this.controls.enabled = true
-      })
     },
 
     loadLoader() {
@@ -86,24 +98,38 @@ export default {
       //load一个测试模型路径：public/model/zhuozi2.gltf
       // loader.load("/model/KingKong.glb", function (gltf) {
       loader.load("/model/Soldier.glb", function (gltf) {
-            self.mesh = gltf.scene;
-            self.mesh.castShadow = true;//开启投影
-            self.mesh.receiveShadow = true;//接收阴影
-            self.mesh.rotation.y = 135
-            self.mesh.scale.set(0.3, 0.3, 0.3);//设置大小比例
-            self.mesh.position.set(0, 0, 0);//设置位置
-            self.scene.add(self.mesh); // 将模型引入three、
+            self.model = gltf.scene;
+            self.scene.add(self.model);
+            self.model.traverse(function (object) {
+              if (object.isMesh) {
+                object.castShadow = true;
+                console.log(object);
+              }
+            });
+            self.model.rotation.y = -Math.PI;
+            self.model.scale.set(50, 50, 50);
+
+            // 骨骼显示助手
+            // self.skeleton = new THREE.SkeletonHelper(self.model);
+            // self.scene.add(self.skeleton);
+
+            var animations = gltf.animations;
+            self.mixer = new THREE.AnimationMixer(self.model);
+
+            self.idleAction = self.mixer.clipAction(animations[0]);
+            self.walkAction = self.mixer.clipAction(animations[3]);
+            self.runAction = self.mixer.clipAction(animations[1]);
+            self.runAction.play();
             self.animate();
-            // self.initDragControls()
           },
       );
     },
     animate() {
-      if (this.mesh) {
-        requestAnimationFrame(this.animate);
-
-        this.renderer.render(this.scene, this.camera);
-      }
+      requestAnimationFrame(this.animate);
+      const mixerUpdateDelta = this.clock.getDelta();
+      if (this.mixer) this.mixer.update(mixerUpdateDelta);
+      if (this.controls) this.controls.update();
+      this.renderer.render(this.scene, this.camera)
     }
   },
   activated() {
