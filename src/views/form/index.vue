@@ -52,7 +52,7 @@
             ref="rightForm"
             size="mini"
             labelWidth="120px"
-            labelPosition="right"
+            labelPosition="top"
             @event="event"
             :formData="formSetData"
             :formCols="formSetCols">
@@ -87,6 +87,24 @@
               </el-row>
             </div>
             <el-button @click="data.data.tableCols.push({label:'',prop:''})">新增</el-button>
+          </template>
+          <template #tableData="data">
+            <div v-for="(item,index) in data.data.tableData" style="margin-bottom: 20px">
+              <div v-for="(col,key) in data.data.tableCols">
+                <el-row>
+                  <el-col :span="10">
+                    <div placeholder="key" >{{col.prop}}:</div>
+                  </el-col>
+                  <el-col :span="10">
+                    <el-input placeholder="value" v-model="item[col.prop]"></el-input>
+                  </el-col>
+                  <el-col :span="2" :offset="2">
+                    <i class="el-icon-delete" @click="data.data.tableData.splice(index,1)"></i>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+            <el-button @click="data.data.tableData.push({...data.data.tableCols[0]})">新增</el-button>
           </template>
         </m-form>
       </div>

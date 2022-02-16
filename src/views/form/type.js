@@ -19,7 +19,7 @@ export const eType = {
             {label: "节目名称", prop: 'name',},
             {label: "频道", prop: 'channel_name',},
         ],
-        tableData:[{broadcast_date:'2021-12-11',name:'中华听书网',"channel_name":'21323',}],
+        tableData:[{broadcast_date:'2021-12-11',name:'中华听书网',"channel_name":'21323',},{broadcast_date:'2021-12-11',name:'中华听书网',"channel_name":'21323',}],
         span: 24
     },
     Textarea: {
@@ -436,7 +436,10 @@ export const formSetCol = {
     ],
     Table:[
         [{label: "标题名称", eType: "Input", prop: 'label'}],
+        [{label: "字段名", eType: "Input", prop: 'prop'}],
+        [{label: "是否展示label", eType: "Switch", prop: 'noFormItem'}],
         [{label: "表头", eType: 'slot',prop: 'tableCols', slotName: "tableCols"}],
+        [{label: "数据", eType: 'slot',prop: 'tableData', slotName: "tableData"}],
     ]
 }
 
