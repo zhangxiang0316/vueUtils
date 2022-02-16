@@ -72,6 +72,22 @@
             </div>
             <el-button @click="data.data.options.push({label:'',value:''})">新增</el-button>
           </template>
+          <template #tableCols="data">
+            <div v-for="(item,index) in data.data.tableCols">
+              <el-row>
+                <el-col :span="10">
+                  <el-input placeholder="label" v-model="item.label"></el-input>
+                </el-col>
+                <el-col :span="10">
+                  <el-input placeholder="value" v-model="item.prop"></el-input>
+                </el-col>
+                <el-col :span="2" :offset="2">
+                  <i class="el-icon-delete" @click="data.data.tableCols.splice(index,1)"></i>
+                </el-col>
+              </el-row>
+            </div>
+            <el-button @click="data.data.tableCols.push({label:'',prop:''})">新增</el-button>
+          </template>
         </m-form>
       </div>
     </div>

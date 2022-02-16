@@ -2,7 +2,7 @@
 <template>
   <div class="index">
     <select-tree width="200" v-model="selected" :options="options" :props="defaultProps"></select-tree>
-<!--    <tree-select width="200" v-model="selected" :options="options" :props="defaultProps"></tree-select>-->
+    <!--    <tree-select width="200" v-model="selected" :options="options" :props="defaultProps"></tree-select>-->
     <m-form
         ref="mForm"
         :formData="formData"
@@ -34,7 +34,7 @@ export default {
   props: {},
   data() {
     return {
-      selected:'',
+      selected: '',
 
       defaultProps: {
         // parent: 'parentId',   // 父级唯一标识

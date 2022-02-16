@@ -4,8 +4,7 @@
 * 备注：
 */
 <template>
-  <el-card
-      :body-style="{ padding: '0' }">
+  <el-card :body-style="{ padding: '0' }">
     <el-table
         ref="elTable"
         :data="tableData"
@@ -82,6 +81,7 @@
     </el-table>
     <zx-page
         :pagination="pagination"
+        v-if="showPage"
         :pageSizeList="pageSizeList"
         :layout="layout"
         @refresh="refresh"
@@ -101,6 +101,7 @@ export default {
   props: {
     //点击页码后是否滚到顶端
     needToTop: {type: Boolean, default: true},
+    showPage: {type: Boolean, default: true},
     // 表格型号：mini,medium,small
     size: {type: String, default: "small"},
     //边框

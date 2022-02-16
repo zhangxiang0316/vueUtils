@@ -97,7 +97,7 @@ export default {
       let loader = new GLTFLoader();
       //load一个测试模型路径：public/model/zhuozi2.gltf
       // loader.load("/model/KingKong.glb", function (gltf) {
-      loader.load("/model/Soldier.glb", function (gltf) {
+      loader.load("./model/Soldier.glb", function (gltf) {
             self.model = gltf.scene;
             self.scene.add(self.model);
             self.model.traverse(function (object) {

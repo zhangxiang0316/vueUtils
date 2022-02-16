@@ -32,6 +32,7 @@ import zxCascader from "./zxCascader";
 import zxColorPicker from "./zxColorPicker";
 import zxEditor from "./zxEditor";
 import zxTag from "./zxTag";
+import zxTable from './zxTable'
 
 export default {
   name: "index",
@@ -54,7 +55,8 @@ export default {
     zxCascader,
     zxColorPicker,
     zxEditor,
-    zxTag
+    zxTag,
+    zxTable
   },
   props: {
     item: {},

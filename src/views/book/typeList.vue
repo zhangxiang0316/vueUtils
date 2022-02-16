@@ -31,7 +31,7 @@ export default {
   computed: {},
   methods: {
     loadData() {
-      axios.get('api/getCateData').then(res => {
+      axios.get('/api/getCateData').then(res => {
         this.categoryData = res.data.data.categoryData
         console.log(res.data)
       })

@@ -17,7 +17,7 @@
       <el-input placeholder="只能输入正整数" v-model="inputNumber" v-inputNumber/>
     </div>
     <div>
-      <el-button v-longpress="longpress">长按</el-button>
+      <el-button v-longpress="longpress" @click="clickLong">长按</el-button>
     </div>
     <div>
       <el-button v-permission="'1'">权限按钮1</el-button>
@@ -66,7 +66,10 @@ export default {
       console.log("------>", '点击了外面')
     },
     longpress() {
-      console.log("长按指令生效")
+      console.log('常惦记')
+    },
+    clickLong() {
+      console.log('点击生效了')
     },
     debounceClick() {
       console.log('只触发一次')
