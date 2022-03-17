@@ -9,6 +9,10 @@
     <div>
       <el-button v-copy="copyText" @click="copyOK">复制</el-button>
     </div>
+
+    <div>
+      <el-button v-contextmenu.dark="el=>contextmenus(el)">右击</el-button>
+    </div>
     <div>
       <el-input placeholder="不能输入表情" type="text" v-model="copyText" v-emoji/>
     </div>
@@ -59,6 +63,41 @@ export default {
     }
   },
   methods: {
+    contextmenus(el) {
+      console.log(el)
+      return [
+        {
+          text: '二级菜单',
+          children: [
+            {
+              text: '子菜单1',
+              action: () => this.$message.success('子菜单1'),
+            },
+            { divider: true },
+            {
+              text: '子菜单2',
+              action: () =>this.$message.success('子菜单2'),
+            },
+            { divider: true },
+            {
+              text: '三级菜单',
+              action: () => this.msg = '三级菜单',
+              children: [
+                {
+                  text: '子菜单1',
+                  disable:true,
+                  action: () =>this.$message.success('子菜单1'),
+                },
+                {
+                  text: '子菜单2',
+                  action: () => this.$message.success('子菜单2'),
+                },
+              ],
+            },
+          ],
+        },
+      ]
+    },
     copyOK() {
       this.$message.success('复制成功')
     },

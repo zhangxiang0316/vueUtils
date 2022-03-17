@@ -35,7 +35,7 @@ export default {
       editor.config.height = this.item.height ? this.item.height : 300
       editor.config.zIndex = this.item.zIndex ? this.item.zIndex : 20
       editor.config.placeholder = this.item.placeholder ? this.item.placeholder : "请输入内容"
-      editor.config.menus=[];
+      // editor.config.menus=[];
       editor.config.showFullScreen = false
       editor.config.onchange = (newHtml) => {
         this.$set(this.formData, this.item.prop, newHtml)

@@ -10,6 +10,7 @@ import clickOutside from "./clickOutside";
 import inputNumber from "./inputNumber";
 import dialogSize from './dialogSize'
 import clampy from "./clampy";
+import contextmenu from '../../views/contextMenu'
 
 
 // 自定义指令
@@ -27,7 +28,8 @@ const directives = {
     clickOutside,
     inputNumber,
     dialogSize,
-    clampy
+    clampy,
+    contextmenu
 }
 // 这种写法可以批量注册指令
 export default {
